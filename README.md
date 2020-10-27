@@ -52,3 +52,9 @@ Können Bestandteil der jeweilgen Themen/Modulen sein, z.B.:
 - [ ] Exporter als Sidecar
 - [ ] Service Discovery 
 - [ ] Service Monitors, resp. annotations, Alertmanager Config
+
+### Prometheus für Devs
+
+- [ ] Developer Workflows
+- [ ] Application Monitoring, Code Instrumentieren, beispiele mit JAVA, Go, Python
+- [ ] Quering, Beispiele, wie komme ich jetzt an die Daten ran (evtl. eher Basis Modul)
