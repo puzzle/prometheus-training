@@ -6,25 +6,22 @@ Interactive Prometheus Learning Labs
 
 ### Basics
 
-- [ ] Hintergrundinfos zu Prometheus
-- [ ] Architektur und Konzepte
-- [ ] Vergleich zu anderen Monitoring-Lösungen
-- [ ] Installation (zu klären: Abhängig von Zielgruppe, oder Kursausprägung, Container oder Systemmonitoring)
-- [ ] Targets
-- [ ] Metric Types
-- [ ] OpenMetrics (https://openmetrics.io/)
-- [ ] Queries, PromQL
-- [ ] Alerts
-- [ ] Diverse Arten von Exportern (Blackbox, Push Gateway, Node Exporter, …)
-- [ ] Black Box Monitoring (Pushgateway)
-- [ ] Exporters und Integration
-- [ ] Metriken exploren: Nodeexporter, Prometheus selber, Alertmanager Metriken
-- [ ] Visualisierung
-  - Dashboards mit Grafana
-  - Prometheus-UI
-- [ ] Instrumentalisierung, Client Libraries
-- [ ] Long Term Storage
-- [ ] Recording Rules
+- [ ] Hintergrundinfos zu Prometheus #1
+- [ ] Architektur und Konzepte #2
+- [ ] Vergleich zu anderen Monitoring-Lösungen #3
+- [ ] Installation #4
+- [ ] Targets #5
+- [ ] Metrics #6
+- [ ] Queries, PromQL #7
+- [ ] Alerts #8
+- [ ] Diverse Arten von Exportern #9
+- [ ] Black Box Monitoring (Pushgateway) #10
+- [ ] Exporters und Integration #11
+- [ ] Metriken exploren #12
+- [ ] Visualisierung #13
+- [ ] Instrumentalisierung, Client Libraries #14
+- [ ] Long Term Storage #15
+- [ ] Recording Rules #16
 
 ### Best Practices
 
