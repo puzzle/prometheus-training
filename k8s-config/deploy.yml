@@ -23,7 +23,7 @@ spec:
         app: prometheus-basics-training
     spec:
       containers:
-      - image: acend/prometheus-basics-training:latest
+      - image: puzzle/prometheus-basics-training:latest
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
