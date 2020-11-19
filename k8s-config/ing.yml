@@ -19,4 +19,4 @@ spec:
   tls:
   - hosts:
     - prometheus-basics.training.acend.ch
-  secretName: prometheus-basics-training-acend-ch
+    secretName: prometheus-basics-training-acend-ch
