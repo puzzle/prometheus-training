@@ -1,10 +1,17 @@
 ## Geplante Inhalte
 
-### Basics
+### Setup
+
+* [ ] Setup Vargrant
+
+### Präsentation
 
 * [ ] Hintergrundinfos zu Prometheus [#1](/../../issues/1)
 * [ ] Architektur und Konzepte [#2](/../../issues/2)
 * [ ] Vergleich zu anderen Monitoring-Lösungen [#3](/../../issues/3)
+
+### Basics Labs
+
 * [ ] Installation [#4](/../../issues/4)
 * [ ] Targets [#5](/../../issues/5)
 * [ ] Metrics [#6](/../../issues/6)
