@@ -31,10 +31,11 @@ prometheus_tsdb_head_series 463
 
 {{% alert title="Note" color="primary" %}}
 There are 4 different Metric types in Prometheus
-- Counter
-- Gauge
-- Histogram
-- Summary
+
+* Counter
+* Gauge
+* Histogram
+* Summary
 
 [Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/)
 {{% /alert %}}
