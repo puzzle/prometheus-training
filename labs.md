@@ -2,7 +2,7 @@
 
 ### Setup
 
-* [ ] Setup Vargrant
+* [ ] Setup mit Vargrant
 
 ### Präsentation
 
