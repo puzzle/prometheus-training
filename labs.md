@@ -1,16 +1,16 @@
-## Geplante Inhalte
+# Geplante Inhalte
 
-### Setup
+## Setup
 
 * [ ] Setup mit Vargrant
 
-### Präsentation
+## Präsentation
 
 * [ ] Hintergrundinfos zu Prometheus [#1](/../../issues/1)
 * [ ] Architektur und Konzepte [#2](/../../issues/2)
 * [ ] Vergleich zu anderen Monitoring-Lösungen [#3](/../../issues/3)
 
-### Basics Labs
+## Basics Labs
 
 * [ ] Installation [#4](/../../issues/4)
 * [ ] Targets [#5](/../../issues/5)
@@ -26,7 +26,7 @@
 * [ ] Long Term Storage [#15](/../../issues/15)
 * [ ] Recording Rules [#16](/../../issues/16)
 
-### Best Practices
+## Best Practices
 
 Können Bestandteil der jeweilgen Themen/Modulen sein, z.B.:
 
@@ -34,7 +34,7 @@ Können Bestandteil der jeweilgen Themen/Modulen sein, z.B.:
 * [ ] Label Values, Labels, Relabeling
 * [ ] Histogram vs Summary
 
-### Infrastruktur Themen (Zielgruppe Systems Engineers)
+## Infrastruktur Themen (Zielgruppe Systems Engineers)
 
 * [ ] Configmanagement => Ansible?
 * [ ] Backup
@@ -43,7 +43,7 @@ Können Bestandteil der jeweilgen Themen/Modulen sein, z.B.:
 * [ ] Monitoring von Appliances, Network Devices
 * [ ] High Availability, Disaster Recovery
 
-### Prometheus im Container Umfeld
+## Prometheus im Container Umfeld
 
 * [ ] Prometheus/Grafana Operator
 * [ ] Plattform Metriken
@@ -53,7 +53,7 @@ Können Bestandteil der jeweilgen Themen/Modulen sein, z.B.:
 * [ ] Service Discovery
 * [ ] Service Monitors, resp. annotations, Alertmanager Config
 
-### Prometheus für Devs
+## Prometheus für Devs
 
 * [ ] Developer Workflows
 * [ ] Application Monitoring, Code Instrumentieren, beispiele mit JAVA, Go, Python
