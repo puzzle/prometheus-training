@@ -62,6 +62,7 @@ We simply mount the working directory into a running container, where hugo is st
 docker run --rm --interactive --publish 8080:8080 -v $(pwd):/opt/app/src -w /opt/app/src acend/hugo:<version-in-dockerfile> hugo server -p 8080 --bind 0.0.0.0
 ```
 
+Using Podman
 ```bash
 podman run --rm --interactive --publish 8080:8080 -v $(pwd):/opt/app/src:Z -w /opt/app/src acend/hugo:<version-in-dockerfile> hugo server -p 8080 --bind 0.0.0.0
 ```
