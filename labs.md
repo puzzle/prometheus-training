@@ -12,27 +12,28 @@
 
 ## Basics Labs
 
-* [ ] Installation [#4](/../../issues/4)
-* [ ] Targets [#5](/../../issues/5)
-* [ ] Metrics [#6](/../../issues/6)
-* [ ] Queries, PromQL [#7](/../../issues/7)
-* [ ] Alerts [#8](/../../issues/8)
-* [ ] Diverse Arten von Exportern [#9](/../../issues/9)
-* [ ] Black Box Monitoring (Pushgateway) [#10](/../../issues/10)
-* [ ] Exporters und Integration [#11](/../../issues/11)
-* [ ] Metriken exploren [#12](/../../issues/12)
-* [ ] Visualisierung [#13](/../../issues/13)
-* [ ] Instrumentalisierung, Client Libraries [#14](/../../issues/14)
-* [ ] Long Term Storage [#15](/../../issues/15)
-* [ ] Recording Rules [#16](/../../issues/16)
+* [1] Installation [#4](/../../issues/4)
+* [2] Targets [#5](/../../issues/5)
+* [3] Metrics [#6](/../../issues/6)
+* [3] Metriken exploren [#12](/../../issues/12)
+* [3] Queries, PromQL [#7](/../../issues/7)
+* [4] Alerts [#8](/../../issues/8)
+* [4] Recording Rules [#16](/../../issues/16)
+* [5] Diverse Arten von Exportern [#9](/../../issues/9)
+* [5] Black Box Monitoring (Pushgateway) [#10](/../../issues/10)
+* [5] Exporters und Integration [#11](/../../issues/11)
+* [6] Visualisierung [#13](/../../issues/13)
+* [7] Instrumentalisierung, Client Libraries [#14](/../../issues/14)
+* [8] Long Term Storage [#15](/../../issues/15)
 
 ## Best Practices
 
 Können Bestandteil der jeweilgen Themen/Modulen sein, z.B.:
 
-* [ ] Retention, Scraping intervall usw.
-* [ ] Label Values, Labels, Relabeling
-* [ ] Histogram vs Summary
+* [1] Retention
+* [2] Scrape interval
+* [2] Label Values, Labels, Relabeling
+* [?] Histogram vs Summary
 
 ## Infrastruktur Themen (Zielgruppe Systems Engineers)
 
