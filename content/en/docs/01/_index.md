@@ -1,18 +1,17 @@
 ---
-title: "1. Setup Introduction"
+title: "1. Prometheus Basics Training Sample Chapter"
 weight: 1
 sectionnumber: 1
 ---
 
-## Setup Introduction
+## Title 1
 
-If you run this techlab on your own workstation a basic
-[Vagrantfile][vagrantfile] is provided to get your lab
-environment up and running in a matter of minutes.
+{{% alert title="Note" color="primary" %}}
+Sample Note
+{{% /alert %}}
 
-Follow the instructions on the subsequent pages to complete
-the setup on your platform of choice.
+{{< onlyWhen variant1 >}}
 
-Currently a setup guide for Linux and Windows exists.
+This is only rendered when `enabledModule` in `config.toml` contains `variant1`
 
-[vagrantfile]: https://raw.githubusercontent.com/puzzle/prometheus-labs/master/Vagrantfile
+{{< /onlyWhen >}}
