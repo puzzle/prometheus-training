@@ -38,6 +38,7 @@ plainIDAnchors = true
 hrefTargetBlank = true
 angledQuotes = false
 latexDashes = true
+skipHTML = true
 
 # Image processing configuration.
 [imaging]
