@@ -69,10 +69,13 @@ vagrant plugin install vagrant-libvirt
 mkdir prometheus-labs
 cd prometheus-labs
 curl -o Vagrantfile \
-  https://raw.githubusercontent.com/puzzle/prometheus-labs/master/Vagrantfile
+  https://raw.githubusercontent.com/puzzle/prometheus-labs/main/Vagrantfile
 
-# setup vm's
+# setup vm
 vagrant up
+
+# access vm
+ssh vagrant@192.168.122.60
 ```
 
 #### Techlab Shutdown
@@ -80,7 +83,7 @@ vagrant up
 ```bash
 cd prometheus-labs
 
-# shutdown all vm's
+# shutdown all vm
 vagrant destroy -f
 ```
 

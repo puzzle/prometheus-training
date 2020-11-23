@@ -18,4 +18,4 @@ the setup on your platform of choice.
 
 Currently a setup guide for Linux and Windows exists.
 
-[vagrantfile]: https://raw.githubusercontent.com/puzzle/prometheus-labs/master/Vagrantfile
+[vagrantfile]: https://raw.githubusercontent.com/puzzle/prometheus-labs/main/Vagrantfile

@@ -65,10 +65,13 @@ and execute the following commands.
 # create directory and download Vagrantfile
 mkdir prometheus-labs
 cd prometheus-labs
-iwr -OutFile Vagrantfile https://raw.githubusercontent.com/puzzle/prometheus-labs/master/Vagrantfile
+iwr -OutFile Vagrantfile https://raw.githubusercontent.com/puzzle/prometheus-labs/main/Vagrantfile
 
-# setup vm's
+# setup vm
 vagrant up
+
+# access vm
+ssh vagrant@192.168.122.60
 ```
 
 #### Techlab Shutdown
@@ -76,7 +79,7 @@ vagrant up
 ```bash
 cd prometheus-labs
 
-# shutdown all vm's
+# shutdown all vm
 vagrant destroy -f
 ```
 [virtualbox]: https://www.virtualbox.org/
