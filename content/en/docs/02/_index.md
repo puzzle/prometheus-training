@@ -7,10 +7,10 @@ sectionnumber: 1
 ## Prometheus exposition format
 
 {{% alert title="Note" color="primary" %}}
-Prometheus exposes metrics in Prometheus exposition format and is adopting to the [openmetrics](https://openmetrics.io/) standard. <https://prometheus.io/docs/introduction/roadmap/#adopt-openmetrics>
+Prometheus consumes metrics in Prometheus text-based exposition format and plans to adopt the [OpenMetrics](https://openmetrics.io/) standard. <https://prometheus.io/docs/introduction/roadmap/#adopt-openmetrics>
 {{% /alert %}}
 
-[Prometheus exposition format](https://prometheus.io/docs/instrumenting/exposition_formats/)
+[Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/)
 ```
 metric_name [
   "{" label_name "=" `"` label_value `"` { "," label_name "=" `"` label_value `"` } [ "," ] "}"
@@ -37,10 +37,14 @@ There are 4 different Metric types in Prometheus
 * Histogram
 * Summary
 
-[Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/)
+[Prometheus Metric Types](https://prometheus.io/docs/concepts/metric_types/)
 {{% /alert %}}
 
 
 ## Explore Prometheus metrics
 
-Open your Prometheus Server and navigate to the `graph` menu. You can use the drop-down list to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text
+Open your Prometheus Server and navigate to the `graph` menu. You can use the drop-down list to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
+
+* Using [Prithmetic Operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
+* Using [Prometheus Functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
+* Using [Recording Rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/)
