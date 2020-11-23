@@ -39,10 +39,12 @@ password: vagrant
 {{% alert title="Note" color="primary" %}}
 Debian and Ubuntu ship per default with Vagrant.
 Depending on the version and age of the distribution
-Vagrant may not include support for CentOS 8 and fails
-during the initial setup. As such the Debian package
+Vagrant may not include support for Debian/Ubuntu Based Systems
+and fails during the initial setup. As such the Debian package
 from HashiCorp the vendor of Vagrant is utilized to
-ensure a frictionless lab experience.
+ensure a frictionless lab experience. If you are still having
+troubles you can use this guide for troubleshooting
+<https://ubuntu.com/server/docs/virtualization-libvirt>
 {{% /alert %}}
 
 #### Techlab Installation and Startup
