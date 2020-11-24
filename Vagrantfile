@@ -11,13 +11,13 @@ Vagrant.configure("2") do |config|
     v.qemu_use_session = false
   end
   config.vm.define "prometheus" do |prometheus|
-        prometheus.vm.box = "centos/8"
-        prometheus.vm.hostname = "prometheus"
-        prometheus.vm.network "private_network", ip: "192.168.122.60"
-        prometheus.vm.network "forwarded_port", guest: "9090", host: "9090"
-        prometheus.vm.network "forwarded_port", guest: "9093", host: "9093"
-        prometheus.vm.network "forwarded_port", guest: "3000", host: "3000"
-        prometheus.vm.provision "shell",
-          inline: $script
+    prometheus.vm.box = "centos/8"
+    prometheus.vm.hostname = "prometheus"
+    prometheus.vm.network "private_network", ip: "192.168.122.60"
+    prometheus.vm.network "forwarded_port", guest: "9090", host: "9090"
+    prometheus.vm.network "forwarded_port", guest: "9093", host: "9093"
+    prometheus.vm.network "forwarded_port", guest: "3000", host: "3000"
+    prometheus.vm.provision "shell",
+      inline: $script
   end
 end
