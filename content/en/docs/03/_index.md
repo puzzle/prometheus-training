@@ -106,7 +106,7 @@ To run Alertmanager you can simply execute the binary `alertmanager` and tell it
     ```bash
     ./alertmanager --config.file=alertmanager.yml
     ```
-   
+
 1. You should now see Alertmanager starting up and the log line `msg=Listening address=:9093."`. To verify this open your browser and navigate to [http://127.1:9093](http://127.1:9093). You should now see the Alertmanager webinterface
 
 Before going on, let's make some warm-up [labs for monitoring your Alertmanager](labs/31)
@@ -130,4 +130,4 @@ alerting:
 ## Define alert rules in Prometheus
 
 
-## Configure routing rules and receivers in Alertmanager 
+## Configure routing rules and receivers in Alertmanager
