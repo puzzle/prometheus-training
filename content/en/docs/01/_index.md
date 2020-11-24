@@ -155,7 +155,7 @@ In this example Prometheus will lookup a list of targets in the file `/etc/prome
 
 ## Advanced
 
-<details><summary>Relabeling</summary>
+{{% details title="Relabeling" %}}
 
 ### Relabeling
 
@@ -184,4 +184,4 @@ There are four types of relabeling:
     Similar to `metric_relabel_configs` but applies to `remote_write` configurations
 
 
-</details>
+{{% /details %}}
