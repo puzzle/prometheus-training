@@ -2,11 +2,13 @@
 
 Interactive Prometheus Basics Training
 
+
 ## Content Sections
 
 The training content resides within the [content](content) directory.
 
 The main part are the labs, which can be found at [content/en/docs](content/en/docs).
+
 
 ## Hugo
 
@@ -20,7 +22,9 @@ After cloning the main repo, you need to initialize the submodule like this:
 git submodule update --init --recursive
 ```
 
+
 ### Special Shortcodes
+
 
 #### Details
 
@@ -33,6 +37,7 @@ Usage:
 Lab 1 solution
 {{% /details %}}
 ```
+
 
 ## Build using Docker
 
@@ -48,6 +53,7 @@ Run it locally:
 docker run -i -p 8080:8080 acend/prometheus-basics-training
 ```
 
+
 ### Using Buildah and Podman
 
 Build the image:
@@ -61,6 +67,7 @@ Run it locally with the following command. Beware that `--rmi` automatically rem
 ```bash
 podman run --rm --rmi --interactive --publish 8080:8080 localhost/acend/prometheus-basics-training
 ```
+
 
 ## How to develop locally
 
@@ -76,18 +83,20 @@ Using Podman
 podman run --rm --interactive --publish 8080:8080 -v $(pwd):/opt/app/src:Z -w /opt/app/src acend/hugo:<version-in-dockerfile> hugo server -p 8080 --bind 0.0.0.0
 ```
 
+
 ## Linting of Markdown content
 
-Markdown files are linted with <https://github.com/DavidAnson/markdownlint>.
-Custom rules are in `.markdownlint.json`.
-There's a GitHub Action `.github/workflows/markdownlint.yaml` for CI.
+Markdown files are linted with [markdownlint](https://github.com/DavidAnson/markdownlint).
+Custom rules are in [markdownlint.json](markdownlint.json).
+There's a GitHub Action [github/workflows/markdownlint.yaml](github/workflows/markdownlint.yaml) for CI.
 For local checks, you can either use Visual Studio Code with the corresponding extension, or the command line like this:
 
-```shell script
+```bash
 npm install
 node_modules/.bin/markdownlint content
 ```
 
+
 ## Contributions
 
-If you find errors, bugs or missing information, please help us improve our training and have a look at the [Contribution Guide](CONTRIBUTING.md).
+If you find errors, bugs or missing information, please help us improve and have a look at the [Contribution Guide](CONTRIBUTING.md).
