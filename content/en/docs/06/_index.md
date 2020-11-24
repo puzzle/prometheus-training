@@ -1,5 +1,5 @@
 ---
-title: "6 Prometheus Basics Training - Visualization"
+title: "6. Visualization"
 weight: 1
 sectionnumber: 1
 ---
