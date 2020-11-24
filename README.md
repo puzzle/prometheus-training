@@ -32,7 +32,7 @@ Usage:
 {{% details title="Lab 1" %}}
 Lab 1 solution
 {{% /details %}}
-``` 
+```
 
 ## Build using Docker
 
@@ -48,7 +48,6 @@ Run it locally:
 docker run -i -p 8080:8080 acend/prometheus-basics-training
 ```
 
-
 ### Using Buildah and Podman
 
 Build the image:
@@ -62,7 +61,6 @@ Run it locally with the following command. Beware that `--rmi` automatically rem
 ```bash
 podman run --rm --rmi --interactive --publish 8080:8080 localhost/acend/prometheus-basics-training
 ```
-
 
 ## How to develop locally
 
@@ -92,5 +90,4 @@ node_modules/.bin/markdownlint content
 
 ## Contributions
 
-If you find errors, bugs or missing information please help us improve our training and have a look at the [Contribution Guide](CONTRIBUTING.md).
-
+If you find errors, bugs or missing information, please help us improve our training and have a look at the [Contribution Guide](CONTRIBUTING.md).
