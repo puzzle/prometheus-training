@@ -39,17 +39,26 @@ password: vagrant
 {{% alert title="Note" color="primary" %}}
 Debian and Ubuntu ship per default with Vagrant.
 Depending on the version and age of the distribution
-Vagrant may not include support for CentOS 8 and fails
-during the initial setup. As such the Debian package
+Vagrant may not include support for Debian/Ubuntu Based Systems
+and fails during the initial setup. As such the Debian package
 from HashiCorp the vendor of Vagrant is utilized to
 ensure a frictionless lab experience.
+
+During the package installation the current user is added to
+the `libvirt` group. In case you get a `permission denied` error
+during `vagrant up`, you must terminate your session and log in
+again.
+
+If you are still having
+troubles you can use this guide for troubleshooting
+<https://ubuntu.com/server/docs/virtualization-libvirt>
 {{% /alert %}}
 
 #### Techlab Installation and Startup
 
 ```bash
 # install libvirt and dependencies
-sudo apt install libvirt-daemon libvirt-clients libvirt-dev
+sudo apt install libvirt-daemon libvirt-clients libvirt-dev qemu-kvm libvirt-daemon-system
 
 # install vagrant from hashicorp
 curl --location -o /var/tmp/vagrant_2.2.14_x86_64.deb \
