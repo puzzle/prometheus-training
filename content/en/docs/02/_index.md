@@ -1,5 +1,5 @@
 ---
-title: "2 Prometheus Basics Training - Metrics"
+title: "2. Metrics"
 weight: 1
 sectionnumber: 1
 ---
