@@ -10,7 +10,7 @@ sectionnumber: 1
 
 Let's beginn with the installation of Prometheus by downloading and extracting the Prometheus binary.
 
-1. At First we need to create a working directory where we will download and extract Prometheus. Open a new terminal, navigate to your home directory and create a new directory called prometheus:
+1. At first we need to create a working directory where we will download and extract Prometheus. Open a new terminal, navigate to your home directory and create a new directory called prometheus:
 
     ```bash
     mkdir ~/prometheus
@@ -96,12 +96,12 @@ Let's take a look at two important configuration options:
 * `scrape_configs`: This block defines which targets Prometheus will scrape. In the configuration above only a single target (the Prometheus server itself at `localhost:9090`) is configured. Check out the [Targets section](targets) for a detailed explanation.
 
 {{% alert title="Note" color="primary" %}}
-We will learn more about the other configuration options (`evaluation_interval`, `alerting` and `rule_files`) later in this course.
+We will learn more about the other configuration options (`evaluation_interval`, `alerting` and `rule_files`) later in this training.
 {{% /alert %}}
 
 ### Run Prometheus
 
-To run Prometheus you can simply exe cute the binary `prometheus` and tell it where it can find it's configuration file:
+To run Prometheus you can simply execute the binary `prometheus` and tell it where it can find its configuration file:
 
 1. Open a new terminal and navigate to the extracted Prometheus folder:
 
