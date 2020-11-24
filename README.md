@@ -24,7 +24,7 @@ git submodule update --init --recursive
 
 #### Details
 
-There is a shortcode to generate HTML _details_ and _summary_ tags, which is handy make solutions foldable in the labs sections.
+There is a shortcode to generate HTML _details_ and _summary_ tags, which is handy to make solutions foldable in the labs sections.
 
 Usage:
 
