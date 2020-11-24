@@ -30,7 +30,7 @@ prometheus_tsdb_head_series 463
 ```
 
 {{% alert title="Note" color="primary" %}}
-There are 4 different Metric types in Prometheus
+There are 4 different metric types in Prometheus
 
 * Counter
 * Gauge
@@ -45,7 +45,7 @@ There are 4 different Metric types in Prometheus
 
 Open your Prometheus Server and navigate to the `graph` menu. You can use the drop-down list to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
 
-* Using [Prithmetic Operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
+* Using [Prometheus Operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
 * Using [Prometheus Functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
 
 ## Recording Rules
