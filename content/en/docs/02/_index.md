@@ -47,4 +47,7 @@ Open your Prometheus Server and navigate to the `graph` menu. You can use the dr
 
 * Using [Prithmetic Operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
 * Using [Prometheus Functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
-* Using [Recording Rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/)
+
+## Recording Rules
+
+Prometheus [Recording Rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/) allow you to precompute queries at a defined interval (`global.evaluation_interval` or `interval` in  <rule_group> ) and save them to a new set of time series.
