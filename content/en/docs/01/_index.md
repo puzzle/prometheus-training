@@ -1,5 +1,5 @@
 ---
-title: "1 Setting up Prometheus"
+title: "1. Setting up Prometheus"
 weight: 1
 sectionnumber: 1
 ---
@@ -8,7 +8,7 @@ sectionnumber: 1
 
 ### Setup
 
-Let's beginn with the installation of Prometheus by downloading and extracting the Prometheus binary.
+Let's begin with the installation of Prometheus by downloading and extracting the Prometheus binary.
 
 1. At first we need to create a working directory where we will download and extract Prometheus. Open a new terminal, navigate to your home directory and create a new directory called prometheus:
 
@@ -91,7 +91,7 @@ scrape_configs:
 
 Let's take a look at two important configuration options:
 
-* `scrape_interval`: Prometheus is a pull based monitoring system which means it will reach out to the configured targets and collects the metrics form them (instead of a push based approach where the targets will push their metrics to the monitoring server). The option `scrape_interval` defines the interval at which Prometheus will collect the metrics from each target.
+* `scrape_interval`: Prometheus is a pull based monitoring system which means it will reach out to the configured targets and collects the metrics from them (instead of a push based approach where the targets will push their metrics to the monitoring server). The option `scrape_interval` defines the interval at which Prometheus will collect the metrics for each target.
 
 * `scrape_configs`: This block defines which targets Prometheus will scrape. In the configuration above only a single target (the Prometheus server itself at `localhost:9090`) is configured. Check out the [Targets section](targets) for a detailed explanation.
 
@@ -101,7 +101,12 @@ We will learn more about the other configuration options (`evaluation_interval`,
 
 ### Run Prometheus
 
-To run Prometheus you can simply execute the binary `prometheus` and tell it where it can find its configuration file:
+{{% alert title="Note" color="primary" %}}
+We will use unix job control to run the binary. By adding the ampersand symbol (`&`) at the and of a command the shell will put the command into the background. You can then use the command `jobs` to list all jobs currently running in the background of this shell and bring the jobs to the foreground by running `%1` (job number 1), `%2` (job number 2) etc. Please note that if you close a shell with background jobs all these jobs will terminate.
+You can use tools like `tmux`, `screen`, `nohup` or `disown` to keep jobs running even if you close the shell.
+{{% /alert %}}
+
+To run Prometheus you can simply execute the `prometheus` binary and define where it can find its configuration file:
 
 1. Open a new terminal and navigate to the extracted Prometheus folder:
 
@@ -111,7 +116,7 @@ To run Prometheus you can simply execute the binary `prometheus` and tell it whe
 1. Start Prometheus by executing the binary:
 
     ```bash
-    ./prometheus --config.file=prometheus.yml
+    ./prometheus --config.file=prometheus.yml &
     ```
 1. You should now see Prometheus starting up and the log line `msg="Server is ready to receive web requests."`. To verify this open your browser and navigate to [http://127.1:9090](http://127.1:9090). You should now see the Prometheus webinterface
 
