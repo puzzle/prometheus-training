@@ -2,13 +2,11 @@
 
 Interactive Prometheus Basics Training
 
-
 ## Content Sections
 
 The training content resides within the [content](content) directory.
 
 The main part are the labs, which can be found at [content/en/docs](content/en/docs).
-
 
 ## Hugo
 
@@ -22,6 +20,19 @@ After cloning the main repo, you need to initialize the submodule like this:
 git submodule update --init --recursive
 ```
 
+### Special Shortcodes
+
+#### Details
+
+There is a shortcode to generate HTML _details_ and _summary_ tags, which is handy to make solutions foldable in the labs sections.
+
+Usage:
+
+```html
+{{% details title="Lab 1" %}}
+Lab 1 solution
+{{% /details %}}
+```
 
 ## Build using Docker
 
@@ -37,7 +48,6 @@ Run it locally:
 docker run -i -p 8080:8080 acend/prometheus-basics-training
 ```
 
-
 ### Using Buildah and Podman
 
 Build the image:
@@ -51,7 +61,6 @@ Run it locally with the following command. Beware that `--rmi` automatically rem
 ```bash
 podman run --rm --rmi --interactive --publish 8080:8080 localhost/acend/prometheus-basics-training
 ```
-
 
 ## How to develop locally
 
@@ -79,6 +88,6 @@ npm install
 node_modules/.bin/markdownlint content
 ```
 
-
 ## Contributions
 
+If you find errors, bugs or missing information, please help us improve our training and have a look at the [Contribution Guide](CONTRIBUTING.md).
