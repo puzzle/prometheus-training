@@ -5,7 +5,7 @@ sectionnumber: 1
 ---
 
 {{% alert title="Note" color="primary" %}}
-Our Goal with this lab is to give you a brief overview, how you can visualize your Prometheus time series produced in the previous labs.
+Our Goal with this lab is to give you a brief overview, how to visualize your Prometheus time series produced in the previous labs.
 For a more detailed tutorial please refer to [Grafana Tutorial](https://grafana.com/tutorials/).
 {{% /alert %}}
 
@@ -35,13 +35,11 @@ sudo yum install grafana
 Start Grafana and enable the service
 
 ```bash
-sudo systemctl daemon-reload
 sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
-sudo systemctl status grafana-server
 ```
 
-Check if you can login to your Grafana instance <http://localhost:3000/> with:
+Login to your Grafana instance <http://localhost:3000/> with:
 
 | Username | Password |
 |---       |---       |
