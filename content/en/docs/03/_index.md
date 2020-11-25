@@ -102,6 +102,29 @@ To run Alertmanager you can simply execute the binary `alertmanager` and tell it
 
 Before going on, let's make some warm-up [labs for monitoring your Alertmanager](labs/31)
 
+## Configuration in Alertmanager
+
+Apart others, there are two main sections to configure the dispatching of alerts.
+
+TODO: some words about labels and annotations in alerts
+
+### Receivers
+
+With a [receiver](https://prometheus.io/docs/alerting/latest/configuration/#receiver) you can define who should be notified where different types of notifications are possible (e.g. mail, webhook or one of the popular message platforms like Slack or PagerDuty). Per receiver one or more notification can be defined, e.g. several different mailboxes and a Slack channel.
+
+### Routing
+
+With [routing blocks](https://prometheus.io/docs/alerting/latest/configuration/#route) a tree of routes and child routes can be defined. Each routing block has a matcher which can match one or several fields of the alert. Matches can be either string equal or evaluated with a regular expression. Per block one receiver can be specified, or if empty the default receiver is taken.
+
+As this routing definitions might be very complex and hard to understand, the `amtool` becomes handy as it helps to test the rules and can generate test alerts. More about this in the labs.
+
+### More (advanced) options
+
+For more insights of the configuration options, study the following resources:
+
+* Example configuration provided by [Alertmanager on Github](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
+* General overview of [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
+
 ## Enable Alertmanager in Prometheus
 
 The Alertmanager instance we installed before must be configured in Prometheus: Open `prometheus.yml`, add alertmanager (see below) and restart or reload Prometheus.
@@ -144,25 +167,3 @@ Finally, the target must be registered in Prometheus (don't forget to reload or 
 {{% /alert %}}
 
 [Prometheus alert rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) are configured very similar to recording rules which you got to know [earlier in this training](/docs/02#recording-rules). The main difference is that the rule's expression contains a threshold (e.g. `query_expression >= 5`) and that an alert is sent to the Alertmanager in case the rule evaluation matches the threshold. An alert rule can be based on a recording rule or be a normal expression query.
-
-## Configuration in Alertmanager
-
-Apart others, there are two main sections to configure the dispatching of alerts. 
-
-TODO: some words about labels and annotations in alerts
-
-### Receivers
-
-With a [receiver](https://prometheus.io/docs/alerting/latest/configuration/#receiver) you can define who should be notified where different types of notifications are possible (e.g. mail, webhook or one of the popular message platforms like Slack or PagerDuty). Per receiver one or more notification can be defined, e.g. several different mailboxes and a Slack channel.
-
-### Routing
-
-With [routing blocks](https://prometheus.io/docs/alerting/latest/configuration/#route) a tree of routes and child routes can be defined. Each routing block has a matcher which can match one or several fields of the alert. Matches can be either string equal or evaluated with a regular expression. Per block one receiver can be specified, or if empty the default receiver is taken.
-
-As this routing definitions might be very complex and hard to understand, the `amtool` becomes handy as it helps to test the rules and can generate test alerts. More about this in the labs.
-
-### More (advanced) options
-
-For more insights of the configuration options, study the following resources:
-* Example configuration provided by [Alertmanager on Github](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
-* General overview of [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
