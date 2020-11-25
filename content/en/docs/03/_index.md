@@ -1,17 +1,8 @@
 ---
-title: "3 Alerting with Alertmanager"
+title: "3. Alerting with Alertmanager"
 weight: 1
 sectionnumber: 1
 ---
-
-## Notes (to be removed)
-
-### Ideas for slides
-
-* Some background information about alertmanager (Github project, Architecture etc)
-* Alertmanager can be engineered as cluster
-* Other stuff which is out of scope in the basic training?
-* What is Deduplication?
 
 ## Installation
 
@@ -104,7 +95,7 @@ To run Alertmanager you can simply execute the binary `alertmanager` and tell it
 1. Start Alertmanager by executing the binary:
 
     ```bash
-    ./alertmanager --config.file=alertmanager.yml
+    ./alertmanager --config.file=alertmanager.yml &
     ```
 
 1. You should now see Alertmanager starting up and the log line `msg=Listening address=:9093."`. To verify this open your browser and navigate to [http://127.1:9093](http://127.1:9093). You should now see the Alertmanager webinterface
@@ -113,21 +104,49 @@ Before going on, let's make some warm-up [labs for monitoring your Alertmanager]
 
 ## Enable Alertmanager in Prometheus
 
-Prometheus doesn't know about Alertmanager, so far. In other words, Prometheus can't yet send any alerts so it makes
-sense to enable Alertmanager before defining any alert rules.
+The Alertmanager instance we installed before must be configured in Prometheus: Open `prometheus.yml`, add alertmanager (see below) and restart or reload Prometheus.
 
-Open `prometheus.yml`, enable alertmanager (see below) and restart or reload Prometheus.
-
-```
+```yaml
 # Alertmanager configuration
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
-       - alertmanager:9093
+       - localhost:9093
 ```
 
-## Define alert rules in Prometheus
+## Alert rules in Prometheus
+
+{{% alert title="Note" color="primary" %}}
+TODO: Think about replace this by a real sample application.
+
+To go on with the training we need a basic simulation app which exposes a metric endpoint. Open a second ssh session to your vagrant virtual machine and execute the following commands:
+
+```bash
+# installation is needed only once => TODO: Integrate in Vagrantfile
+sudo yum install -y nc
+
+while true ; do
+  count=$((count + 1)) 
+  echo -ne "HTTP/1.0 200 OK\r\n\r\nhttp_request_count{handler=\"/\",method=\"GET\",status=\"200\"} $count" | nc -l -p 8080
+done
+```
+
+Examine the metrics of this service with `curl localhost:8080`.
+Finally, the target must be registered in Prometheus (don't forget to reload or restart Prometheus):
+
+```yaml
+  - job_name: 'sample-app-A'
+    static_configs:
+    - targets: ['localhost:8080']
+```
+
+{{% /alert %}}
+
+[Prometheus alert rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) are configured very similar to recording rules which you got to know [earlier in this training](/docs/02#recording-rules). The main difference is that the rule's expression contains a threshold (e.g. `query_expression >= 5`) and that an alert is sent to the Alertmanager in case the rule evaluation matches the threshold. An alert rule can be based on a recording rule or be a normal expression query.
+
+## Receivers in Alertmanager
+
+## Routing rules in Alertmanager
 
 
-## Configure routing rules and receivers in Alertmanager
