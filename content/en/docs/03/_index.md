@@ -127,7 +127,7 @@ To go on with the training we need a basic simulation app which exposes a metric
 sudo yum install -y nc
 
 while true ; do
-  count=$((count + 1)) 
+  count=$((count + 1))
   echo -ne "HTTP/1.0 200 OK\r\n\r\nhttp_request_count{handler=\"/\",method=\"GET\",status=\"200\"} $count" | nc -l -p 8080
 done
 ```
@@ -148,5 +148,3 @@ Finally, the target must be registered in Prometheus (don't forget to reload or 
 ## Receivers in Alertmanager
 
 ## Routing rules in Alertmanager
-
-
