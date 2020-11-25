@@ -4,9 +4,14 @@ weight: 1
 sectionnumber: 1
 ---
 
-## Install Grafana
+{{% alert title="Note" color="primary" %}}
+Our Goal with this lab is to give you a brief overview, how you can visualize your Prometheus time series produced in the previous labs.
+For a more detailed tutorial please refer to [Grafana Tutorial](https://grafana.com/tutorials/).
+{{% /alert %}}
 
-Add Grafana Repo
+## Installation
+
+Add Grafana repository
 ```bash
 sudo bash -c 'cat <<EOF > /etc/yum.repos.d/grafana.repo
 [grafana]
@@ -49,4 +54,5 @@ Change password at first login
 ## Useful links and guides
 
 * [Prometheus Data Source](https://grafana.com/docs/grafana/latest/datasources/prometheus/)
-
+* [Grafana Dashboards](https://grafana.com/docs/grafana/latest/best-practices/best-practices-for-creating-dashboards/)
+* [Grafana Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/)
