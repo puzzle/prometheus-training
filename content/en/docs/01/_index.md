@@ -158,11 +158,8 @@ scrape_configs:
 ```
 In this example Prometheus will lookup a list of targets in the file `/etc/prometheus/file_sd/targets.yml`. Prometheus will also pickup changes in the file automatically (without reloading) and adjust the list of targets accordingly.
 
-## Advanced
 
-{{% details title="Relabeling" %}}
-
-### Relabeling
+## Relabeling (Advanced)
 
 Relabeling in Prometheus can be used to perform numerous tasks using regular expressions such as:
 
@@ -187,6 +184,3 @@ There are four types of relabeling:
 
 * `write_relabel_configs` (remote write relabeling)
     Similar to `metric_relabel_configs` but applies to `remote_write` configurations
-
-
-{{% /details %}}
