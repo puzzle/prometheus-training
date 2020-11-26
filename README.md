@@ -78,16 +78,17 @@ podman run --rm --interactive --publish 8080:8080 -v $(pwd):/opt/app/src:Z -w /o
 
 ## Linting of Markdown content
 
-Markdown files are linted with <https://github.com/DavidAnson/markdownlint>.
-Custom rules are in `.markdownlint.json`.
-There's a GitHub Action `.github/workflows/markdownlint.yaml` for CI.
+Markdown files are linted with [markdownlint](https://github.com/DavidAnson/markdownlint).
+Custom rules are in [markdownlint.json](markdownlint.json).
+There's a GitHub Action [github/workflows/markdownlint.yaml](github/workflows/markdownlint.yaml) for CI.
 For local checks, you can either use Visual Studio Code with the corresponding extension, or the command line like this:
 
-```shell script
+```bash
 npm install
 node_modules/.bin/markdownlint content
 ```
 
+
 ## Contributions
 
-If you find errors, bugs or missing information, please help us improve our training and have a look at the [Contribution Guide](CONTRIBUTING.md).
+If you find errors, bugs or missing information, please help us improve and have a look at the [Contribution Guide](CONTRIBUTING.md).
