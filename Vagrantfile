@@ -15,7 +15,7 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum update -y
-yum install -y kubectl docker-ce wget vim git
+yum install -y kubectl docker-ce wget vim git psmisc
 systemctl enable docker
 systemctl start docker
 usermod -aG docker vagrant
