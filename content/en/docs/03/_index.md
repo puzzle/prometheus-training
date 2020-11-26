@@ -106,13 +106,15 @@ There are two main sections for configuring how Alertmanager is dispatching aler
 
 ### Receivers
 
-With a [receiver](https://prometheus.io/docs/alerting/latest/configuration/#receiver) you can define who should be notified where different types of notifications are possible (e.g. mail, webhook or one of the popular message platforms like Slack or PagerDuty). Per receiver one or more notification can be defined, e.g. different mailboxes and a Slack channel.
+With a [receiver](https://prometheus.io/docs/alerting/latest/configuration/#receiver) one or more notifications can be defined. There are different types of notifications types, e.g. mail, webhook or one of the message platforms like Slack or PagerDuty.
 
 ### Routing
 
-With [routing blocks](https://prometheus.io/docs/alerting/latest/configuration/#route) a tree of routes and child routes can be defined. Each routing block has a matcher which can match one or several fields of the alert. Matches can be either string equal or evaluated with a regular expression. Per block one receiver can be specified, or if empty the default receiver is taken.
+With [routing blocks](https://prometheus.io/docs/alerting/latest/configuration/#route) a tree of routes and child routes can be defined. Each routing block has a matcher which can match one or several labels of an alert. Per block one receiver can be specified, or if empty the default receiver is taken.
 
-As this routing definitions might be very complex and hard to understand, the `amtool` becomes handy as it helps to test the rules and can generate test alerts. More about this in the labs.
+### amtool
+
+As this routing definitions might be very complex and hard to understand, the [amtool](https://github.com/prometheus/alertmanager#examples) becomes handy as it helps to test the rules and can generate test alerts, and has even more useful features. More about this in the labs.
 
 ### More (advanced) options
 
@@ -120,6 +122,8 @@ For more insights of the configuration options, study the following resources:
 
 * Example configuration provided by [Alertmanager on Github](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
 * General overview of [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
+
+Before we enable alertmanager in Prometheus, let's do some [labs concerning the Alertmanager](labs/32).
 
 ## Enable Alertmanager in Prometheus
 
