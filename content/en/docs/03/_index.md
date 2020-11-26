@@ -52,7 +52,7 @@ Binaries for other CPU architectures such as ARM or other operating systems (dar
 
 ### Configuration
 
-The configuration of Alertmanager is done using a YAML config file and cli flags. The Alertmanager tarball we downloaded earlier includes a very basic example of a Alertmanager configuration file:
+The configuration of Alertmanager is done using a YAML config file and cli flags. The Alertmanager tarball we downloaded earlier includes a very basic configuration file:
 
 ```yaml
 global:
