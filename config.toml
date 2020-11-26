@@ -29,12 +29,6 @@ pygmentsUseClassic = false
 [permalinks]
 blog = "/:section/:year/:month/:day/:slug/"
 
-## Configuration for BlackFriday markdown parser: https://github.com/russross/blackfriday
-[blackfriday]
-plainIDAnchors = true
-hrefTargetBlank = true
-angledQuotes = false
-latexDashes = true
 
 # Image processing configuration.
 [imaging]
@@ -61,13 +55,13 @@ url = "https://www.puzzle.ch"
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = false
+      unsafe = true
   [markup.highlight]
     LineNos = true
     # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
     style = "monokai"
-  # Uncomment if you want your chosen highlight style used for code blocks without a specified language
-  # guessSyntax = "true"
+    # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+    guessSyntax = "true"
 
 [params]
 
@@ -75,8 +69,6 @@ copyright = "Puzzle ITC GmbH"
 github_repo = "https://github.com/puzzle/prometheus-labs"
 
 enabledModule = "base"
-
-#prism_syntax_highlighting = true
 
 # Enable Lunr.js offline search
 offlineSearch = true
