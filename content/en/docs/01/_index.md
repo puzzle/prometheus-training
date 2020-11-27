@@ -118,7 +118,7 @@ To run Prometheus you can simply execute the `prometheus` binary and define wher
     ```bash
     ./prometheus --config.file=prometheus.yml &
     ```
-1. You should now see Prometheus starting up and the log line `msg="Server is ready to receive web requests."`. To verify this open your browser and navigate to [http://127.1:9090](http://127.1:9090). You should now see the Prometheus webinterface
+1. You should now see Prometheus starting up and the log line `msg="Server is ready to receive web requests."`. To verify this open your browser and navigate to [http://localhost:9090](http://localhost:9090). You should now see the Prometheus webinterface
 
 
 ## Targets

@@ -17,7 +17,7 @@ metric_name [
 ] value [ timestamp ]
 ```
 
-As an example check the metrics of your Prometheus server (<http://127.0.0.1:9090/metrics>)
+As an example check the metrics of your Prometheus server (<http://localhost:9090/metrics>)
 ```
 ...
 # HELP prometheus_tsdb_head_samples_appended_total Total number of appended samples.
@@ -47,6 +47,7 @@ Open your Prometheus Server and navigate to the `graph` menu. You can use the dr
 
 * Using [Prometheus Operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
 * Using [Prometheus Functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
+* [PromLens:](https://promlens.com/) The power tool for querying Prometheus
 
 ## Recording Rules
 
