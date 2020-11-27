@@ -24,7 +24,7 @@
 * [4] Exporters und Integration [#11](/../../issues/11)
 * [5] Instrumentalisierung, Client Libraries [#14](/../../issues/14)
 * [6] Visualisierung [#13](/../../issues/13)
-* [7] Prometheus Ecosystem [#15](/../../issues/52)
+* [7] Prometheus Ecosystem [#52](/../../issues/52)
 
 ## Best Practices
 
