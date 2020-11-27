@@ -9,7 +9,7 @@ menu:
 
 {{< blocks/section color="light">}}
 
-{{% blocks/feature icon="fa-chalkboard-teacher" url="https://changeme" title="Slide 1" %}}
+{{% blocks/feature icon="fa-chalkboard-teacher" url="https://drive.google.com/file/d/19x1z1pWVzOoWGxygwjEfkOZqAFUfAlh2/view?usp=sharing" title="Prometheus - Introduction" %}}
 {{% /blocks/feature %}}
 
 {{% blocks/feature icon="fa-chalkboard-teacher" url="https://changeme" title="Slide 12" %}}
