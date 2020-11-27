@@ -47,6 +47,7 @@ Open your Prometheus Server and navigate to the `graph` menu. You can use the dr
 
 * Using [Prometheus Operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
 * Using [Prometheus Functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
+* [PromLens:](https://promlens.com/) The power tool for querying Prometheus
 
 ## Recording Rules
 
