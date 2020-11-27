@@ -82,7 +82,7 @@ For the moment we leave it with the default configuration and come back to it la
 
 ### Run Alertmanager
 
-To run Alertmanager you can simply execute the binary `alertmanager` and tell it where it can find its configuration file:
+To run Alertmanager you can simply execute the `alertmanager` binary and point it to its configuration file:
 
 1. Open a new terminal and navigate to the extracted Alertmanager folder:
 
