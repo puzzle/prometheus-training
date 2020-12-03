@@ -1,7 +1,9 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: prometheus-basics-training-puzzle
+  name: prometheus-basics-training
+  labels:
+    app: prometheus-basics-training
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: "nginx-public"
