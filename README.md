@@ -1,6 +1,6 @@
 # Prometheus Basics Training
 
-Interactive Prometheus Basics Training
+Interactive Prometheus Basics Training: [prometheus-training.puzzle.ch](https://prometheus-training.puzzle.ch/)
 
 ## Content Sections
 
