@@ -22,6 +22,12 @@ After cloning the main repo, you need to initialize the submodule like this:
 git submodule update --init --recursive
 ```
 
+In order to update all submodules runs the following command:
+
+```bash
+git pull --recurse-submodules
+```
+
 The default configuration uses the Puzzle setup from [config/_default](config/_default/config.toml).
 Alternatively you can use the acend setup from [config/acend](config/acend/config.toml), which is enabled with `--environment acend`.
 
