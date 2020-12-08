@@ -3,7 +3,7 @@ title = "Prometheus Basics Training"
 
 enableGitInfo = true
 
-theme = "docsy"
+theme = ["docsy-puzzle", "docsy-plus", "docsy"]
 
 languageCode = "en-us"
 
@@ -15,7 +15,6 @@ disableSVG = true
 # default content language
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
-
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
@@ -64,11 +63,9 @@ url = "https://www.puzzle.ch"
     guessSyntax = "true"
 
 [params]
-
 copyright = "Puzzle ITC GmbH"
 github_repo = "https://github.com/puzzle/prometheus-labs"
-
-enabledModule = "base"
+imagePrefix = "puzzle_"
 
 # Enable Lunr.js offline search
 offlineSearch = true

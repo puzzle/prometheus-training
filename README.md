@@ -2,6 +2,7 @@
 
 Interactive Prometheus Basics Training: [prometheus-training.puzzle.ch](https://prometheus-training.puzzle.ch/)
 
+
 ## Content Sections
 
 The training content resides within the [content](content) directory.
@@ -13,6 +14,7 @@ The main part are the labs, which can be found at [content/en/docs](content/en/d
 This site is built using the static page generator [Hugo](https://gohugo.io/).
 
 The page uses the [docsy theme](https://github.com/google/docsy) which is included as a Git Submodule.
+Docsy being enhanced using [docsy-plus](https://github.com/puzzle/docsy-plus/) as well as [docsy-puzzle](https://github.com/puzzle/docsy-puzzle/) and [docsy-acend](https://github.com/puzzle/docsy-acend/) for brand specific settings.
 
 After cloning the main repo, you need to initialize the submodule like this:
 
@@ -20,19 +22,14 @@ After cloning the main repo, you need to initialize the submodule like this:
 git submodule update --init --recursive
 ```
 
-### Special Shortcodes
+The default configuration uses the Puzzle setup from [config/_default](config/_default/config.toml).
+Alternatively you can use the acend setup from [config/acend](config/acend/config.toml), which is enabled with `--environment acend`.
 
-#### Details
+### Docsy Theme Usage
 
-There is a shortcode to generate HTML _details_ and _summary_ tags, which is handy to make solutions foldable in the labs sections.
+* [Official docsy documentation](https://www.docsy.dev/docs/)
+* [Docsy Plus](https://github.com/puzzle/docsy-plus/)
 
-Usage:
-
-```html
-{{% details title="Lab 1" %}}
-Lab 1 solution
-{{% /details %}}
-```
 
 ## Build using Docker
 
@@ -48,6 +45,7 @@ Run it locally:
 docker run -i -p 8080:8080 acend/prometheus-basics-training
 ```
 
+
 ### Using Buildah and Podman
 
 Build the image:
@@ -62,6 +60,7 @@ Run it locally with the following command. Beware that `--rmi` automatically rem
 podman run --rm --rmi --interactive --publish 8080:8080 localhost/acend/prometheus-basics-training
 ```
 
+
 ## How to develop locally
 
 To develop locally we don't want to rebuild the entire container image every time something changed, and it is also important to use the same hugo versions like in production.
@@ -75,6 +74,7 @@ Using Podman
 ```bash
 podman run --rm --interactive --publish 8080:8080 -v $(pwd):/opt/app/src:Z -w /opt/app/src acend/hugo:<version-in-dockerfile> hugo server -p 8080 --bind 0.0.0.0
 ```
+
 
 ## Linting of Markdown content
 
