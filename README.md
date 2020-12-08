@@ -14,7 +14,7 @@ The main part are the labs, which can be found at [content/en/docs](content/en/d
 This site is built using the static page generator [Hugo](https://gohugo.io/).
 
 The page uses the [docsy theme](https://github.com/google/docsy) which is included as a Git Submodule.
-Docsy being enhanced using [docsy-plus](https://github.com/puzzle/docsy-plus/) as well as [docsy-puzzle](https://github.com/puzzle/docsy-puzzle/) and [docsy-acend](https://github.com/puzzle/docsy-acend/) for brand specific settings.
+Docsy is being enhanced using [docsy-plus](https://github.com/puzzle/docsy-plus/) as well as [docsy-puzzle](https://github.com/puzzle/docsy-puzzle/) and [docsy-acend](https://github.com/puzzle/docsy-acend/) for brand specific settings.
 
 After cloning the main repo, you need to initialize the submodule like this:
 
