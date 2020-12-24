@@ -1,19 +1,27 @@
 ---
-title: "Windows Vagrant Setup"
+title: "Windows Vagrant setup"
 description: "Vagrant installation on Windows"
 weight: 3
 type: docs
 sectionnumber: 1
 ---
 
-## Windows Vagrant Setup
+## Windows Vagrant setup
 
 To participate in the lab you can use any Linux server
-of your choice.  The labs are tailored for setup with
+of your choice. The labs are tailored for setup with
 CentOS/RHEL hosts. Below are instructions on how to setup
 the required host with [Vagrant][vagrant] on Linux.
-Follow the step by step guide to bootstrap the techlab
+Follow the step-by-step guide to bootstrap the techlab
 environment on your OS of choice.
+
+
+### Prerequisites
+
+* VirtualBox 6 and later requires 64-bit Windows
+
+
+### Connectivity Details
 
 {{% alert title="Note" color="primary" %}}
 The following passwords are not secure and intended only to
@@ -21,17 +29,9 @@ be used with local virtual machines not reachable from outside
 of the virtualization host.
 {{% /alert %}}
 
-
-### Prerequisites
-
-* VirtualBox 6 and higher requires 64-bit Windows.
-
-
-### Connectivity Details
-
 Windows Vagrant setup provides a local
-CentOS virtual machine running under [VirtualBox][virtualbox] with the
-following IP addresses and credentials.
+CentOS virtual machine running in [VirtualBox][virtualbox] with the
+following IP address and credentials.
 
 ```yaml
 control: 192.168.122.60
@@ -41,46 +41,56 @@ password: vagrant
 ```
 
 On Windows ensure VirtualBox and Vagrant are installed.
-The easiest way is to use [Chocolatey][chocolatey] to install
-both of them.
+The easiest way to install both of them is to use [Chocolatey][chocolatey].
 
-In an **administrative powershell console** execute the following
-commands:
+Open an **administrative PowerShell console** to execute the following commands.
 
-```bash
-# install chocolatey
+Install Chocolatey:
+
+```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force;
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+```
 
-# installl VirtualBox and Vagrant
+Installl VirtualBox and Vagrant:
+
+```powershell
 choco install virtualbox vagrant
-
 ```
 
 Open a new PowerShell console with your login account privileges
 and execute the following commands.
 
-```bash
-# create directory and download Vagrantfile
+Create the working directory and download the Vagrantfile:
+
+```powershell
 mkdir prometheus-labs
 cd prometheus-labs
 iwr -OutFile Vagrantfile https://raw.githubusercontent.com/puzzle/prometheus-labs/main/Vagrantfile
+```
 
-# setup vm
+Start the virtual machine:
+
+```powershell
 vagrant up
+```
 
-# access vm
+Access it:
+
+```powershell
 ssh vagrant@192.168.122.60
 ```
 
-#### Techlab Shutdown
+
+#### Shutdown
+
+Switch to the working directory and stop the virtual machine:
 
 ```bash
 cd prometheus-labs
-
-# shutdown all vm
 vagrant destroy -f
 ```
+
 [virtualbox]: https://www.virtualbox.org/
 [chocolatey]: https://chocolatey.org/
