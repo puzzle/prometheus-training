@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: acend-letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  labels:
+    app: prometheus-basics-training-acend
+  name: prometheus-basics-training-acend
+spec:
+  rules:
+  - host: prometheus-basics.training.acend.ch
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prometheus-basics-training-acend
+          servicePort: 8080
+  tls:
+  - hosts:
+    - prometheus-basics.training.acend.ch
+    secretName: prometheus-basics-training-acend-ch
