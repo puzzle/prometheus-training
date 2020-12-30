@@ -10,7 +10,7 @@ sectionnumber: 1
 
 Let's begin with the installation of Prometheus by downloading and extracting the Prometheus binary.
 
-1. At first we need to create a working directory where we will download and extract Prometheus. Open a new terminal, navigate to your home directory and create a new directory called prometheus:
+1. Create a working directory where we will download and extract Prometheus. Open a new terminal, navigate to your home directory and create a new directory called `prometheus`:
 
     ```bash
     mkdir ~/prometheus
@@ -18,7 +18,7 @@ Let's begin with the installation of Prometheus by downloading and extracting th
     ```
 
 
-1. Next we will download Prometheus:
+1. Download Prometheus:
 
     ```bash
     curl -L -O https://github.com/prometheus/prometheus/releases/download/v2.22.2/prometheus-2.22.2.linux-amd64.tar.gz
@@ -28,32 +28,32 @@ Let's begin with the installation of Prometheus by downloading and extracting th
 Binaries for other CPU architectures such as ARM or other operating systems (darwin, bsd and even windows) are available on the release page of Prometheus: https://github.com/prometheus/prometheus/releases
     {{% /alert %}}
 
-1. Extract the archive
+1. Extract the archive:
 
     ```bash
     tar fvxz prometheus-2.22.2.linux-amd64.tar.gz
     ```
 
-1. Examining the contents of the tarball
+1. Examine the contents of the tarball:
 
-    If you check the output of the previous tar command you should see list of extracted files. We will now take a closer look at some of these files:
+    Check the output of the previous tar command. You should see a list of extracted files. We will now take a closer look at some of these files:
 
-    * **prometheus**
+    * `prometheus`
 
-        this is the Prometheus binary itself
+       This is the Prometheus binary.
 
-    * **promtool**
+    * `promtool`
 
-        a useful tool which can be used for debugging and querying Prometheus
+       This is a useful tool which can be used for debugging and querying Prometheus.
 
-    * **prometheus.yml**
+    * `prometheus.yml`
 
-        this is the configuration file of Prometheus. More on that in the next section (TODO: section reference)
+       This is the configuration file of Prometheus. More on that in the next section.
 
 
 ### Configuration
 
-The configuration of Prometheus is done using a YAML config file and cli flags. The Prometheus tarball we downloaded earlier includes a very basic example of a Prometheus configuration file:
+The configuration of Prometheus is done using a YAML config file and CLI flags. The Prometheus tarball we downloaded earlier includes a very basic example of a Prometheus configuration file:
 
 `prometheus.yml`
 
@@ -91,22 +91,22 @@ scrape_configs:
 
 Let's take a look at two important configuration options:
 
-* `scrape_interval`: Prometheus is a pull based monitoring system which means it will reach out to the configured targets and collects the metrics from them (instead of a push based approach where the targets will push their metrics to the monitoring server). The option `scrape_interval` defines the interval at which Prometheus will collect the metrics for each target.
+* `scrape_interval`: Prometheus is a pull-based monitoring system which means it will reach out to the configured targets and collect the metrics from them (instead of a push-based approach where the targets will push their metrics to the monitoring server). The option `scrape_interval` defines the interval at which Prometheus will collect the metrics for each target.
 
-* `scrape_configs`: This block defines which targets Prometheus will scrape. In the configuration above only a single target (the Prometheus server itself at `localhost:9090`) is configured. Check out the [Targets section](targets) for a detailed explanation.
+* `scrape_configs`: This block defines which targets Prometheus will scrape. In the configuration above, only a single target (the Prometheus server itself at `localhost:9090`) is configured. Check out the [targets](#targets) section below for a detailed explanation.
 
 {{% alert title="Note" color="primary" %}}
-We will learn more about the other configuration options (`evaluation_interval`, `alerting` and `rule_files`) later in this training.
+We will learn more about other configuration options (`evaluation_interval`, `alerting` and `rule_files`) later in this training.
 {{% /alert %}}
 
 ### Run Prometheus
 
 {{% alert title="Note" color="primary" %}}
-We will use unix job control to run the binary. By adding the ampersand symbol (`&`) at the and of a command the shell will put the command into the background. You can then use the command `jobs` to list all jobs currently running in the background of this shell and bring the jobs to the foreground by running `%1` (job number 1), `%2` (job number 2) etc. Please note that if you close a shell with background jobs all these jobs will terminate.
+We will use Unix job control to run the binary. By adding the ampersand symbol (`&`) at the end of a command, the shell will put the command into the background. You can then use the command `jobs` to list all jobs currently running in the background of this shell and bring the jobs to the foreground by running `%1` (job number 1), `%2` (job number 2), etc. Please note that if you close a shell with background jobs, all these jobs will terminate.
 You can use tools like `tmux`, `screen`, `nohup` or `disown` to keep jobs running even if you close the shell.
 {{% /alert %}}
 
-To run Prometheus you can simply execute the `prometheus` binary and define where it can find its configuration file:
+To run Prometheus, you can simply execute the `prometheus` binary and define where it can find its configuration file:
 
 1. Open a new terminal and navigate to the extracted Prometheus folder:
 
@@ -118,22 +118,22 @@ To run Prometheus you can simply execute the `prometheus` binary and define wher
     ```bash
     ./prometheus --config.file=prometheus.yml &
     ```
-1. You should now see Prometheus starting up and the log line `msg="Server is ready to receive web requests."`. To verify this open your browser and navigate to [http://localhost:9090](http://localhost:9090). You should now see the Prometheus webinterface
+1. You should now see Prometheus starting up with the log line `msg="Server is ready to receive web requests."`. To verify this, open your browser and navigate to <http://localhost:9090>. You should now see the Prometheus web UI.
 
 
 ## Targets
 
-Since Prometheus is a pull based monitoring system the Prometheus server maintains a set of targets to scrape. This set can be configured using the `scrape_config` option in the Prometheus configuration file. The `scrape_config` consists of a list of jobs defining the targets as well as additional parameters (path, port, authentication etc.) required to scrape these targets.
+Since Prometheus is a pull based monitoring system, the Prometheus server maintains a set of targets to scrape. This set can be configured using the `scrape_configs` option in the Prometheus configuration file. The `scrape_configs` consist of a list of jobs defining the targets as well as additional parameters (path, port, authentication, etc.) which are required to scrape these targets.
 
-{{% alert title="Note" color="secondary" %}}
-Each job definition must at least consist of a `job_name` and a target configuration (e.g. `static_configs`).  Check the [Prometheus Docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for the list of all available options in the `scrape_config`
+{{% alert title="Note" color="primary" %}}
+Each job definition must at least consist of a `job_name` and a target configuration (e.g. `static_configs`). Check the [Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for the list of all available options in the `scrape_config`.
 {{% /alert %}}
 
 There are two basic types of target configurations:
 
-### static configuration
+### Static configuration
 
-In this case the Prometheus configuration file contains a static list of targets. In order to make changes to the list you need to change the configuration file. We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
+In this case, the Prometheus configuration file contains a static list of targets. In order to make changes to the list, you need to change the configuration file. We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
 
 ```yaml
 scrape_configs:
@@ -144,9 +144,9 @@ scrape_configs:
       - server2:8080
 ```
 
-### dynamic configuration
+### Dynamic configuration
 
-In addition to the static target configuration Prometheus provides many different ways to dynamically add/remove targets. There are builtin service discovery mechanisms for cloud providers such as AWS, GCP, Hetzner and many more. In addition there are more versatile discovery mechanisms available which allow you to implement Prometheus in your environment (e.g. DNS service discovery or file service discovery).
+In addition to the static target configuration, Prometheus provides many ways to dynamically add/remove targets. There are builtin service discovery mechanisms for cloud providers such as AWS, GCP, Hetzner, and many more. In addition, there are more versatile discovery mechanisms available which allow you to implement Prometheus in your environment (e.g., DNS service discovery or file service discovery).
 Let's take a look at an example of a file service discovery configuration:
 
 ```yaml
@@ -156,31 +156,33 @@ scrape_configs:
     - files:
       - /etc/prometheus/file_sd/targets.yml
 ```
-In this example Prometheus will lookup a list of targets in the file `/etc/prometheus/file_sd/targets.yml`. Prometheus will also pickup changes in the file automatically (without reloading) and adjust the list of targets accordingly.
+In this example, Prometheus will lookup a list of targets in the file `/etc/prometheus/file_sd/targets.yml`. Prometheus will also pickup changes in the file automatically (without reloading) and adjust the list of targets accordingly.
 
 
-## Relabeling (Advanced)
+## Relabeling (advanced)
 
-Relabeling in Prometheus can be used to perform numerous tasks using regular expressions such as:
+Relabeling in Prometheus can be used to perform numerous tasks using regular expressions, such as
 
-* adding, modifying or removing labels to/from metrics or alerts
-* filter metrics based on labels
-* enable horizontal scaling of Prometheus by using hashmod relabeling
+* adding, modifying or removing labels to/from metrics or alerts,
+* filtering metrics based on labels, or
+* enabling horizontal scaling of Prometheus by using `hashmod` relabeling.
 
-It is a very powerful part of the Prometheus configuration but it can also get quite complex and confusing. Thus we will only take a look at some basic / simple examples.
+It is a very powerful part of the Prometheus configuration, but it can also get quite complex and confusing. Thus, we will only take a look at some basic / simple examples.
 
 There are four types of relabeling:
 
 * `relabel_configs` (target relabeling)
 
-    Defined in the job definition of a `scrape_config`, used to relabel targets. This is used to configure scraping of multi-target exporter (e.g. blackbox_exporter or snmp_exporter) where one single exporter instance is used to scrape multiple targets. Check out The [Prometheus Docs](https://prometheus.io/docs/guides/multi-target-exporter/#querying-multi-target-exporters-with-prometheus) for a detailed explanation and example configurations of  `relabel_configs`.
+  Defined in the job definition of a `scrape_config`, used to relabel targets. This is used to configure scraping of multi-target exporter (e.g., `blackbox_exporter` or `snmp_exporter`) where one single exporter instance is used to scrape multiple targets. Check out The [Prometheus docs](https://prometheus.io/docs/guides/multi-target-exporter/#querying-multi-target-exporters-with-prometheus) for a detailed explanation and example configurations of `relabel_configs`.
 
 * `metric_relabel_configs` (metrics relabeling)
 
-    Metrics relabeling is applied to scraped samples right before ingestion. It allows to add / modify or drop labels or even drop entire samples if they match certain criteria.
+  Metrics relabeling is applied to scraped samples right before ingestion. It allows adding, modifying, or dropping labels or even dropping entire samples if they match certain criteria.
 
 * `alert_relabel_configs` (alert relabeling)
-    Similar to `metric_relabel_configs` but applies to outgoing alerts
+
+  Similar to `metric_relabel_configs`, but applies to outgoing alerts.
 
 * `write_relabel_configs` (remote write relabeling)
-    Similar to `metric_relabel_configs` but applies to `remote_write` configurations
+  
+  Similar to `metric_relabel_configs`, but applies to `remote_write` configurations.
