@@ -43,7 +43,7 @@ There are 4 different metric types in Prometheus
 
 ## Explore Prometheus metrics
 
-Open your Prometheus web UI and navigate to the **Graph** menu. You can use the drop-down list to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
+Open your Prometheus [web UI](http://localhost:9090) and navigate to the **Graph** menu. You can use the drop-down list to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
 
 Learn more about:
 

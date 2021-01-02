@@ -7,7 +7,7 @@ sectionnumber: 1
 An increasing number of applications directly instrument a Prometheus metrics endpoint. This enables applications to be scraped by Prometheus out of the box. For all other applications, an additional component (the Prometheus exporter) is needed to close the gap between Prometheus and the application which should be monitored.
 
 {{% alert title="Note" color="primary" %}}
-There are lots of exporters available for many different applications such as MySQL/MariaDB, Nginx, Ceph, etc. Some of these exporters are maintained by the [Prometheus GitHub organization](https://github.com/prometheus?q=exporter) while others are maintained by the community or third-party vendors. Check out the [list of exporters](https://prometheus.io/docs/instrumenting/exporters/) on the Prometheus website for an up-to-date list of exporters.
+There are lots of exporters available for many applications, such as MySQL/MariaDB, Nginx, Ceph, etc. Some of these exporters are maintained by the [Prometheus GitHub organization](https://github.com/prometheus?q=exporter) while others are maintained by the community or third-party vendors. Check out the [list of exporters](https://prometheus.io/docs/instrumenting/exporters/) on the Prometheus website for an up-to-date list of exporters.
 {{% /alert %}}
 
 One example of a Prometheus exporter is the `node_exporter` we configured in the first chapter of this training. This exporter collects information from different files and folders (e.g., `/proc/net/arp`, `/proc/sys/fs/file-nr`, etc.) and uses this information to create the appropriate Prometheus metrics.
@@ -23,7 +23,7 @@ This is a classic example of a multi-target exporter which uses relabeling to pa
 * TCP
 * ICMP
 
-By using the TCP prober you can create custom checks for almost any service including services using STARTTLS. Check out the [example.yml](https://github.com/prometheus/blackbox_exporter/blob/master/example.yml) file in the projects GitHub repository.
+By using the TCP prober you can create custom checks for almost any service including services using STARTTLS. Check out the [example.yml](https://github.com/prometheus/blackbox_exporter/blob/master/example.yml) file in the project's GitHub repository.
 
 
 ## Prometheus Pushgateway

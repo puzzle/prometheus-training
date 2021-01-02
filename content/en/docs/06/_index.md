@@ -5,7 +5,7 @@ sectionnumber: 1
 ---
 
 {{% alert title="Note" color="primary" %}}
-Our Goal with this lab is to give you a brief overview how to visualize your Prometheus time series produced in the previous labs.
+Our goal with this lab is to give you a brief overview how to visualize your Prometheus time series produced in the previous labs.
 For a more detailed tutorial, please refer to the [Grafana tutorials](https://grafana.com/tutorials/).
 {{% /alert %}}
 

@@ -8,9 +8,9 @@ While an exporter is an adapter for your service to adapt a service specific val
 
 ## Client libraries
 
-The Prometheus project provides [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) which are either official or maintained by third-parties. There are libraries for major languages like Java, Go, Python, PHP and even .NET/C#.
+The Prometheus project provides [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) which are either official or maintained by third-parties. There are libraries for major languages like Java, Go, Python, PHP, and .NET/C#.
 
-Even if you don't plan to provide your own metrics, those libraries already export some basic metrics based on the language. For [Java](https://github.com/prometheus/client_java#included-collectors), default metrics about memory management (Heap, garbage collection) and thread pools can be collected. The same applies to [Go](https://prometheus.io/docs/guides/go-application/).
+Even if you don't plan to provide your own metrics, those libraries already export some basic metrics based on the language. For [Java](https://github.com/prometheus/client_java#included-collectors), default metrics about memory management (heap, garbage collection) and thread pools can be collected. The same applies to [Go](https://prometheus.io/docs/guides/go-application/).
 
 {{% alert title="Note" color="primary" %}}
 

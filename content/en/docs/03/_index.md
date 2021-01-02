@@ -24,7 +24,7 @@ Before we can define rules for alerting, we must install Alertmanager by downloa
     ```
 
     {{% alert title="Note" color="primary" %}}
-Binaries for other CPU architectures, such as ARM or other operating systems (darwin, BSD, and even Windows), are available on the release page of Alertmanager: https://github.com/prometheus/alertmanager/releases
+Binaries for other CPU architectures, such as ARM or other operating systems (e.g., Darwin, BSD, Windows) are available on the release page of Alertmanager: <https://github.com/prometheus/alertmanager/releases>
     {{% /alert %}}
 
 1. Extract the archive:
@@ -98,19 +98,19 @@ To run Alertmanager you can simply execute the `alertmanager` binary and point i
 
 1. You should now see Alertmanager starting up with the log line `msg=Listening address=:9093."`. To verify this open your browser and navigate to [http://localhost:9093](http://localhost:9093). You should now see the Alertmanager web UI.
 
-Before moving on, let's make some warm-up [labs for monitoring your Alertmanager](labs/31)
+Before moving on, let's make some warm-up [labs for monitoring your Alertmanager](labs/31).
 
 ## Configuration in Alertmanager
 
-There are two main sections for configuring how Alertmanager is dispatching alerts.
+There are two main sections for configuring how Alertmanager is dispatching alerts: receivers and routing.
 
 ### Receivers
 
-With a [receiver](https://prometheus.io/docs/alerting/latest/configuration/#receiver) one or more notifications can be defined. There are different types of notifications types, e.g. mail, webhook, or one of the message platforms like Slack or PagerDuty.
+With a [receiver](https://prometheus.io/docs/alerting/latest/configuration/#receiver), one or more notifications can be defined. There are different types of notifications types, e.g. mail, webhook, or one of the message platforms like Slack or PagerDuty.
 
 ### Routing
 
-With [routing blocks](https://prometheus.io/docs/alerting/latest/configuration/#route) a tree of routes and child routes can be defined. Each routing block has a matcher which can match one or several labels of an alert. Per block, one receiver can be specified, or if empty, the default receiver is taken.
+With [routing blocks](https://prometheus.io/docs/alerting/latest/configuration/#route), a tree of routes and child routes can be defined. Each routing block has a matcher which can match one or several labels of an alert. Per block, one receiver can be specified, or if empty, the default receiver is taken.
 
 ### amtool
 
@@ -127,7 +127,7 @@ Before we enable Alertmanager in Prometheus, let's do some [labs concerning the 
 
 ## Enable Alertmanager in Prometheus
 
-The Alertmanager instance we installed before must be configured in Prometheus. Open `prometheus.yml`, add the config below, and reload Prometheus config with `killall -HUP prometheus`.
+The Alertmanager instance we installed before must be configured in Prometheus. Open `prometheus.yml`, add the config below, and reload the Prometheus config with `killall -HUP prometheus`.
 
 ```yaml
 # Alertmanager configuration
@@ -140,4 +140,6 @@ alerting:
 
 ## Alert rules in Prometheus
 
-[Prometheus alert rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) are configured very similar to recording rules which you got to know [earlier in this training](/docs/02#recording-rules). The main difference is that the rule's expression contains a threshold (e.g., `query_expression >= 5`) and that an alert is sent to the Alertmanager in case the rule evaluation matches the threshold. An alert rule can be based on a recording rule or be a normal expression query.
+[Prometheus alert rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) are configured very similarly to recording rules which you got to know [earlier in this training](/docs/02#recording-rules). The main difference is that the rule's expression contains a threshold (e.g., `query_expression >= 5`) and that an alert is sent to the Alertmanager in case the rule evaluation matches the threshold. An alert rule can be based on a recording rule or be a normal expression query.
+
+Now it's time for the last [labs concerning alertrules and alerts](labs/33).

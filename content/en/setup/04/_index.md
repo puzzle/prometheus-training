@@ -20,9 +20,7 @@ be used with local virtual machines not reachable from outside
 of the virtualization host.
 {{% /alert %}}
 
-Linux Vagrant setup provides a local
-CentOS virtual machine running under KVM with the
-following IP addresses and credentials.
+The Vagrant setup provides a local CentOS VM with the following IP addresses and credentials.
 
 ```yaml
 control: 192.168.122.60
