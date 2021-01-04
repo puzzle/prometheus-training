@@ -1,7 +1,7 @@
 ---
 title: "CentOS/RHEL Vagrant setup"
 description: "Vagrant installation on CentOS/RHEL Linux"
-weight: 3
+weight: 1
 type: docs
 sectionnumber: 1
 ---

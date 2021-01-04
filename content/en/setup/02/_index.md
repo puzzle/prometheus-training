@@ -1,7 +1,7 @@
 ---
 title: "Debian/Ubuntu Vagrant setup"
 description: "Vagrant installation on Debian/Ubuntu Linux"
-weight: 3
+weight: 2
 type: docs
 sectionnumber: 1
 ---
