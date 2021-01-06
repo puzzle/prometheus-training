@@ -41,7 +41,7 @@ jobs:
           context: .
           file: ./Dockerfile
           build-args: |
-            HUGO_ENV=acend
+            ACEND_HUGO_ENV=acend
           push: false
           tags: |
             puzzle/prometheus-basics-training:acend
