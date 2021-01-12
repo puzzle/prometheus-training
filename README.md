@@ -16,13 +16,13 @@ This site is built using the static page generator [Hugo](https://gohugo.io/).
 The page uses the [docsy theme](https://github.com/google/docsy) which is included as a Git Submodule.
 Docsy is being enhanced using [docsy-plus](https://github.com/puzzle/docsy-plus/) as well as [docsy-puzzle](https://github.com/puzzle/docsy-puzzle/) and [docsy-acend](https://github.com/puzzle/docsy-acend/) for brand specific settings.
 
-After cloning the main repo, you need to initialize the submodule like this:
+After cloning the main repo, you need to initialize the submodules:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-In order to update all submodules runs the following command:
+In order to update all submodules, run the following command:
 
 ```bash
 git pull --recurse-submodules
