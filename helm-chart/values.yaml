@@ -14,7 +14,8 @@ acendTraining:
           kubernetes.io/ingress.class: nginx-public
           kubernetes.io/tls-acme: "true"
         appname: prometheus-training
-        domain: puzzle.ch
+        domainmain: puzzle.ch
+        domain: k8s.puzzle.ch
     - 
       name: acend
       replicaCount: 1
