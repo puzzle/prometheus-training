@@ -39,7 +39,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            puzzle/prometheus-basics-training:pr-${{ github.event.pull_request.number }}
+            quay.io/puzzle/prometheus-basics-training:pr-${{ github.event.pull_request.number }}
       - 
         name: Build Acend Version
         uses: docker/build-push-action@v2
@@ -50,7 +50,7 @@ jobs:
             ACEND_HUGO_ENV=acend
           push: true
           tags: |
-            puzzle/prometheus-basics-training:pr-${{ github.event.pull_request.number }}-acend
+            quay.io/puzzle/prometheus-basics-training:pr-${{ github.event.pull_request.number }}-acend
       - 
         name: 'Deploy'
         uses: 'deliverybot/helm@v1'
