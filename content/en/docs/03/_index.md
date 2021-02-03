@@ -41,11 +41,11 @@ Binaries for other CPU architectures, such as ARM or other operating systems (e.
 
        This is the Alertmanager binary.
 
-    * **amtool**
+    * `amtool`
 
       This is a useful tool which can be used for debugging, testing, silencing, and other tasks related to Alertmanager.
 
-    * **alertmanager.yml**
+    * `alertmanager.yml`
 
       This is the configuration file of Alertmanager. More on that in the next section.
 
