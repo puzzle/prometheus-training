@@ -123,6 +123,8 @@ To run Prometheus, you can simply execute the `prometheus` binary and define whe
 {{% alert title="Note" color="primary" %}}
 If you use the provided Vagrant setup then ports 9090 (Prometheus), 9093 (Alertmanager), and 3000 (Grafana) are forwarded to the VM where Prometheus is running.
 Check out the Vagrantfile for details.
+
+If you got another VM you may need to change `localhost` with the IP-Adress of your machine.
 {{% /alert %}}
 
 
@@ -189,5 +191,5 @@ There are four types of relabelings:
   Alert relabeling is similar to `metric_relabel_configs`, but applies to outgoing alerts.
 
 * `write_relabel_configs` (remote write relabeling)
-  
+
   Remote write relabeling is similar to `metric_relabel_configs`, but applies to `remote_write` configurations.

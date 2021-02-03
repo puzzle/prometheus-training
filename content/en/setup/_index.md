@@ -16,6 +16,6 @@ environment up and running in a matter of minutes.
 Follow the instructions on the subsequent pages to complete
 the setup on your platform of choice.
 
-Currently a setup guide for Linux and Windows exists.
+Currently a setup guide for Linux, macOS and Windows exists.
 
 [vagrantfile]: https://raw.githubusercontent.com/puzzle/prometheus-labs/main/Vagrantfile
