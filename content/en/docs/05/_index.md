@@ -129,7 +129,7 @@ Verify the metrics endpoint in a different terminal:
 curl http://localhost:8080/actuator/prometheus
 ```
 
-expected result should look similar to
+Expected result should look similar to
 
 ```
 # HELP jvm_gc_memory_promoted_bytes_total Count of positive increases in the size of the old generation memory pool before GC to after GC
