@@ -15,7 +15,7 @@ Even if you don't plan to provide your own metrics, those libraries already expo
 
 ### Spring Boot Example Instrumentation
 
-Using the [micrometer metrics facade](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) in Spring Boot Applications let's us collect all sort of metrics within a Spring Boot application. Those metrics can be exported for prometheus to scrape by a few additional dependencies and configuration.
+Using the [micrometer metrics facade](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) in Spring Boot Applications lets us collect all sort of metrics within a Spring Boot application. Those metrics can be exported for Prometheus to scrape by a few additional dependencies and configuration.
 
 Let's have a deeper look at how the instrumentation of a Spring Boot application works.
 
