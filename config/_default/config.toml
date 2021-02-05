@@ -66,6 +66,7 @@ url = "https://www.puzzle.ch"
 [params]
 copyright = "Puzzle ITC GmbH"
 github_repo = "https://github.com/puzzle/prometheus-labs"
+github_branch = "main"
 imagePrefix = "puzzle_"
 
 # Enable Lunr.js offline search
