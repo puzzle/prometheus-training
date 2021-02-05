@@ -4,7 +4,7 @@
 $script = <<-SCRIPT
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart sshd
-yum install -y wget vim psmisc
+yum install -y wget vim psmisc java-11-openjdk-devel
 SCRIPT
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt do |v|
