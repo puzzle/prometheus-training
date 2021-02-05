@@ -49,7 +49,7 @@ To make the application collect metrics and provide a Prometheus endpoint we now
             <scope>runtime</scope>
         </dependency>
 ```
-your `pom.xml` should look like this now.
+Your `pom.xml` should look like this now.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
