@@ -36,7 +36,7 @@ Change into the freshly cloned git repository
 cd prometheus-training-spring-boot-example
 ```
 
-To make the application collect metrics and provide a prometheus endpoint we now need to simply add the following two dependencies in the `pom.xml` file, where it says `<!-- Add Dependencies here-->`:
+To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `pom.xml` file, where it says `<!-- Add Dependencies here-->`:
 
 ```xml
         <dependency>
