@@ -12,10 +12,135 @@ The Prometheus project provides [client libraries](https://prometheus.io/docs/in
 
 Even if you don't plan to provide your own metrics, those libraries already export some basic metrics based on the language. For [Java](https://github.com/prometheus/client_java#included-collectors), default metrics about memory management (heap, garbage collection) and thread pools can be collected. The same applies to [Go](https://prometheus.io/docs/guides/go-application/).
 
-{{% alert title="Note" color="primary" %}}
 
-Just a short mention of the Spring Framework as it is very popular in application development. The framework also supports [exporting metrics](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) in the Prometheus data format.
-{{% /alert %}}
+### Spring Boot Example Instrumentation
+
+Using the [micrometer metrics facade](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) in Spring Boot Applications lets us collect all sort of metrics within a Spring Boot application. Those metrics can be exported for Prometheus to scrape by a few additional dependencies and configuration.
+
+Let's have a deeper look at how the instrumentation of a Spring Boot application works.
+
+Create the following directory and change into it:
+
+```bash
+mkdir -p ~/spring-boot && cd ~/spring-boot
+```
+
+Now clone the empty Spring Boot example git repository
+
+```bash
+git clone https://github.com/acend/prometheus-training-spring-boot-example.git
+```
+
+Change into the freshly cloned git repository
+```bash
+cd prometheus-training-spring-boot-example
+```
+
+To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `pom.xml` file, where it says `<!-- Add Dependencies here-->`:
+
+```xml
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+```
+Your `pom.xml` should look like this now.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>ch.acend</groupId>
+    <artifactId>prometheus-training-spring-boot-example</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>prometheus-training-spring-boot-example</name>
+    <description>This is the acend prometheus instrumentation example</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+```
+
+Additionally to those dependencies we also need to configure the metrics endpoints to be exposed.
+
+Add the following line to the file `src/main/resources/application.properties`
+
+```
+management.endpoints.web.exposure.include=prometheus,health,info,metric
+```
+
+Build the Spring Boot application:
+
+```bash
+./mvnw clean package
+```
+
+After the successful build, you can start the Application:
+
+```bash
+java -jar target/prometheus-training-spring-boot-example-0.0.1-SNAPSHOT.jar
+```
+
+Verify the metrics endpoint in a different terminal:
+
+```bash
+curl http://localhost:8080/actuator/prometheus
+```
+
+Expected result should look similar to
+
+```
+# HELP jvm_gc_memory_promoted_bytes_total Count of positive increases in the size of the old generation memory pool before GC to after GC
+# TYPE jvm_gc_memory_promoted_bytes_total counter
+jvm_gc_memory_promoted_bytes_total 1621496.0
+# HELP tomcat_sessions_active_max_sessions  
+# TYPE tomcat_sessions_active_max_sessions gauge
+tomcat_sessions_active_max_sessions 0.0
+...
+```
+
 
 ## Specifications and conventions
 
