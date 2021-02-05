@@ -189,5 +189,5 @@ There are four types of relabelings:
   Alert relabeling is similar to `metric_relabel_configs`, but applies to outgoing alerts.
 
 * `write_relabel_configs` (remote write relabeling)
-  
+
   Remote write relabeling is similar to `metric_relabel_configs`, but applies to `remote_write` configurations.
