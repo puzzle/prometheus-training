@@ -68,6 +68,7 @@ copyright = "Puzzle ITC GmbH"
 github_repo = "https://github.com/puzzle/prometheus-labs"
 github_branch = "main"
 imagePrefix = "puzzle_"
+enabledModule = "base"
 
 # Enable Lunr.js offline search
 offlineSearch = true
