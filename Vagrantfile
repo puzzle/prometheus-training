@@ -2,9 +2,6 @@
 # vi: set ft=ruby :
 # ensure SSH password login
 $script = <<-SCRIPT
-sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-systemctl restart sshd
-dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -14,14 +11,12 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-yum update -y
-yum install -y kubectl docker-ce wget vim git psmisc
-systemctl enable docker
-systemctl start docker
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y kubectl docker-ce wget vim git psmisc wget vim psmisc java-11-openjdk-devel gcc gcc-c++ sqlite-devel ruby-devel redhat-rpm-config make
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 usermod -aG docker vagrant
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-yum install -y wget vim psmisc java-11-openjdk-devel gcc gcc-c++ sqlite-devel ruby-devel redhat-rpm-config make
+install minikube-linux-amd64 /usr/local/bin/minikube
 gem install mailcatcher -v 0.7.1
 cat <<EOF > /etc/systemd/system/mailcatcher.service
 [Unit]
@@ -35,15 +30,18 @@ ExecStart=/usr/local/bin/mailcatcher --foreground --ip 0.0.0.0
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl daemon-reload
-systemctl enable mailcatcher
-systemctl start mailcatcher
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo systemctl restart sshd
+sudo systemctl daemon-reload
+sudo systemctl enable mailcatcher
+sudo systemctl start mailcatcher
 SCRIPT
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt do |v|
     v.qemu_use_session = false
     v.cpus = 2
-    v.memory = 6144
+    v.memory = 7168
   end
   config.vm.define "prometheus" do |prometheus|
     prometheus.vm.box = "centos/8"

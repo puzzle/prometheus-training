@@ -6,6 +6,10 @@ sectionnumber: 1
 
 ## Installation
 
+{{% alert title="Note" color="primary" %}}
+When running the Vagrant setup, make sure you have at least 16Gi on your local machine to run the following Kubernetes setup.
+{{% /alert %}}
+
 We will use minikube to start a minimal Kubernetes environment.
 
 ```bash
@@ -22,20 +26,20 @@ minikube start \
 minikube addons disable metrics-server
 ```
 
-Check if you can connect to the API and see the Minikube master node.
+Check if you can connect to the API and see the minikube master node.
 ```bash
 kubectl get nodes
 NAME       STATUS   ROLES    AGE     VERSION
 minikube   Ready    master   4m15s   v1.19.4
 ```
 
-Clone the kube-prometheus repository and create the provided manifest. These will deploy a complete monitoring stack, consisting of:
+Clone the kube-prometheus repository and create the provided manifest. These will deploy a complete monitoring stack consisting of:
 
 * Two Prometheus replicas
 * Alertmanager cluster
 * Grafana
 * kube-state metrics
-* node exporter
+* node_exporter
 * A set of default PrometheusRules
 * A set of default dashboards
 
@@ -46,6 +50,7 @@ until kubectl get servicemonitors --all-namespaces ; do date; sleep 1; echo ""; 
 kubectl create -f manifests/
 ```
 
+Check if you can access the monitoring stack user interfaces
 ```bash
 watch kubectl -n monitoring get pods
 kubectl -n monitoring port-forward --address=0.0.0.0 svc/prometheus-k8s 9090
