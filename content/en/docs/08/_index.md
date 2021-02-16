@@ -2,6 +2,7 @@
 title: "8. Prometheus in Kubernetes"
 weight: 1
 sectionnumber: 1
+onlyWhen: promOnK8s
 ---
 
 ## Installation
