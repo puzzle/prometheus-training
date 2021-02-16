@@ -6,4 +6,3 @@ menu:
     weight: 1
 ---
 
-## Lab Introduction

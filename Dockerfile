@@ -1,20 +1,16 @@
-ARG HUGO_VERSION=0.76.5
+FROM klakegg/hugo:0.80.0-ext-ubuntu AS builder
 
-FROM acend/hugo:${HUGO_VERSION} AS builder
+ARG ACEND_HUGO_ENV=default
 
-EXPOSE 8080
+COPY . /src
 
-RUN mkdir -p /opt/app/src/static && \
-    chmod -R og+rwx /opt/app
-
-WORKDIR /opt/app/src
-
-COPY . /opt/app/src
-
-RUN npm install -D --save autoprefixer postcss postcss-cli
-
-RUN hugo --theme ${HUGO_THEME:-docsy} --minify
+RUN hugo --environment ${ACEND_HUGO_ENV} --minify
 
 FROM nginxinc/nginx-unprivileged:alpine
 
-COPY --from=builder  /opt/app/src/public /usr/share/nginx/html
+# prevent nginx from adding ports in redirects
+USER root
+RUN sed -i '/^http {/a \    port_in_redirect off;' /etc/nginx/nginx.conf
+USER 101
+
+COPY --from=builder /src/public /usr/share/nginx/html
