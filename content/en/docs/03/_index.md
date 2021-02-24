@@ -13,8 +13,7 @@ Before we can define rules for alerting, we must install Alertmanager by downloa
 1. Create a working directory where we will download and extract Alertmanager. Open a new terminal, navigate to your home directory, and create a new directory called `alertmanager`:
 
     ```bash
-    mkdir ~/alertmanager
-    cd ~/alertmanager
+    cd ~/downloads
     ```
 
 1. Download Alertmanager:
@@ -30,7 +29,7 @@ Binaries for other CPU architectures, such as ARM or other operating systems (e.
 1. Extract the archive:
 
     ```bash
-    tar fvxz alertmanager-0.21.0.linux-amd64.tar.gz
+    tar fvxz alertmanager-0.21.0.linux-amd64.tar.gz -C ~/work
     ```
 
 1. Examine the contents of the tarball
@@ -87,7 +86,7 @@ To run Alertmanager you can simply execute the `alertmanager` binary and point i
 1. Open a new terminal and navigate to the extracted Alertmanager folder:
 
     ```bash
-    cd ~/alertmanager/alertmanager-0.21.0.linux-amd64
+    cd ~/work/alertmanager-0.21.0.linux-amd64/
     ```
 
 1. Start Alertmanager by executing the binary:
