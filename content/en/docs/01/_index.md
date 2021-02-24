@@ -10,11 +10,11 @@ sectionnumber: 1
 
 Let's begin with the installation of Prometheus by downloading and extracting the Prometheus binary.
 
-1. Create a working directory where we will download and extract Prometheus. Open a new terminal, navigate to your home directory and create a new directory called `prometheus`:
+1. Open a new terminal, navigate to your home directory and create the directories `work` and `downloads`:
 
     ```bash
-    mkdir ~/prometheus
-    cd ~/prometheus
+    mkdir ~/{work,downloads}
+    cd ~/downloads
     ```
 
 
@@ -28,10 +28,10 @@ Let's begin with the installation of Prometheus by downloading and extracting th
 Binaries for other CPU architectures such as ARM or other operating systems (e.g., Darwin, BSD, Windows) are available on the release page of Prometheus: <https://github.com/prometheus/prometheus/releases>
     {{% /alert %}}
 
-1. Extract the archive:
+1. Extract the archive to the work folder:
 
     ```bash
-    tar fvxz prometheus-2.22.2.linux-amd64.tar.gz
+    tar fvxz prometheus-2.22.2.linux-amd64.tar.gz -C ~/work
     ```
 
 1. Examine the contents of the tarball:
@@ -111,7 +111,7 @@ To run Prometheus, you can simply execute the `prometheus` binary and define whe
 1. Open a new terminal and navigate to the extracted Prometheus folder:
 
     ```bash
-    cd ~/prometheus/prometheus-2.22.2.linux-amd64
+    cd ~/work/prometheus-2.22.2.linux-amd64
     ```
 1. Start Prometheus by executing the binary:
 

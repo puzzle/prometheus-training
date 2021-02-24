@@ -19,15 +19,10 @@ Using the [micrometer metrics facade](https://spring.io/blog/2018/03/16/micromet
 
 Let's have a deeper look at how the instrumentation of a Spring Boot application works.
 
-Create the following directory and change into it:
+Change to the downloads directory and clone the empty Spring Boot example git repository
 
 ```bash
-mkdir -p ~/spring-boot && cd ~/spring-boot
-```
-
-Now clone the empty Spring Boot example git repository
-
-```bash
+cd ~/downloads
 git clone https://github.com/acend/prometheus-training-spring-boot-example.git
 ```
 
