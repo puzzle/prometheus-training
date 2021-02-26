@@ -102,7 +102,7 @@ Additionally to those dependencies we also need to configure the metrics endpoin
 
 Add the following line to the file `src/main/resources/application.properties`
 
-```
+```properties
 management.endpoints.web.exposure.include=prometheus,health,info,metric
 ```
 
