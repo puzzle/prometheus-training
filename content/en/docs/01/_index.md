@@ -168,7 +168,7 @@ In this example, Prometheus will lookup a list of targets in the file `/etc/prom
 
 ## Relabeling (advanced)
 
-Relabeling in Prometheus can be used to perform numerous tasks using regular expressions, such as
+[Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) in Prometheus can be used to perform numerous tasks using regular expressions, such as
 
 * adding, modifying or removing labels to/from metrics or alerts,
 * filtering metrics based on labels, or
