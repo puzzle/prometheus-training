@@ -144,7 +144,7 @@ In this case, the Prometheus configuration file contains a static list of target
 
 ```yaml
 scrape_configs:
-  - job_name: 'prometheus' # this is a minimal example of a job definition containing the job_name and a target configuration
+  - job_name: 'example-job' # this is a minimal example of a job definition containing the job_name and a target configuration
     static_configs:
     - targets:
       - server1:8080
@@ -168,7 +168,7 @@ In this example, Prometheus will lookup a list of targets in the file `/etc/prom
 
 ## Relabeling (advanced)
 
-Relabeling in Prometheus can be used to perform numerous tasks using regular expressions, such as
+[Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) in Prometheus can be used to perform numerous tasks using regular expressions, such as
 
 * adding, modifying or removing labels to/from metrics or alerts,
 * filtering metrics based on labels, or
