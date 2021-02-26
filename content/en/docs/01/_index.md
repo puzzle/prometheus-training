@@ -144,7 +144,7 @@ In this case, the Prometheus configuration file contains a static list of target
 
 ```yaml
 scrape_configs:
-  - job_name: 'prometheus' # this is a minimal example of a job definition containing the job_name and a target configuration
+  - job_name: 'example-job' # this is a minimal example of a job definition containing the job_name and a target configuration
     static_configs:
     - targets:
       - server1:8080
