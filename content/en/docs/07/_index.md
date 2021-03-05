@@ -2,16 +2,21 @@
 title: "7. Prometheus in Kubernetes"
 weight: 1
 sectionnumber: 1
-#onlyWhen: promOnK8s
+onlyWhen: promOnK8s
 ---
 
 ## Prometheus in Kubernetes
 
 {{% alert title="Note" color="primary" %}}
-When running the Vagrant setup, make sure you have at least 16Gi on your local machine to run the following Kubernetes setup.
+When running the Vagrant setup, make sure you have at least 16Gi on your local machine to run the Prometheus Kubernetes setup.
 {{% /alert %}}
 
-We will use minikube to start a minimal Kubernetes environment. <https://github.com/prometheus-operator/kube-prometheus#minikube>
+{{% alert title="Note" color="primary" %}}
+If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+FIXME: Add handout?
+{{% /alert %}}
+
+We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. <https://github.com/prometheus-operator/kube-prometheus#minikube>
 
 ```bash
 minikube start \
@@ -25,12 +30,11 @@ minikube start \
 --extra-config=controller-manager.address=0.0.0.0
 ```
 
-The kube-prometheus stack includes a resource metrics API server, so the metrics-server addon is not necessary. Ensure the metrics-server addon is disabled on minikube
+The kube-prometheus stack includes a resource metrics API server, so the [metrics-server](https://github.com/kubernetes-sigs/metrics-server) addon is not necessary. Ensure the metrics-server addon is disabled on minikube
 
 ```bash
 minikube addons disable metrics-server
 ```
-
 Check if you can connect to the API and see the minikube master node.
 ```bash
 kubectl get nodes
@@ -38,41 +42,42 @@ NAME       STATUS   ROLES    AGE     VERSION
 minikube   Ready    master   4m15s   v1.19.4
 ```
 
-Deploy the Prometheus Operator stack consisting of:
-* Prometheus Operator deployment
-* Prometheus Operator clusterrole and clusterrolebindings
-* Custom Resource Definitions
+Deploy the Prometheus operator stack, consisting of:
+
+* Prometheus Operator [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+* Prometheus Operator [ClusterRole and ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)
+* CustomResourceDefinitions
   * `prometheuses`
- 
-     Manage your Prometheus instances
- 
+
+    Lets you manage the Prometheus instances
+
   * `alertmanagers`
- 
-    Manage your alertmanager instances
- 
+
+    Lets you manage the Alertmanager instances
+
   * `servicemonitors`
- 
-    Generates kubernetes service discovery scrape configuration based on Kubernetes service definitions
- 
+
+    Generate kubernetes service discovery scrape configuration based on Kubernetes [service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions
+
   * `prometheusrules`
- 
-    Add Prometheus rules to your prometheus
- 
+
+    Lets you manage the Prometheus rules to your Prometheus
+
   * `alertmanagerconfigs`
- 
-    Add additional receivers and routes to your existing alertmanager configuration
- 
+
+    Add additional receivers and routes to your existing Alertmanager configuration
+
   * `podmonitors`
- 
-    Generates kubernetes service discovery scrape configuration based on Kubernetes pod definitions
- 
+
+    Generates Kubernetes service discovery scrape configuration based on Kubernetes pod definitions
+
   * `probes`
- 
+
     First class custom resource to manager blackbox targets
- 
+
   * `thanosrulers`
- 
-    Manage thanos rulers
+
+    Manage [Thanos rulers](https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md)
 
 ```bash
 git clone https://github.com/prometheus-operator/kube-prometheus.git ~/work/kube-prometheus
@@ -82,10 +87,10 @@ kubectl create -f manifests/setup
 
 The manifest will deploy a complete monitoring stack consisting of:
 
-* Two Prometheus replicas
+* Two Prometheus
 * Alertmanager cluster
 * Grafana
-* kube-state metrics
+* kube-state metrics exporter
 * node_exporter
 * A set of default PrometheusRules
 * A set of default dashboards
@@ -95,13 +100,37 @@ The manifest will deploy a complete monitoring stack consisting of:
 kubectl create -f manifests/
 ```
 
-Check if you can access the monitoring stack user interfaces
+Wait until all pods are running
 
-
-FIXME: nodeport
 ```bash
 watch kubectl -n monitoring get pods
-kubectl -n monitoring port-forward --address=0.0.0.0 svc/prometheus-k8s 9090
-kubectl -n monitoring port-forward --address=0.0.0.0 svc/grafana 3000
-kubectl -n monitoring port-forward --address=0.0.0.0 svc/alertmanager-main 9093
+```
+
+Check if you can access the Prometheus web interface
+
+```bash
+kubectl -n monitoring port-forward --address=0.0.0.0 svc/prometheus-k8s 19090:9090
+```
+
+{{% alert title="Note" color="primary" %}}
+Explanation: [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) will expose your service the specified port on your Virtual Machine. After exposing the port, you should be able to access the Prometheus web interface at `localhost:19090`
+{{% /alert %}}
+
+Check access to Alertmanager
+
+```bash
+kubectl -n monitoring port-forward --address=0.0.0.0 svc/alertmanager-main 19093:9093
+```
+
+Check access to Grafana
+{{% alert title="Note" color="primary" %}}
+Use default Grafana loging credentials
+
+* username: admin
+* password: admin
+
+{{% /alert %}}
+
+```bash
+kubectl -n monitoring port-forward --address=0.0.0.0 svc/grafana 13000:3000
 ```
