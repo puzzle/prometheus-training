@@ -109,17 +109,17 @@ watch kubectl -n monitoring get pods
 Check if you can access the Prometheus web interface
 
 ```bash
-kubectl -n monitoring port-forward --address=0.0.0.0 svc/prometheus-k8s 19090:9090
+kubectl -n monitoring port-forward --address=0.0.0.0 svc/prometheus-k8s 19090:9090 &
 ```
 
 {{% alert title="Note" color="primary" %}}
-Explanation: [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) will expose your service the specified port on your Virtual Machine. After exposing the port, you should be able to access the Prometheus web interface at `localhost:19090`
+Explanation: [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) will expose your service the specified port on your Virtual Machine. After exposing the port, you should be able to access the Prometheus web interface at `localhost:19090`. If you restart your Virtual Machine, you need to expose the port anew
 {{% /alert %}}
 
 Check access to Alertmanager
 
 ```bash
-kubectl -n monitoring port-forward --address=0.0.0.0 svc/alertmanager-main 19093:9093
+kubectl -n monitoring port-forward --address=0.0.0.0 svc/alertmanager-main 19093:9093 &
 ```
 
 Check access to Grafana
@@ -132,5 +132,5 @@ Use default Grafana loging credentials
 {{% /alert %}}
 
 ```bash
-kubectl -n monitoring port-forward --address=0.0.0.0 svc/grafana 13000:3000
+kubectl -n monitoring port-forward --address=0.0.0.0 svc/grafana 13000:3000 &
 ```
