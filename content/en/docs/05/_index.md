@@ -115,13 +115,13 @@ Build the Spring Boot application:
 After the successful build, you can start the Application:
 
 ```bash
-java -jar target/prometheus-training-spring-boot-example-0.0.1-SNAPSHOT.jar
+java -jar -Dserver.port=8083 target/prometheus-training-spring-boot-example-0.0.1-SNAPSHOT.jar
 ```
 
 Verify the metrics endpoint in a different terminal:
 
 ```bash
-curl http://localhost:8080/actuator/prometheus
+curl http://localhost:8083/actuator/prometheus
 ```
 
 Expected result should look similar to
@@ -143,7 +143,7 @@ There are some guidelines and best practices how to name your own metrics. Of co
 
 Following these principles is not (yet) a must, but it helps to understand and interpret your metrics.
 
-You can check your metrics by using the following `promtool` command: `curl -s http://localhost:8080/actuator/prometheus | ~/work/prometheus-2.22.2.linux-amd64/promtool check metrics`
+You can check your metrics by using the following `promtool` command: `curl -s http://localhost:8083/actuator/prometheus | ~/work/prometheus-2.22.2.linux-amd64/promtool check metrics`
 
 ## Best practices
 
