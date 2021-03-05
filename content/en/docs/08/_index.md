@@ -2,6 +2,7 @@
 title: "8. Prometheus in Kubernetes App Monitoring"
 weight: 1
 sectionnumber: 8
+onlyWhen: promOnK8s
 ---
 
 
