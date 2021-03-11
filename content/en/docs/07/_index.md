@@ -47,37 +47,37 @@ Deploy the Prometheus operator stack, consisting of:
 * Prometheus Operator [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 * Prometheus Operator [ClusterRole and ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)
 * CustomResourceDefinitions
-  * `prometheuses`
+  * [Prometheus](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#prometheus)
 
     Lets you manage the Prometheus instances
 
-  * `alertmanagers`
+  * [Alertmanager](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#alertmanager)
 
     Lets you manage the Alertmanager instances
 
-  * `servicemonitors`
+  * [ServiceMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#servicemonitor)
 
     Generate kubernetes service discovery scrape configuration based on Kubernetes [service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions
 
-  * `prometheusrules`
+  * [PrometheusRule](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#prometheusrule)
 
     Lets you manage the Prometheus rules to your Prometheus
 
-  * `alertmanagerconfigs`
+  * [AlertmanagerConfig](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#alertmanagerconfig)
 
     Add additional receivers and routes to your existing Alertmanager configuration
 
-  * `podmonitors`
+  * [PodMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#podmonitor)
 
     Generates Kubernetes service discovery scrape configuration based on Kubernetes pod definitions
 
-  * `probes`
+  * [Probe](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#probe)
 
     First class custom resource to manager blackbox targets
 
-  * `thanosrulers`
+  * [ThanosRuler](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#thanosruler)
 
-    Manage [Thanos rulers](https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md)
+    Manages [Thanos rulers](https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md)
 
 ```bash
 git clone https://github.com/prometheus-operator/kube-prometheus.git ~/work/kube-prometheus
@@ -113,7 +113,7 @@ kubectl -n monitoring port-forward --address=0.0.0.0 svc/prometheus-k8s 19090:90
 ```
 
 {{% alert title="Note" color="primary" %}}
-Explanation: [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) will expose your service the specified port on your Virtual Machine. After exposing the port, you should be able to access the Prometheus web interface at `localhost:19090`. If you restart your Virtual Machine, you need to expose the port anew
+Explanation: [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) will expose your service at the specified port on your virtual machine. After exposing the port, you should be able to access the Prometheus web interface at `localhost:19090`. If you restart your virtual machine, you need to expose the port anew.
 {{% /alert %}}
 
 Check access to Alertmanager

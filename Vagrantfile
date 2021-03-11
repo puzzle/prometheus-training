@@ -13,6 +13,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cl
 EOF
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y kubectl docker-ce wget vim git psmisc wget vim psmisc java-11-openjdk-devel gcc gcc-c++ sqlite-devel ruby-devel redhat-rpm-config make
+kubectl completion bash >/etc/bash_completion.d/kubectl
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 usermod -aG docker vagrant
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
