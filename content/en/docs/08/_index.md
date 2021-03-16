@@ -90,7 +90,7 @@ python_gc_objects_collected_total{generation="2"} 15.0
 ...
 ```
 
-Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our prometheus server to scrape the kubernetes deployment. In a highly dynamic environemnt like Kuberentes this is done with so called Service Discovery.
+Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our prometheus server to scrape the kubernetes deployment. In a highly dynamic environment like Kubernetes this is done with so called Service Discovery.
 
 ## Service Discovery
 
