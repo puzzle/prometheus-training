@@ -94,7 +94,7 @@ Since our newly deployed application now exposes metrics, the next thing we need
 
 ## Service Discovery
 
-When configuring Prometheus to scrape metrics from Services, Endpoints, Deployments and Pods deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be way to static and won't really work in a highly dynamic environment. Instead it makes sense to use a similar concept, like we used in [lab 1 - file discovery](../01/).
+When configuring Prometheus to scrape metrics from Services, Endpoints, Deployments and Pods deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be way to static and won't really work in a highly dynamic environment. Instead it makes sense to use a similar concept, like we used in [Lab 1 - Dynamic configuration](../01/#dynamic-configuration).
 
 In fact we actually integrate Prometheus with Kubernetes tightly and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
 
