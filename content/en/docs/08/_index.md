@@ -100,7 +100,7 @@ In fact we actually integrate Prometheus with Kubernetes tightly and let Prometh
 
 The tight integration between Prometheus and Kubernetes can be configured with the [Kubernetes Service Discovery Config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
 
-If we now want to tell prometheus to scrape our application metrics from the example application, we can create a so called Servicemonitor.
+If we now want to tell prometheus to scrape our application metrics from the example application, we can create a so called ServiceMonitor.
 
 ServiceMonitors are custom Kubernetes resources, which basically represent the scrape_config and look like this:
 
