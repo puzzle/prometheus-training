@@ -15,7 +15,7 @@ When running applications in production, a fast feedback loop is a key factor. T
 * To take business and architectural decisions
 * Metrics can also help to decide when to scale applications
 
-As we saw in [lab 5 Instrumenting with client libraries](../05/) Application Metrics (e.g. Request Count on a specific URL, gc metrics, or even Custom Metrics and many more), application metrics are collected within the application. There are a lot of frameworks and client libraries available, which integrate nicely into different application stacks.
+As we saw in [Lab 5 - Instrumenting with client libraries](../05/) Application Metrics (e.g. Request Count on a specific URL, gc metrics, or even Custom Metrics and many more), application metrics are collected within the application. There are a lot of frameworks and client libraries available, which integrate nicely into different application stacks.
 
 The instrumented application provides prometheus scrapable application metrics.
 
@@ -90,17 +90,17 @@ python_gc_objects_collected_total{generation="2"} 15.0
 ...
 ```
 
-Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our prometheus server to scrape the kubernetes deployment. In a highly dynamic environemnt like Kuberentes this is done with so called Service Discovery.
+Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our prometheus server to scrape the kubernetes deployment. In a highly dynamic environment like Kubernetes this is done with so called Service Discovery.
 
 ## Service Discovery
 
-When configuring Prometheus to scrape metrics from Services, Endpoints, Deployments and Pods deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be way to static and won't really work in a highly dynamic environment. Instead it makes sense to use a similar concept, like we used in [lab 1 - file discovery](../01/).
+When configuring Prometheus to scrape metrics from Services, Endpoints, Deployments and Pods deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be way to static and won't really work in a highly dynamic environment. Instead it makes sense to use a similar concept, like we used in [Lab 1 - Dynamic configuration](../01/#dynamic-configuration).
 
 In fact we actually integrate Prometheus with Kubernetes tightly and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
 
 The tight integration between Prometheus and Kubernetes can be configured with the [Kubernetes Service Discovery Config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
 
-If we now want to tell prometheus to scrape our application metrics from the example application, we can create a so called Servicemonitor.
+If we now want to tell prometheus to scrape our application metrics from the example application, we can create a so called ServiceMonitor.
 
 ServiceMonitors are custom Kubernetes resources, which basically represent the scrape_config and look like this:
 
