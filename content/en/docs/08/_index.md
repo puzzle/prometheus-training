@@ -15,7 +15,7 @@ When running applications in production, a fast feedback loop is a key factor. T
 * To take business and architectural decisions
 * Metrics can also help to decide when to scale applications
 
-As we saw in [lab 5 Instrumenting with client libraries](../05/) Application Metrics (e.g. Request Count on a specific URL, gc metrics, or even Custom Metrics and many more), application metrics are collected within the application. There are a lot of frameworks and client libraries available, which integrate nicely into different application stacks.
+As we saw in [Lab 5 - Instrumenting with client libraries](../05/) Application Metrics (e.g. Request Count on a specific URL, gc metrics, or even Custom Metrics and many more), application metrics are collected within the application. There are a lot of frameworks and client libraries available, which integrate nicely into different application stacks.
 
 The instrumented application provides prometheus scrapable application metrics.
 
