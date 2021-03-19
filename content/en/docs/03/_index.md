@@ -95,7 +95,7 @@ To run Alertmanager you can simply execute the `alertmanager` binary and point i
     ./alertmanager --config.file=alertmanager.yml &
     ```
 
-1. You should now see Alertmanager starting up with the log line `msg=Listening address=:9093."`. To verify this open your browser and navigate to [http://localhost:9093](http://localhost:9093). You should now see the Alertmanager web UI.
+1. You should now see Alertmanager starting up with the log line `msg=Listening address=:9093."`. To verify this open your browser and navigate to [http://LOCALHOST:9093](http://LOCALHOST:9093). You should now see the Alertmanager web UI.
 
 Before moving on, let's make some warm-up [labs for monitoring your Alertmanager](labs/31).
 
