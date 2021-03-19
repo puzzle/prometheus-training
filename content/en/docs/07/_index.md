@@ -7,12 +7,13 @@ sectionnumber: 1
 ## Prometheus in Kubernetes
 
 {{% alert title="Note" color="primary" %}}
-When running the Vagrant setup, make sure you have at least 16Gi on your local machine to run the Prometheus Kubernetes setup.
-
-If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+When running the [Vagrant](https://prometheus-training.puzzle.ch/setup/) setup, make sure you have at least 16Gi on your local machine to run the Prometheus Kubernetes setup.
 {{% /alert %}}
 
-We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. <https://github.com/prometheus-operator/kube-prometheus#minikube>
+We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
+{{% alert title="Note" color="primary" %}}
+Minikube is already started and configured. When you restart your virtual machine, you might need to start it manually.
 
 ```bash
 minikube start \
@@ -26,12 +27,10 @@ minikube start \
 --extra-config=controller-manager.address=0.0.0.0
 ```
 
-The kube-prometheus stack includes a resource metrics API server, so the [metrics-server](https://github.com/kubernetes-sigs/metrics-server) addon is not necessary. Ensure the metrics-server addon is disabled on minikube.
+{{% /alert %}}
 
-```bash
-minikube addons disable metrics-server
-```
 Check if you can connect to the API and verify the minikube master node is in `ready` state.
+
 ```bash
 kubectl get nodes
 NAME       STATUS   ROLES    AGE     VERSION
@@ -60,7 +59,7 @@ kubectl create -f manifests/setup
 
 The manifest will deploy a complete monitoring stack consisting of:
 
-* Two Prometheus
+* Two Prometheis
 * Alertmanager cluster
 * Grafana
 * kube-state metrics exporter
@@ -73,49 +72,11 @@ The manifest will deploy a complete monitoring stack consisting of:
 kubectl create -f manifests/
 ```
 
-By default, Prometheus is only allowed to monitor the `default`, `monitoring` and `kube-system` namespaces. Therefore we will add the necessary ClusterRoleBinding to grant Prometheus access to cluster-wide resources.
+By default, Prometheus is only allowed to monitor the `default`, `monitoring` and `kube-system` namespaces. Therefore we will add the necessary ClusterRoleBinding to grant Prometheus access to cluster-wide resources. Also we will create the needed ingress definitions for you, which will expose the monitoring components.
 
 ```bash
-cat <<EOF > ~/work/prometheus-cluster-role.yml
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: prometheus-k8s-config
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: prometheus-k8s-config
-subjects:
-  - kind: ServiceAccount
-    name: prometheus-k8s
-    namespace: monitoring
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: prometheus-k8s-config
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - services
-      - endpoints
-      - pods
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - extensions
-    resources:
-      - ingresses
-    verbs:
-      - get
-      - list
-      - watch
-EOF
-kubectl create -f ~/work/prometheus-cluster-role.yml
+kubectl -n monitoring apply -f \
+https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/07/resources.yaml
 ```
 
 Wait until all pods are running
@@ -124,23 +85,11 @@ Wait until all pods are running
 watch kubectl -n monitoring get pods
 ```
 
-Check if you can access the Prometheus web interface
+Check if you can access the Prometheus web interface at `localhost:19090`
 
-```bash
-kubectl -n monitoring port-forward svc/prometheus-k8s 19090:9090 &
-```
+Check access to Alertmanager at `localhost:19093`
 
-{{% alert title="Note" color="primary" %}}
-Explanation: [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) will expose your service at the specified port on your virtual machine. After exposing the port, you should be able to access the Prometheus web interface at `localhost:19090`. If you restart your virtual machine, you need to expose the port anew.
-{{% /alert %}}
-
-Check access to Alertmanager
-
-```bash
-kubectl -n monitoring port-forward svc/alertmanager-main 19093:9093 &
-```
-
-Check access to Grafana
+Check access to Grafana at `localhost:13000`
 {{% alert title="Note" color="primary" %}}
 Use default Grafana loging credentials
 
@@ -149,6 +98,13 @@ Use default Grafana loging credentials
 
 {{% /alert %}}
 
+{{% alert title="Note" color="primary" %}}
+When you run the [Vagrant](https://prometheus-training.puzzle.ch/setup/) setup, you can make your monitoring component accessible through port-forward.
+
 ```bash
+kubectl -n monitoring port-forward svc/prometheus-k8s 19090:9090 &
+kubectl -n monitoring port-forward svc/alertmanager-main 19093:9093 &
 kubectl -n monitoring port-forward svc/grafana 13000:3000 &
 ```
+
+{{% /alert %}}
