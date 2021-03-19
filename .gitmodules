@@ -8,7 +8,7 @@
 [submodule "themes/docsy-puzzle"]
 	path = themes/docsy-puzzle
 	url = https://github.com/puzzle/docsy-puzzle.git
-	branch = main
+	branch = master
 [submodule "themes/docsy-acend"]
 	path = themes/docsy-acend
 	url = https://github.com/puzzle/docsy-acend.git
