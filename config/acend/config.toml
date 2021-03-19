@@ -6,6 +6,7 @@ pygmentsStyle = "tango"
 copyright = "acend gmbh"
 github_repo = "https://github.com/puzzle/prometheus-labs"
 imagePrefix = "acend_"
+modeSwitcher = "true"
 
 [[Languages.en.menu.main]]
 weight = 3

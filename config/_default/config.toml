@@ -69,6 +69,7 @@ github_repo = "https://github.com/puzzle/prometheus-labs"
 github_branch = "main"
 imagePrefix = "puzzle_"
 enabledModule = "base"
+modeSwitcher = "true"
 replaceLabContent = "LOCALHOST"
 
 # Enable Lunr.js offline search
