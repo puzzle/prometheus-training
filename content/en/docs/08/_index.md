@@ -61,7 +61,7 @@ NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          
 example-web-python   NodePort   10.101.249.125   <none>        5000:31626/TCP   2m9s
 ```
 
-Our example application can now be reached on the port `31626`. This may be different at your setup..
+Our example application can now be reached on the port `31626`. This may be different in your setup.
 
 We can now get the exposed url with the `minikube service` command:
 
@@ -124,9 +124,9 @@ spec:
 
 ### How does it work
 
-The Prometheus Operator watches namespaces for ServiceMonitor custom resources. It then updates the Service Discovery configuration accordingly.
+The Prometheus Operator watches namespaces for ServiceMonitor custom resources. It then updates the Service Discovery configuration of the Prometheus server(s) accordingly.
 
-The selector part in the Service Monitor then defines which Kubernetes Services will be scraped.
+The selector part in the Service Monitor defines which Kubernetes Services will be scraped.
 
 ```yaml
 # servicemonitor.yaml
@@ -162,7 +162,7 @@ In our case Prometheus will scrape:
 
 Use the common k8s labels <https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/>
 
-If possible, reduce the number of different ServiceMonitors for an application and thereby reducing complexity.
+If possible, reduce the number of different ServiceMonitors for an application and thereby reduce the overall complexity.
 
 * Use the same `matchLables` on different Services for your application (e.g. Frontend Service, Backend Service, Database Service)
 * Also make sure the ports of different Services have the same name
