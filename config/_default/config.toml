@@ -70,7 +70,7 @@ github_branch = "main"
 imagePrefix = "puzzle_"
 enabledModule = "base"
 modeSwitcher = "true"
-replaceLabContent = "LOCALHOST"
+replaceLabContent = "http://LOCALHOST"
 
 # Enable Lunr.js offline search
 offlineSearch = true
