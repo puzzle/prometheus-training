@@ -64,7 +64,9 @@ Vagrant.configure("2") do |config|
     prometheus.vm.network "forwarded_port", guest: "9093", host: "9093"
     prometheus.vm.network "forwarded_port", guest: "3000", host: "3000"
     prometheus.vm.network "forwarded_port", guest: "1080", host: "1080"
-    prometheus.vm.network "forwarded_port", guest: "80", host: "80"
+    prometheus.vm.network "forwarded_port", guest: "19090", host: "19090"
+    prometheus.vm.network "forwarded_port", guest: "19093", host: "19093"
+    prometheus.vm.network "forwarded_port", guest: "13000", host: "13000"
     prometheus.vm.provision "shell",
       inline: $script
   end
