@@ -37,12 +37,24 @@ sudo systemctl restart sshd
 sudo systemctl daemon-reload
 sudo systemctl enable mailcatcher
 sudo systemctl start mailcatcher
+sudo yum update libseccomp -y
+runuser -l vagrant -c "/usr/local/bin/minikube start \
+  --kubernetes-version=v1.19.0 \
+  --memory=5g \
+  --cpus=2 \
+  --bootstrapper=kubeadm \
+  --extra-config=kubelet.authentication-token-webhook=true \
+  --extra-config=kubelet.authorization-mode=Webhook \
+  --extra-config=scheduler.address=0.0.0.0 \
+  --extra-config=controller-manager.address=0.0.0.0"
+runuser -l vagrant -c "/usr/local/bin/minikube addons enable ingress"
+runuser -l vagrant -c "/usr/local/bin/minikube addons disable metrics-server"
 SCRIPT
 Vagrant.configure("2") do |config|
   config.vm.provider :libvirt do |v|
     v.qemu_use_session = false
     v.cpus = 2
-    v.memory = 7168
+    v.memory = 8192
   end
   config.vm.define "prometheus" do |prometheus|
     prometheus.vm.box = "centos/8"
