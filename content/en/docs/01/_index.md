@@ -118,7 +118,7 @@ To run Prometheus, you can simply execute the `prometheus` binary and define whe
     ```bash
     ./prometheus --config.file=prometheus.yml &
     ```
-1. You should now see Prometheus starting up with the log line `msg="Server is ready to receive web requests."`. To verify this, open your browser and navigate to <http://LOCALHOST:9090>. You should now see the Prometheus web UI.
+1. You should now see Prometheus starting up with the log line `msg="Server is ready to receive web requests."`. To verify this, open your browser and navigate to <LOCALHOST:9090>. You should now see the Prometheus web UI.
 
 {{% alert title="Note" color="primary" %}}
 If you use the provided Vagrant setup then ports 9090 (Prometheus), 9093 (Alertmanager), and 3000 (Grafana) are forwarded to the VM where Prometheus is running.
