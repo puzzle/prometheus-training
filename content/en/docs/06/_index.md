@@ -39,7 +39,7 @@ sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
 ```
 
-Login to your Grafana instance <http://localhost:3000/> with:
+Login to your Grafana instance <http://LOCALHOST:3000/> with:
 
 | Username | Password |
 |---       |---       |

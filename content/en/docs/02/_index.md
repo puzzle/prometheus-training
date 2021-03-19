@@ -17,7 +17,7 @@ metric_name [
 ] value [ timestamp ]
 ```
 
-As an example, check the metrics of your Prometheus server (<http://localhost:9090/metrics>).
+As an example, check the metrics of your Prometheus server (<http://LOCALHOST:9090/metrics>).
 ```
 ...
 # HELP prometheus_tsdb_head_samples_appended_total Total number of appended samples.
@@ -43,7 +43,7 @@ There are 4 different metric types in Prometheus
 
 ## Explore Prometheus metrics
 
-Open your Prometheus [web UI](http://localhost:9090) and navigate to the **Graph** menu. You can use the `insert metric at cursor` drop-down list (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
+Open your Prometheus [web UI](http://LOCALHOST:9090) and navigate to the **Graph** menu. You can use the `insert metric at cursor` drop-down list (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
 
 Learn more about:
 
