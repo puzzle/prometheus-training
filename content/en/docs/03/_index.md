@@ -31,7 +31,7 @@ The configuration file of alertmanager is located here: `/etc/alertmanager/alert
 
 ### Configuration
 
-The configuration of Alertmanager is done using a YAML config file and CLI flags. Take a look at the very basic configuration file at `/etc/alertmanager/alertmanager.yml`:
+Alertmanager's configuration is done using a YAML config file and CLI flags. Take a look at the very basic configuration file at `/etc/alertmanager/alertmanager.yml`:
 
 ```yaml
 global:
