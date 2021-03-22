@@ -8,50 +8,30 @@ sectionnumber: 1
 
 ### Setup
 
-Before we can define rules for alerting, we must install Alertmanager by downloading and extracting the binary.
+The alertmanager is already installed on your system and can be controlled using systemctl:
 
-1. Create a working directory where we will download and extract Alertmanager. Open a new terminal, navigate to your home directory, and create a new directory called `alertmanager`:
+```bash
+# status
+systemctl status alertmanager.service
 
-    ```bash
-    cd ~/downloads
-    ```
+# start
+systemctl start alertmanager.service
 
-1. Download Alertmanager:
+# stop
+systemctl stop alertmanager.service
 
-    ```bash
-    curl -L -O https://github.com/prometheus/alertmanager/releases/download/v0.21.0/alertmanager-0.21.0.linux-amd64.tar.gz
-    ```
+# restart
+systemctl restart alertmanager.service
 
-    {{% alert title="Note" color="primary" %}}
-Binaries for other CPU architectures, such as ARM or other operating systems (e.g., Darwin, BSD, Windows) are available on the release page of Alertmanager: <https://github.com/prometheus/alertmanager/releases>
-    {{% /alert %}}
+# reload
+systemctl reload alertmanager.service
+```
 
-1. Extract the archive:
-
-    ```bash
-    tar fvxz alertmanager-0.21.0.linux-amd64.tar.gz -C ~/work
-    ```
-
-1. Examine the contents of the tarball
-
-    If you check the output of the previous tar command, you should see a list of extracted files. We will now take a closer look at some of these files:
-
-    * `alertmanager`
-
-       This is the Alertmanager binary.
-
-    * `amtool`
-
-      This is a useful tool which can be used for debugging, testing, silencing, and other tasks related to Alertmanager.
-
-    * `alertmanager.yml`
-
-      This is the configuration file of Alertmanager. More on that in the next section.
-
+The configuration file of alertmanager is located here: `/etc/alertmanager/alertmanager.yml`
 
 ### Configuration
 
-The configuration of Alertmanager is done using a YAML config file and CLI flags. The Alertmanager tarball we downloaded earlier includes a very basic configuration file:
+Alertmanager's configuration is done using a YAML config file and CLI flags. Take a look at the very basic configuration file at `/etc/alertmanager/alertmanager.yml`:
 
 ```yaml
 global:
@@ -78,26 +58,6 @@ inhibit_rules:
 {{% alert title="Note" color="primary" %}}
 For the moment we leave it with the default configuration and come back to it later in the course.
 {{% /alert %}}
-
-### Run Alertmanager
-
-To run Alertmanager you can simply execute the `alertmanager` binary and point it to its configuration file:
-
-1. Open a new terminal and navigate to the extracted Alertmanager folder:
-
-    ```bash
-    cd ~/work/alertmanager-0.21.0.linux-amd64/
-    ```
-
-1. Start Alertmanager by executing the binary:
-
-    ```bash
-    ./alertmanager --config.file=alertmanager.yml &
-    ```
-
-1. You should now see Alertmanager starting up with the log line `msg=Listening address=:9093."`. To verify this open your browser and navigate to [http://LOCALHOST:9093](http://LOCALHOST:9093). You should now see the Alertmanager web UI.
-
-Before moving on, let's make some warm-up [labs for monitoring your Alertmanager](labs/31).
 
 ## Configuration in Alertmanager
 
