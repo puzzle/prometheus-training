@@ -70,8 +70,20 @@ github_branch = "main"
 imagePrefix = "puzzle_"
 enabledModule = "base"
 modeSwitcher = "true"
-replaceLabContent = "http://LOCALHOST"
-replaceLabContentDefault = "http://localhost"
+
+[params.replaceContent]
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST"
+queryParam = "h"
+defaultValue = "http://localhost"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "<namespace>"
+queryParam = "n"
+defaultValue = "<namespace>"
 
 # Enable Lunr.js offline search
 offlineSearch = true
