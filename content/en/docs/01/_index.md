@@ -113,11 +113,13 @@ To run Prometheus, you can simply execute the `prometheus` binary and define whe
     ```bash
     cd ~/work/prometheus-2.22.2.linux-amd64
     ```
+
 1. Start Prometheus by executing the binary:
 
     ```bash
-    ./prometheus --config.file=prometheus.yml &
+    ./prometheus --config.file=prometheus.yml --web.listen-address="127.0.0.1:9090" &
     ```
+
 1. You should now see Prometheus starting up with the log line `msg="Server is ready to receive web requests."`. To verify this, open your browser and navigate to <http://LOCALHOST:9090>. You should now see the Prometheus web UI.
 
 {{% alert title="Note" color="primary" %}}
