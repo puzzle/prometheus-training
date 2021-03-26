@@ -12,19 +12,19 @@ The alertmanager is already installed on your system and can be controlled using
 
 ```bash
 # status
-systemctl status alertmanager.service
+sudo systemctl status alertmanager
 
 # start
-systemctl start alertmanager.service
+sudo systemctl start alertmanager
 
 # stop
-systemctl stop alertmanager.service
+sudo systemctl stop alertmanager
 
 # restart
-systemctl restart alertmanager.service
+sudo systemctl restart alertmanager
 
 # reload
-systemctl reload alertmanager.service
+sudo systemctl reload alertmanager
 ```
 
 The configuration file of alertmanager is located here: `/etc/alertmanager/alertmanager.yml`
