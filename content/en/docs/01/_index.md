@@ -34,28 +34,41 @@ Binaries for other CPU architectures such as ARM or other operating systems (e.g
     tar fvxz prometheus-2.22.2.linux-amd64.tar.gz -C ~/work
     ```
 
-1. Examine the contents of the tarball:
 
-    Check the output of the previous tar command. You should see a list of extracted files. We will now take a closer look at some of these files:
+    {{% alert title="Note" color="primary" %}}
+In theory, we could simply run Prometheus by executing the `prometheus` binary in `~/work/prometheus-2.22.2.linux-amd64`. However, to simplify tasks such as reloading or restarting, we are going to create a systemd unit file.
+    {{% /alert %}}
 
-    * `prometheus`
+1. Copy the `prometheus` and `promtool` binaries to `/usr/local/bin`
 
-       This is the Prometheus binary.
+    ```bash
+    sudo cp ~/work/prometheus-2.22.2.linux-amd64/{prometheus,promtool} /usr/local/bin
+    ```
+1. Create the required directories for Prometheus
 
-    * `promtool`
+    ```bash
+    sudo mkdir /etc/prometheus /var/lib/prometheus
+    sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus
+    ```
 
-       This is a useful tool which can be used for debugging and querying Prometheus.
+1. Create the systemd unit file and reload systemd manager configuration
 
-    * `prometheus.yml`
+    ```bash
+    sudo curl -o /etc/systemd/system/prometheus.service https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/01/labs/prometheus.service
+    sudo systemctl daemon-reload
+    ```
 
-       This is the configuration file of Prometheus. More on that in the next section.
+1. Copy the Prometheus configuration to /etc/prometheus/prometheus.yml
 
+    ```bash
+    cp ~/work/prometheus-2.22.2.linux-amd64/prometheus.yml /etc/prometheus/prometheus.yml
+    ```
 
 ### Configuration
 
 The configuration of Prometheus is done using a YAML config file and CLI flags. The Prometheus tarball we downloaded earlier includes a very basic example of a Prometheus configuration file:
 
-`prometheus.yml`
+`/etc/prometheus/prometheus.yml`
 
 ```yaml
 # my global config
@@ -101,26 +114,14 @@ We will learn more about other configuration options (`evaluation_interval`, `al
 
 ### Run Prometheus
 
-{{% alert title="Note" color="primary" %}}
-We will use Unix job control to run the binary. By adding the ampersand symbol (`&`) at the end of a command, the shell will put the command into the background. You can then use the command `jobs` to list all jobs currently running in the background of this shell and bring the jobs to the foreground by running `%1` (job number 1), `%2` (job number 2), etc. Please note that if you close a shell with background jobs, all these jobs will terminate.
-You can use tools like `tmux`, `screen`, `nohup` or `disown` to keep jobs running even if you close the shell.
-{{% /alert %}}
 
-To run Prometheus, you can simply execute the `prometheus` binary and define where it can find its configuration file:
-
-1. Open a new terminal and navigate to the extracted Prometheus folder:
+1. Start Prometheus and verify
 
     ```bash
-    cd ~/work/prometheus-2.22.2.linux-amd64
+    sudo systemctl start prometheus
     ```
 
-1. Start Prometheus by executing the binary:
-
-    ```bash
-    ./prometheus --config.file=prometheus.yml --web.listen-address="127.0.0.1:9090" &
-    ```
-
-1. You should now see Prometheus starting up with the log line `msg="Server is ready to receive web requests."`. To verify this, open your browser and navigate to <http://LOCALHOST:9090>. You should now see the Prometheus web UI.
+1. Verify that Prometheus is up and running by navigating to <http://LOCALHOST:9090> with your browser. You should now see the Prometheus web UI.
 
 {{% alert title="Note" color="primary" %}}
 If you use the provided Vagrant setup then ports 9090 (Prometheus), 9093 (Alertmanager), and 3000 (Grafana) are forwarded to the VM where Prometheus is running.

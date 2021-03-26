@@ -12,19 +12,19 @@ The alertmanager is already installed on your system and can be controlled using
 
 ```bash
 # status
-systemctl status alertmanager.service
+sudo systemctl status alertmanager
 
 # start
-systemctl start alertmanager.service
+sudo systemctl start alertmanager
 
 # stop
-systemctl stop alertmanager.service
+sudo systemctl stop alertmanager
 
 # restart
-systemctl restart alertmanager.service
+sudo systemctl restart alertmanager
 
 # reload
-systemctl reload alertmanager.service
+sudo systemctl reload alertmanager
 ```
 
 The configuration file of alertmanager is located here: `/etc/alertmanager/alertmanager.yml`
@@ -86,7 +86,7 @@ Before we enable Alertmanager in Prometheus, let's do some [labs concerning the 
 
 ## Enable Alertmanager in Prometheus
 
-The Alertmanager instance we installed before must be configured in Prometheus. Open `prometheus.yml`, add the config below, and reload the Prometheus config with `killall -HUP prometheus`.
+The Alertmanager instance we installed before must be configured in Prometheus. Open `prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus`.
 
 ```yaml
 # Alertmanager configuration
