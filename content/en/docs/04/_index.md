@@ -13,7 +13,9 @@ There are lots of exporters available for many applications, such as MySQL/Maria
 One example of a Prometheus exporter is the `node_exporter` we configured in the first chapter of this training. This exporter collects information from different files and folders (e.g., `/proc/net/arp`, `/proc/sys/fs/file-nr`, etc.) and uses this information to create the appropriate Prometheus metrics.
 In the tasks of this chapter we will install and configure two additional exporters.
 
-## Blackbox exporter
+## Special exporters
+
+### Blackbox exporter
 
 This is a classic example of a multi-target exporter which uses relabeling to pass the targets to the exporter. This exporter is capable of probing the following endpoints:
 
@@ -25,8 +27,7 @@ This is a classic example of a multi-target exporter which uses relabeling to pa
 
 By using the TCP prober you can create custom checks for almost any service including services using STARTTLS. Check out the [example.yml](https://github.com/prometheus/blackbox_exporter/blob/master/example.yml) file in the project's GitHub repository.
 
-
-## Prometheus Pushgateway
+### Prometheus Pushgateway
 
 The Pushgateway allows jobs (e.g., Kubernetes Jobs or CronJobs) to push metrics to an exporter where Prometheus will collect them. This can be required since jobs only exist for a short amount of time and as a result, Prometheus would fail to scrape these jobs most of the time. In addition, it would require all these jobs to implement a webserver in order for Prometheus to collect the metrics.
 
