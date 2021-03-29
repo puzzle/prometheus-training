@@ -12,7 +12,6 @@ The Prometheus project provides [client libraries](https://prometheus.io/docs/in
 
 Even if you don't plan to provide your own metrics, those libraries already export some basic metrics based on the language. For [Java](https://github.com/prometheus/client_java#included-collectors), default metrics about memory management (heap, garbage collection) and thread pools can be collected. The same applies to [Go](https://prometheus.io/docs/guides/go-application/).
 
-
 ### Spring Boot Example Instrumentation
 
 Using the [micrometer metrics facade](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) in Spring Boot Applications lets us collect all sort of metrics within a Spring Boot application. Those metrics can be exported for Prometheus to scrape by a few additional dependencies and configuration.
@@ -27,6 +26,7 @@ git clone https://github.com/acend/prometheus-training-spring-boot-example.git
 ```
 
 Change into the freshly cloned git repository
+
 ```bash
 cd prometheus-training-spring-boot-example
 ```
@@ -44,6 +44,7 @@ To make the application collect metrics and provide a Prometheus endpoint we now
             <scope>runtime</scope>
         </dependency>
 ```
+
 Your `pom.xml` should look like this now.
 
 ```xml
@@ -100,7 +101,7 @@ Your `pom.xml` should look like this now.
 
 Additionally to those dependencies we also need to configure the metrics endpoints to be exposed.
 
-Add the following line to the file `src/main/resources/application.properties`
+Create a new file `src/main/resources/application.properties` and add the following line:
 
 ```ini
 management.endpoints.web.exposure.include=prometheus,health,info,metric
@@ -126,16 +127,15 @@ curl http://localhost:8083/actuator/prometheus
 
 Expected result should look similar to
 
-```
+```promql
 # HELP jvm_gc_memory_promoted_bytes_total Count of positive increases in the size of the old generation memory pool before GC to after GC
 # TYPE jvm_gc_memory_promoted_bytes_total counter
 jvm_gc_memory_promoted_bytes_total 1621496.0
-# HELP tomcat_sessions_active_max_sessions  
+# HELP tomcat_sessions_active_max_sessions
 # TYPE tomcat_sessions_active_max_sessions gauge
 tomcat_sessions_active_max_sessions 0.0
 ...
 ```
-
 
 ## Specifications and conventions
 
