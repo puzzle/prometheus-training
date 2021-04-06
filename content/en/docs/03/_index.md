@@ -84,7 +84,7 @@ For more insights of the configuration options, study the following resources:
 
 ## Enable Alertmanager in Prometheus
 
-The Alertmanager instance we installed before must be configured in Prometheus. Open `prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus.service`.
+The Alertmanager instance we installed before must be configured in Prometheus. Open `/etc/prometheus/prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus.service`.
 
 ```yaml
 # Alertmanager configuration
