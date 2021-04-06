@@ -31,7 +31,7 @@ Change into the freshly cloned git repository
 cd prometheus-training-spring-boot-example
 ```
 
-To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `/home/ansible/downloads/prometheus-training-spring-boot-example/pom.xml` file, where it says `<!-- Add Dependencies here-->`:
+To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `~/downloads/prometheus-training-spring-boot-example/pom.xml` file, where it says `<!-- Add Dependencies here-->`:
 
 ```xml
     <dependency>
@@ -45,7 +45,7 @@ To make the application collect metrics and provide a Prometheus endpoint we now
     </dependency>
 ```
 
-Your `/home/ansible/downloads/prometheus-training-spring-boot-example/pom.xml` should look like this now.
+Your `~/downloads/prometheus-training-spring-boot-example/pom.xml` should look like this now.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -101,7 +101,7 @@ Your `/home/ansible/downloads/prometheus-training-spring-boot-example/pom.xml` s
 
 Additionally to those dependencies we also need to configure the metrics endpoints to be exposed.
 
-Create a new file `/home/ansible/downloads/prometheus-training-spring-boot-example/src/main/resources/application.properties` and add the following line:
+Create a new file `~/downloads/prometheus-training-spring-boot-example/src/main/resources/application.properties` and add the following line:
 
 ```ini
 management.endpoints.web.exposure.include=prometheus,health,info,metric
@@ -140,11 +140,16 @@ tomcat_sessions_active_max_sessions 0.0
 ## Specifications and conventions
 
 Application metrics or metrics in general can contain confidential information, therefore endpoints should be protected from unauthenticated users. This can be achieved either by exposing the metrics on a different port, which is only reachable by prometheus or by protecting the metrics endpoints with some sort of authentication.
+
 There are some guidelines and best practices how to name your own metrics. Of course, the [specifications of the datamodel](https://prometheus.io/docs/concepts/data_model/#metric-names-and-labels) must be followed and applying the [best practices about naming](https://prometheus.io/docs/practices/naming/) is not a bad idea. All those guidelines and best practices are now officially specified in [openmetrics.io](https://openmetrics.io).
 
 Following these principles is not (yet) a must, but it helps to understand and interpret your metrics.
 
-You can check your metrics by using the following `promtool` command: `curl -s http://localhost:8083/actuator/prometheus | promtool check metrics`
+You can check your metrics by using the following `promtool`
+
+```bash
+curl -s http://localhost:8083/actuator/prometheus | promtool check metrics
+```
 
 ## Best practices
 
