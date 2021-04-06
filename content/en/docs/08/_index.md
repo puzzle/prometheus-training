@@ -67,10 +67,7 @@ We can now get the exposed url with the `minikube service` command:
 
 ```bash
 minikube service example-web-python --url -n application-metrics
-```
-
-```bash
-http://192.168.49.2:31626
+# http://192.168.49.2:31626
 ```
 
 Use `curl` and verify the successful deployment of our example application:
