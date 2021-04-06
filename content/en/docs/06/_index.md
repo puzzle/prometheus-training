@@ -9,12 +9,12 @@ For a more detailed tutorial, please refer to the [Grafana tutorials](https://gr
 
 Grafana is already installed and running on your machine. Login to your Grafana instance on <http://LOCALHOST:3000/> with the following credentials:
 
-| Username | Password |
-|---       |---       |
-| admin    | admin    |
-
 {{% alert title="Note" color="primary" %}}
-Change the password at first login.
+Use the default Grafana logging credentials and change the password
+
+* username: admin
+* password: admin
+
 {{% /alert %}}
 
 ## Useful links and guides
