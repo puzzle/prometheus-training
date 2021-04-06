@@ -144,7 +144,7 @@ There are some guidelines and best practices how to name your own metrics. Of co
 
 Following these principles is not (yet) a must, but it helps to understand and interpret your metrics.
 
-You can check your metrics by using the following `promtool` command: `curl -s http://localhost:8083/actuator/prometheus | ~/work/prometheus-2.22.2.linux-amd64/promtool check metrics`
+You can check your metrics by using the following `promtool` command: `curl -s http://localhost:8083/actuator/prometheus | ~/work/prometheus-2.26.0.linux-amd64/promtool check metrics`
 
 ## Best practices
 
