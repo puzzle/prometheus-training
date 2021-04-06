@@ -31,7 +31,7 @@ Change into the freshly cloned git repository
 cd prometheus-training-spring-boot-example
 ```
 
-To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `pom.xml` file, where it says `<!-- Add Dependencies here-->`:
+To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `/home/ansible/downloads/prometheus-training-spring-boot-example/pom.xml` file, where it says `<!-- Add Dependencies here-->`:
 
 ```xml
     <dependency>
@@ -45,7 +45,7 @@ To make the application collect metrics and provide a Prometheus endpoint we now
     </dependency>
 ```
 
-Your `pom.xml` should look like this now.
+Your `/home/ansible/downloads/prometheus-training-spring-boot-example/pom.xml` should look like this now.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -101,7 +101,7 @@ Your `pom.xml` should look like this now.
 
 Additionally to those dependencies we also need to configure the metrics endpoints to be exposed.
 
-Create a new file `src/main/resources/application.properties` and add the following line:
+Create a new file `/home/ansible/downloads/prometheus-training-spring-boot-example/src/main/resources/application.properties` and add the following line:
 
 ```ini
 management.endpoints.web.exposure.include=prometheus,health,info,metric
