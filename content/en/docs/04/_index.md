@@ -11,7 +11,7 @@ There are lots of exporters available for many applications, such as MySQL/Maria
 {{% /alert %}}
 
 One example of a Prometheus exporter is the `node_exporter` we configured in the first chapter of this training. This exporter collects information from different files and folders (e.g., `/proc/net/arp`, `/proc/sys/fs/file-nr`, etc.) and uses this information to create the appropriate Prometheus metrics.
-In the tasks of this chapter we will install and configure two additional exporters.
+In the tasks of this chapter we will configure two additional exporters.
 
 ## Special exporters
 
