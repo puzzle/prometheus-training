@@ -1,6 +1,6 @@
 ---
 title: "8. Prometheus in Kubernetes App Monitoring"
-weight: 1
+weight: 8
 sectionnumber: 8
 ---
 
