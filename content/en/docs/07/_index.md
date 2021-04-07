@@ -57,6 +57,10 @@ cd ~/work/kube-prometheus
 kubectl create -f manifests/setup
 ```
 
+{{% alert title="Note" color="primary" %}}
+We will use the latest manifest from `kube-prometheus`, which is based on the `main` branch, where some components may not have been officially released yet.
+{{% /alert %}}
+
 The manifest will deploy a complete monitoring stack consisting of:
 
 * Two Prometheis

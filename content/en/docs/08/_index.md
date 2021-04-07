@@ -7,7 +7,7 @@ sectionnumber: 8
 
 ## Collecting Application Metrics
 
-When running applications in production, a fast feedback loop is a key factor. The following reasons show why it's essential to gather and combine all sorts of metrics when running an application in production:
+When running applications in production, a fast feedback loop is a key factor. The following reasons show why it's essential to gather and combine all sorts of metrics when running an applications in production:
 
 * To make sure that an application runs smoothly
 * To be able to see production issues and send alerts
@@ -15,9 +15,9 @@ When running applications in production, a fast feedback loop is a key factor. T
 * To take business and architectural decisions
 * Metrics can also help to decide when to scale applications
 
-As we saw in [Lab 5 - Instrumenting with client libraries](../05/) Application Metrics (e.g. Request Count on a specific URL, gc metrics, or even Custom Metrics and many more), application metrics are collected within the application. There are a lot of frameworks and client libraries available, which integrate nicely into different application stacks.
+As we saw in [Lab 5 - Instrumenting with client libraries](../05/) Application Metrics (e.g. Request Count on a specific URL, GC metrics, or even Custom Metrics and many more) are collected within the application. There are a lot of frameworks and client libraries available, which integrate nicely into different application stacks.
 
-The instrumented application provides prometheus scrapable application metrics.
+The instrumented application provides Prometheus scrapable application metrics.
 
 Create a namespace where the example application can be deployed to.
 
@@ -87,7 +87,7 @@ python_gc_objects_collected_total{generation="2"} 15.0
 ...
 ```
 
-Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our prometheus server to scrape the kubernetes deployment. In a highly dynamic environment like Kubernetes this is done with so called Service Discovery.
+Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our Prometheus server to scrape metrics from the Kubernetes deployment. In a highly dynamic environment like Kubernetes this is done with so called Service Discovery.
 
 ## Service Discovery
 
@@ -95,9 +95,9 @@ When configuring Prometheus to scrape metrics from Services, Endpoints, Deployme
 
 In fact we actually integrate Prometheus with Kubernetes tightly and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
 
-The tight integration between Prometheus and Kubernetes can be configured with the [Kubernetes Service Discovery Config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
+The tight integration between Prometheus and Kubernetes can be configured with the [Kubernetes Service Discovery Config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config).
 
-If we now want to tell prometheus to scrape our application metrics from the example application, we can create a so called ServiceMonitor.
+If we now want to tell Prometheus to scrape our application metrics from the example application, we can create a so called ServiceMonitor.
 
 ServiceMonitors are custom Kubernetes resources, which basically represent the scrape_config and look like this:
 
@@ -123,7 +123,7 @@ spec:
 
 The Prometheus Operator watches namespaces for ServiceMonitor custom resources. It then updates the Service Discovery configuration of the Prometheus server(s) accordingly.
 
-The selector part in the Service Monitor defines which Kubernetes Services will be scraped.
+The selector part in the ServiceMonitor defines which Kubernetes Services will be scraped.
 
 ```yaml
 # servicemonitor.yaml
@@ -161,7 +161,7 @@ Use the common k8s labels <https://kubernetes.io/docs/concepts/overview/working-
 
 If possible, reduce the number of different ServiceMonitors for an application and thereby reduce the overall complexity.
 
-* Use the same `matchLables` on different Services for your application (e.g. Frontend Service, Backend Service, Database Service)
+* Use the same `matchLabels` on different Services for your application (e.g. Frontend Service, Backend Service, Database Service)
 * Also make sure the ports of different Services have the same name
 * Expose your metrics under the same path
 
