@@ -49,6 +49,7 @@ In theory, we could simply run Prometheus by executing the `prometheus` binary i
     ```bash
     sudo mkdir /etc/prometheus /var/lib/prometheus
     sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus
+    sudo chmod g+w /etc/prometheus /var/lib/prometheus
     ```
 
 1. Create the systemd unit file and reload systemd manager configuration

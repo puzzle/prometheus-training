@@ -12,7 +12,7 @@ When running the [Vagrant](https://prometheus-training.puzzle.ch/setup/) setup, 
 
 We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
-{{% alert title="Note" color="primary" %}}
+{{% alert title="Minikube" color="primary" %}}
 Minikube is already started and configured. When you restart your virtual machine, you might need to start it manually.
 
 ```bash
