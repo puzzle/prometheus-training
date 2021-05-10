@@ -9,7 +9,7 @@
     "autoprefixer": "10.2.5",
     "husky": "6.0.0",
     "markdownlint-cli": "0.27.1",
-    "postcss": "8.2.14",
+    "postcss": "8.2.15",
     "postcss-cli": "8.3.1"
   }
 }
