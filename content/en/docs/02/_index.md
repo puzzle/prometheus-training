@@ -54,3 +54,35 @@ Learn more about:
 ## Recording Rules
 
 Prometheus [recording rules](https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/) allow you to precompute queries at a defined interval (`global.evaluation_interval` or `interval` in `rule_group`) and save them to a new set of time series.
+
+## Special labels
+
+As you have already seen in several examples, a Prometheus metric is defined by one or more labels with the corresponding values. Two of those labels are special, because the Prometheus server will automatically generate them for every metric:
+
+ * instance
+
+   The instance label describes the endpoint where Prometheus scraped the metric. This can be any application or exporter. In addition to the ip address or hostname, this label usually also contains the port number. Example: `10.0.0.25:9100`
+
+ * job
+
+   This label contains the name of the scrape job as configured in the Prometheus configuration file. All instances configured in the same scrape job will share the same job label.
+
+
+{{% alert title="Note" color="primary" %}}
+Prometheus will append these labels dynamically before sample ingestion. Therefore you will not see these labels if you query the metrics endpoint directly (e.g. by using `curl`).
+
+{{% /alert %}}
+
+Let's take a look at the following scrape config (exmaple, no need to change the Prometheus configuration on your lab VM):
+
+```yaml
+scrape_configs:
+- job_name: node_exporter
+  static_configs:
+  - targets:
+    - '10.0.0.25:9100'
+    - '10.0.0.26:9100'
+    - '10.0.0.27:9100'
+```
+
+In the example above we configured a single scrape job with the name `node_exporter` and three targets. After ingestion into Prometheus, every metric scraped by this job will have the label: `job="node_exporter"`. In addition, metrics scraped by this job from the target `10.0.0.25` will have the label `instance="10.0.0.25:9100"`
