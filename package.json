@@ -1,15 +1,23 @@
 {
   "name": "prometheus-basics-training",
+  "version": "0.0.9",
+  "description": "Prometheus Basics Training",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puzzle/prometheus-training.git"
+  },
+  "author": "Puzzle ITC GmbH, acend gmbh",
   "scripts": {
     "start": "bash -c \"docker run --rm --interactive --publish 8080:8080 -v $(pwd):/src:Z klakegg/hugo:$(grep \"FROM klakegg/hugo\" Dockerfile | sed 's/FROM klakegg\\/hugo://g' | sed 's/ AS builder//g') server -p 8080 --bind 0.0.0.0\"",
     "mdlint": "markdownlint --config .markdownlint.json content *.md",
     "prepare": "husky install"
   },
+  "bugs": {
+    "url": "https://github.com/puzzle/prometheus-training/issues"
+  },
+  "homepage": "https://github.com/puzzle/prometheus-training#readme",
   "devDependencies": {
-    "autoprefixer": "10.2.6",
     "husky": "6.0.0",
-    "markdownlint-cli": "0.27.1",
-    "postcss": "8.3.5",
-    "postcss-cli": "8.3.1"
+    "markdownlint-cli": "0.27.1"
   }
 }
