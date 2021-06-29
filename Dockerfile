@@ -1,4 +1,4 @@
-FROM klakegg/hugo:0.84.1-ext-ubuntu AS builder
+FROM klakegg/hugo:0.84.3-ext-ubuntu AS builder
 
 ARG ACEND_HUGO_ENV=default
 
