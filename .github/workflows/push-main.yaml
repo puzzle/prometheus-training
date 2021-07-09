@@ -68,4 +68,4 @@ jobs:
         env:
           KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
         with:
-          args: rollout restart deployment/latest-prometheus-workshop --namespace 'prometheus-workshop-prod'
+          args: rollout restart deployment/latest-prometheus-workshop-cloud-native-day --namespace 'prometheus-workshop-prod'
