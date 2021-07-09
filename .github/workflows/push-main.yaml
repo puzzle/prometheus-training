@@ -1,9 +1,9 @@
-name: Publish Main Version
+name: Publish cloud-native-day Version
 
 on:
   push:
     branches: 
-      - main
+      - cloud-native-day
 
 jobs:
   build:
@@ -43,24 +43,13 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            quay.io/puzzle/prometheus-basics-training:latest
-      - 
-        name: Build and Push Acend Version
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          build-args: |
-            ACEND_HUGO_ENV=acend
-          push: true
-          tags: |
-            quay.io/puzzle/prometheus-basics-training:latest-acend
-      - 
+            quay.io/puzzle/prometheus-basics-training:latest-cloud-native-day
+
         name: 'Deploy'
         uses: 'deliverybot/helm@v1'
         with:
           release: 'latest'
-          namespace: 'acend-prometheus-basics-training-prod'
+          namespace: 'prometheus-workshop-prod'
           version: '${{ github.sha }}'
           repository: 'https://acend.github.io/helm-charts/'
           chart: 'acend-training-chart'
@@ -74,16 +63,9 @@ jobs:
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
       - 
-        name: redeploy puzzle deployment
+        name: redeploy cloud-native-day deployment
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
         with:
-          args: rollout restart deployment/latest-prometheus-basics-puzzle --namespace acend-prometheus-basics-training-prod
-      - 
-        name: redeploy acend deployment
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
-        with:
-          args: rollout restart deployment/latest-prometheus-basics-acend --namespace acend-prometheus-basics-training-prod
+          args: rollout restart deployment/latest-prometheus-workshop --namespace 'prometheus-workshop-prod'
