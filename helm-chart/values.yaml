@@ -2,38 +2,22 @@ acendTraining:
   servicePort: 8080
   deployments:
     - 
-      name: puzzle
+      name: cloud-native-day
       replicaCount: 1
       image:
         repository: quay.io/puzzle/prometheus-basics-training
         pullPolicy: Always
         tag: ""
-        tagsuffix: ""
+        tagsuffix: "-cloud-native-day"
       ingress:
         annotations: 
           kubernetes.io/ingress.class: nginx-public
         useDefaultSecret: true
-        appname: prometheus-training
+        appname: prometheus-workshop
         domainmain: puzzle.ch
         domain: k8s.puzzle.ch
-    - 
-      name: acend
-      replicaCount: 1
-      image:
-        repository: quay.io/puzzle/prometheus-basics-training
-        pullPolicy: Always
-        tag: ""
-        tagsuffix: "-acend"
-      ingress:
-        annotations: 
-          kubernetes.io/ingress.class: nginx-public
-        secretOverride: acend-wildcard 
-        appname: prometheus-basics
-        domain: training.acend.ch
 
-
-
-nameOverride: "prometheus-basics"
+nameOverride: "prometheus-workshop"
 fullnameOverride: ""
 
 serviceAccount:
