@@ -45,6 +45,20 @@ jobs:
           tags: |
             quay.io/puzzle/prometheus-basics-training:latest-cloud-native-day
       -
+        name: 'remove old deployment'
+        uses: 'deliverybot/helm@v1'
+        with:
+          release: 'latest'
+          task: 'remove'
+          namespace: 'prometheus-workshop-prod'
+          version: '${{ github.sha }}'
+          repository: 'https://acend.github.io/helm-charts/'
+          chart: 'acend-training-chart'
+          token: '${{ github.token }}'
+          helm: 'helm3'
+        env:
+          KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+      -
         name: 'Deploy'
         uses: 'deliverybot/helm@v1'
         with:
@@ -59,13 +73,12 @@ jobs:
             [
               "helm-chart/values.yaml"
             ]
-
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
-      - 
-        name: redeploy cloud-native-day deployment
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
-        with:
-          args: rollout restart deployment/latest-prometheus-workshop-cloud-native-day --namespace 'prometheus-workshop-prod'
+      # - 
+      #   name: redeploy cloud-native-day deployment
+      #   uses: actions-hub/kubectl@master
+      #   env:
+      #     KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
+      #   with:
+      #     args: rollout restart deployment/latest-prometheus-workshop-cloud-native-day --namespace 'prometheus-workshop-prod'
