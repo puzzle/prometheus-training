@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-rule
+  namespace: monitoring
+  labels:
+    prometheus: k8s
+    role: alert-rules
+spec:
+  groups:
+    - name: custom.rules
+      rules:
+        - alert: PrometheusReachedRetentionSize
+          annotations:
+            summary: "Prometheus deleted blocks because the maximum number of bytes was exceeded in {{ $labels.namespace }} {{ $labels.pod }}"
+          expr: rate(prometheus_tsdb_size_retentions_total[5m]) > 0
+          labels:
+            severity: warning
