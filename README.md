@@ -1,6 +1,6 @@
-# Prometheus Basics Training
+# Prometheus Workshop
 
-Interactive Prometheus Basics Training: [prometheus-training.puzzle.ch](https://prometheus-training.puzzle.ch/)
+Interactive Prometheus Workshop: [prometheus-cloudnativeday.puzzle.ch](https://prometheus-cloudnativeday.puzzle.ch/)
 
 
 ## Content Sections

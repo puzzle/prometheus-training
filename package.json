@@ -1,7 +1,7 @@
 {
   "name": "prometheus-basics-training",
   "version": "0.0.9",
-  "description": "Prometheus Basics Training",
+  "description": "Prometheus Workshop",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/puzzle/prometheus-training.git"

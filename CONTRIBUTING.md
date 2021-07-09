@@ -24,7 +24,7 @@
 * **New Feature**: Implement your Feature on a fork and create a pull request. The core team will gladly check and eventually merge your pull request.
 
 
-## Do you have questions about the training
+## Do you have questions about the workshop
 
 * Ask your question as an issue on GitHub
 
