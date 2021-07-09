@@ -1,197 +1,220 @@
 ---
-title: "1. Setting up Prometheus"
+title: "1. Install and configure"
 weight: 1
 sectionnumber: 1
 ---
 
-## Installation
+## Prometheus
 
-### Setup
+We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
-Let's begin with the installation of Prometheus by downloading and extracting the Prometheus binary.
+{{% alert title="Minikube" color="primary" %}}
+Minikube is already started and configured. When you restart your virtual machine, you might need to start it manually.
 
-1. Open a new terminal, navigate to your home directory and create the directories `work` and `downloads`:
-
-    ```bash
-    mkdir ~/{work,downloads}
-    cd ~/downloads
-    ```
-
-
-1. Download Prometheus:
-
-    ```bash
-    curl -L -O https://github.com/prometheus/prometheus/releases/download/v2.26.0/prometheus-2.26.0.linux-amd64.tar.gz
-    ```
-
-    {{% alert title="Note" color="primary" %}}
-Binaries for other CPU architectures such as ARM or other operating systems (e.g., Darwin, BSD, Windows) are available on the release page of Prometheus: <https://github.com/prometheus/prometheus/releases>
-    {{% /alert %}}
-
-1. Extract the archive to the work folder:
-
-    ```bash
-    tar fvxz prometheus-2.26.0.linux-amd64.tar.gz -C ~/work
-    ```
-
-
-    {{% alert title="Note" color="primary" %}}
-In theory, we could simply run Prometheus by executing the `prometheus` binary in `~/work/prometheus-2.26.0.linux-amd64`. However, to simplify tasks such as reloading or restarting, we are going to create a systemd unit file.
-    {{% /alert %}}
-
-1. Copy the `prometheus` and `promtool` binaries to `/usr/local/bin`
-
-    ```bash
-    sudo cp ~/work/prometheus-2.26.0.linux-amd64/{prometheus,promtool} /usr/local/bin
-    ```
-1. Create the required directories for Prometheus
-
-    ```bash
-    sudo mkdir /etc/prometheus /var/lib/prometheus
-    sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus
-    sudo chmod g+w /etc/prometheus /var/lib/prometheus
-    ```
-
-1. Create the systemd unit file and reload systemd manager configuration
-
-    ```bash
-    sudo curl -o /etc/systemd/system/prometheus.service https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/01/labs/prometheus.service
-    sudo systemctl daemon-reload
-    ```
-
-1. Copy the Prometheus configuration to /etc/prometheus/prometheus.yml
-
-    ```bash
-    cp ~/work/prometheus-2.26.0.linux-amd64/prometheus.yml /etc/prometheus/prometheus.yml
-    ```
-
-### Configuration
-
-The configuration of Prometheus is done using a YAML config file and CLI flags. The Prometheus tarball we downloaded earlier includes a very basic example of a Prometheus configuration file:
-
-`/etc/prometheus/prometheus.yml`
-
-```yaml
-# my global config
-global:
-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-  # scrape_timeout is set to the global default (10s).
-
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-  - static_configs:
-    - targets:
-      # - alertmanager:9093
-
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
-
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
-scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
-
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
-
-    static_configs:
-    - targets: ['localhost:9090']
+```bash
+minikube start \
+--kubernetes-version=v1.20.2 \
+--memory=6g \
+--cpus=4 \
+--bootstrapper=kubeadm \
+--extra-config=kubelet.authentication-token-webhook=true \
+--extra-config=kubelet.authorization-mode=Webhook \
+--extra-config=scheduler.address=0.0.0.0 \
+--extra-config=controller-manager.address=0.0.0.0
 ```
 
-Let's take a look at two important configuration options:
-
-* `scrape_interval`: Prometheus is a pull-based monitoring system which means it will reach out to the configured targets and collect the metrics from them (instead of a push-based approach where the targets will push their metrics to the monitoring server). The option `scrape_interval` defines the interval at which Prometheus will collect the metrics for each target.
-
-* `scrape_configs`: This block defines which targets Prometheus will scrape. In the configuration above, only a single target (the Prometheus server itself at `localhost:9090`) is configured. Check out the [targets](#targets) section below for a detailed explanation.
-
-{{% alert title="Note" color="primary" %}}
-We will learn more about other configuration options (`evaluation_interval`, `alerting`, and `rule_files`) later in this training.
 {{% /alert %}}
 
-### Run Prometheus
+Check if you can connect to the API and verify the minikube master node is in `ready` state.
 
-
-1. Start Prometheus and verify
-
-    ```bash
-    sudo systemctl start prometheus
-    ```
-
-1. Verify that Prometheus is up and running by navigating to <http://LOCALHOST:9090> with your browser. You should now see the Prometheus web UI.
-
-{{% alert title="Note" color="primary" %}}
-If you use the provided Vagrant setup then ports 9090 (Prometheus), 9093 (Alertmanager), and 3000 (Grafana) are forwarded to the VM where Prometheus is running.
-Check out the Vagrantfile for details.
-{{% /alert %}}
-
-
-## Targets
-
-Since Prometheus is a pull-based monitoring system, the Prometheus server maintains a set of targets to scrape. This set can be configured using the `scrape_configs` option in the Prometheus configuration file. The `scrape_configs` consist of a list of jobs defining the targets as well as additional parameters (path, port, authentication, etc.) which are required to scrape these targets.
-
-{{% alert title="Note" color="primary" %}}
-Each job definition must at least consist of a `job_name` and a target configuration (i.e., `static_configs`). Check the [Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for the list of all available options in the `scrape_config`.
-{{% /alert %}}
-
-There are two basic types of target configurations:
-
-### Static configuration
-
-In this case, the Prometheus configuration file contains a static list of targets. In order to make changes to the list, you need to change the configuration file. We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
-
-```yaml
-scrape_configs:
-  - job_name: 'example-job' # this is a minimal example of a job definition containing the job_name and a target configuration
-    static_configs:
-    - targets:
-      - server1:8080
-      - server2:8080
+```bash
+kubectl get nodes
 ```
 
-### Dynamic configuration
-
-In addition to the static target configuration, Prometheus provides many ways to dynamically add/remove targets. There are builtin service discovery mechanisms for cloud providers such as AWS, GCP, Hetzner, and many more. In addition, there are more versatile discovery mechanisms available which allow you to implement Prometheus in your environment (e.g., DNS service discovery or file service discovery).
-Let's take a look at an example of a file service discovery configuration:
-
-```yaml
-scrape_configs:
-  - job_name: example_file_sd
-    file_sd_configs:
-    - files:
-      - /etc/prometheus/file_sd/targets.yml
+```bash
+NAME       STATUS   ROLES                  AGE    VERSION
+minikube   Ready    control-plane,master   2m2s   v1.20.2
 ```
-In this example, Prometheus will lookup a list of targets in the file `/etc/prometheus/file_sd/targets.yml`. Prometheus will also pickup changes in the file automatically (without reloading) and adjust the list of targets accordingly.
 
+Deploy the Prometheus operator stack, consisting of:
 
-## Relabeling (advanced)
+* Prometheus Operator [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+* Prometheus Operator [ClusterRole and ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)
+* CustomResourceDefinitions
+  * [Prometheus](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#prometheus): Manage the Prometheus instances
+  * [Alertmanager](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#alertmanager): Manage the Alertmanager instances
+  * [ServiceMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#servicemonitor): Generate Kubernetes service discovery scrape configuration based on Kubernetes [service](https://kubernetes.io/docs/concepts/services-networking/service/) definitions
+  * [PrometheusRule](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#prometheusrule): Manage the Prometheus rules of your Prometheus
+  * [AlertmanagerConfig](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#alertmanagerconfig): Add additional receivers and routes to your existing Alertmanager configuration
+  * [PodMonitor](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#podmonitor): Generate Kubernetes service discovery scrape configuration based on Kubernetes pod definitions
+  * [Probe](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#probe): Custom resource to manage Prometheus blackbox exporter targets
+  * [ThanosRuler](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#thanosruler): Manage [Thanos rulers](https://github.com/thanos-io/thanos/blob/main/docs/components/rule.md)
 
-[Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) in Prometheus can be used to perform numerous tasks using regular expressions, such as
+```bash
+git clone https://github.com/prometheus-operator/kube-prometheus.git ~/work/kube-prometheus
+cd ~/work/kube-prometheus
+git checkout release-0.8
+kubectl create -f manifests/setup
+```
 
-* adding, modifying or removing labels to/from metrics or alerts,
-* filtering metrics based on labels, or
-* enabling horizontal scaling of Prometheus by using `hashmod` relabeling.
+The manifest will deploy a complete monitoring stack consisting of:
 
-It is a very powerful part of the Prometheus configuration, but it can also get quite complex and confusing. Thus, we will only take a look at some basic/simple examples.
+* Two Prometheis
+* Alertmanager cluster
+* Grafana
+* kube-state metrics exporter
+* node_exporter
+* blackbox exporter
+* A set of default PrometheusRules
+* A set of default dashboards
 
-There are four types of relabelings:
+```bash
+kubectl create -f manifests/
+```
 
-* `relabel_configs` (target relabeling)
+By default, Prometheus is only allowed to monitor the `default`, `monitoring` and `kube-system` namespaces. Therefore we will add the necessary ClusterRoleBinding to grant Prometheus access to cluster-wide resources. Also we will create the needed ingress definitions for you, which will expose the monitoring components.
 
-  Target relabeling is defined in the job definition of a `scrape_config`. This is used to configure scraping of a multi-target exporter (e.g., `blackbox_exporter` or `snmp_exporter`) where one single exporter instance is used to scrape multiple targets. Check out the [Prometheus docs](https://prometheus.io/docs/guides/multi-target-exporter/#querying-multi-target-exporters-with-prometheus) for a detailed explanation and example configurations of `relabel_configs`.
+```bash
+kubectl -n monitoring apply -f \
+https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/07/resources.yaml
+```
 
-* `metric_relabel_configs` (metrics relabeling)
+Wait until all pods are running
 
-  Metrics relabeling is applied to scraped samples right before ingestion. It allows adding, modifying, or dropping labels or even dropping entire samples if they match certain criteria.
+```bash
+watch kubectl -n monitoring get pods
+```
 
-* `alert_relabel_configs` (alert relabeling)
+Check if you can access the Prometheus web interface at <http://LOCALHOST:19090>
 
-  Alert relabeling is similar to `metric_relabel_configs`, but applies to outgoing alerts.
+Check access to Alertmanager at <http://LOCALHOST:19093>
 
-* `write_relabel_configs` (remote write relabeling)
+Check access to Grafana at <http://LOCALHOST:13000>
+{{% alert title="Note" color="primary" %}}
+Use the default Grafana logging credentials and change the password
 
-  Remote write relabeling is similar to `metric_relabel_configs`, but applies to `remote_write` configurations.
+* username: admin
+* password: admin
+
+{{% /alert %}}
+
+### Task {{% param sectionnumber %}}.1: Prometheus web UI
+
+Get a feel for how to use the Prometheus web UI. Open the [web UI](http://LOCALHOST:19090) and navigate to the **Graph** menu (right on top in the grey navigation bar next to Alerts).
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+![Prometheus UI](prometheus-ui.png)
+
+Let's start and find a memory related metric. The best way to start is by typing `node_memory` in the expression bar.
+
+{{% alert title="Note" color="primary" %}}
+As soon as you start typing a dropdown with matching metrics is shown.
+{{% /alert %}}
+
+You can also open the `Metrics Explorer` by clicking on the globe symbol next to the `Execute` button.
+
+Select a metric such as `node_memory_MemFree_bytes` and click the `Execute` button.
+
+The result of your first Query will be available under the two tabs:
+
+1. Table
+1. Graph
+
+Explore those two views on your results. Shrink the time range in the Graph tab.
+
+{{% /details %}}
+
+### Task {{% param sectionnumber %}}.2: Metric Prometheus server version
+
+Prometheus collects its own metrics, so information such as the current build version of your Prometheus server is displayed as a metric.
+
+Let's find a metric that shows you the version of your Prometheus server.
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+Start typing `prometheus_...` in the expression browser, choose the `prometheus_build_info` metric and click the `Execute` Button.
+
+Something similar to the following will be displayed
+
+```promql
+prometheus_build_info{branch="HEAD", container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.13:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-1", revision="3cafc58827d1ebd1a67749f88be4218f0bab3d8d", service="prometheus-k8s", version="2.26.0"}
+	1
+prometheus_build_info{branch="HEAD", container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.14:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-0", revision="3cafc58827d1ebd1a67749f88be4218f0bab3d8d", service="prometheus-k8s", version="2.26.0"}
+	1
+```
+
+The actual Version of your Prometheus Server will be available as label `version`
+```promql
+{version="2.26.0"}
+```
+
+{{% /details %}}
+
+### Task {{% param sectionnumber %}}.3: Display pod metrics in Kubernetes Grafana
+
+The Prometheus operator stack provides a few generic dashboards for your Kubernetes cluster deployment. These dashboards provide you with information about the resource usage of Kubernetes infrastructure components or your deployed apps. They also show you latency and availability of Kubernetes core components.
+
+**Task description**:
+
+* Navigate to your [Kubernetes Grafana](http://LOCALHOST:13000)
+* Find a dashboard that displays compute resources per namespace and pod
+* Take a look at the metrics from the `monitoring` namespace
+
+{{% alert title="Note" color="primary" %}}
+The initial password is `admin`. You need to change it after the first login.
+{{% /alert %}}
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+* Use the search function (magnifying glass) on the left side and hit `Search`
+* The dashboard name is `Kubernetes / Compute Resources / Namespace (Pods)` and can be found in the `Default` directory
+* Select `monitoring` in the namespace drop-down
+
+You get usage metrics for CPU and memory as well as network statistics per pod in the namespace `Monitoring`.
+
+{{% /details %}}
+
+### Task {{% param sectionnumber %}}.4: Configure Prometheus Retention
+
+By default, the Prometheus operator stack will set the retention of your metrics to `24h`.
+Read about [retention operational-aspects](https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects) for options to manage retention.
+
+**Task description**:
+
+* Set Prometheus retention time to two days and retention size to 9Gi
+
+{{% alert title="Note" color="primary" %}}
+Check [documentation](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/api.md#prometheusspec) for available options
+{{% /alert %}}
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+Set the following options
+
+```bash
+kubectl -n monitoring edit prometheus k8s
+```
+
+```bash
+spec:
+...
+  retention: 2d
+  retentionSize: 9GB
+...
+```
+
+Check if the retention parameter is set in the running pod.
+
+```bash
+kubectl -n monitoring describe pods prometheus-k8s-0
+...
+Containers:
+  prometheus:
+    Args:
+      --storage.tsdb.retention.size=9GB
+      --storage.tsdb.retention.time=2d
+...
+```
+
+{{% /details %}}
