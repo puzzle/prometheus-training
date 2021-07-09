@@ -36,8 +36,8 @@ kubectl get nodes
 ```
 
 ```bash
-NAME       STATUS   ROLES    AGE     VERSION
-minikube   Ready    master   4m15s   v1.19.4
+NAME       STATUS   ROLES                  AGE    VERSION
+minikube   Ready    control-plane,master   2m2s   v1.20.2
 ```
 
 Deploy the Prometheus operator stack, consisting of:
@@ -60,10 +60,6 @@ cd ~/work/kube-prometheus
 git checkout release-0.8
 kubectl create -f manifests/setup
 ```
-
-{{% alert title="Note" color="primary" %}}
-We will use the latest manifest from `kube-prometheus`, which is based on the `main` branch, where some components may not have been officially released yet.
-{{% /alert %}}
 
 The manifest will deploy a complete monitoring stack consisting of:
 
