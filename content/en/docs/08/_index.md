@@ -51,7 +51,7 @@ kubectl apply -f ~/work/service.yaml -n application-metrics
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ```bash
-kubectl get services --namespace application-metrics
+kubectl -n application-metrics get services
 ```
 
 Which gives you an output similar to this:

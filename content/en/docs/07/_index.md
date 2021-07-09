@@ -17,7 +17,7 @@ Minikube is already started and configured. When you restart your virtual machin
 
 ```bash
 minikube start \
---kubernetes-version=v1.19.0 \
+--kubernetes-version=v1.20.2 \
 --memory=6g \
 --cpus=4 \
 --bootstrapper=kubeadm \
@@ -33,6 +33,9 @@ Check if you can connect to the API and verify the minikube master node is in `r
 
 ```bash
 kubectl get nodes
+```
+
+```bash
 NAME       STATUS   ROLES    AGE     VERSION
 minikube   Ready    master   4m15s   v1.19.4
 ```
@@ -54,6 +57,7 @@ Deploy the Prometheus operator stack, consisting of:
 ```bash
 git clone https://github.com/prometheus-operator/kube-prometheus.git ~/work/kube-prometheus
 cd ~/work/kube-prometheus
+git checkout release-0.8
 kubectl create -f manifests/setup
 ```
 
