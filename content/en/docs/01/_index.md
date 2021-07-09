@@ -138,13 +138,15 @@ Start typing `prometheus_...` in the expression browser, choose the `prometheus_
 Something similar to the following will be displayed
 
 ```promql
-metricname                                  Value
-prometheus_build_info{...,goversion="go1.16.5",instance="localhost:9090",job="prometheus",version="2.28.1"} 1
+prometheus_build_info{branch="HEAD", container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.13:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-1", revision="3cafc58827d1ebd1a67749f88be4218f0bab3d8d", service="prometheus-k8s", version="2.26.0"}
+	1
+prometheus_build_info{branch="HEAD", container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.14:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-0", revision="3cafc58827d1ebd1a67749f88be4218f0bab3d8d", service="prometheus-k8s", version="2.26.0"}
+	1
 ```
 
 The actual Version of your Prometheus Server will be available as label `version`
 ```promql
-{version="2.28.1"}
+{version="2.26.0"}
 ```
 
 {{% /details %}}
