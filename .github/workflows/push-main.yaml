@@ -44,7 +44,7 @@ jobs:
           push: true
           tags: |
             quay.io/puzzle/prometheus-basics-training:latest-cloud-native-day
-
+      -
         name: 'Deploy'
         uses: 'deliverybot/helm@v1'
         with:
