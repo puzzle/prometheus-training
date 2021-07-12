@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Prometheus Basics Training"
+title = "Prometheus Workshop"
 
 enableGitInfo = true
 
@@ -38,7 +38,7 @@ anchor = "smart"
 
 [Languages]
 [Languages.en]
-title = "Prometheus Basics Training"
+title = "Prometheus Workshop"
 languageName = "English"
 weight = 1
 

@@ -7,7 +7,7 @@ menu:
 ---
 
 
-{{< blocks/cover title="About Prometheus Basics Training" image_anchor="bottom" height="min" >}}
+{{< blocks/cover title="About Prometheus Workshop" image_anchor="bottom" height="min" >}}
 
 {{< /blocks/cover >}}
 
