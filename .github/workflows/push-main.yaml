@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.QUAYIO_USERNAME }}
           password: ${{ secrets.QUAYIO_TOKEN }}
       - 
-        name: Build and Push Latest Version
+        name: Build Latest Version
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -44,8 +44,25 @@ jobs:
           push: true
           tags: |
             quay.io/puzzle/prometheus-basics-training:latest
+      -
+        name: Run vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'quay.io/puzzle/prometheus-basics-training:latest'
+          format: 'table'
+          output: 'trivy-results.txt'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os'
+          severity: 'CRITICAL,HIGH'
+      -
+        name: Archive vulnerability scan results
+        uses: actions/upload-artifact@v2
+        with:
+          name: trivy-results-build
+          path: trivy-results.txt
       - 
-        name: Build and Push Acend Version
+        name: Build Acend Version
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -55,35 +72,53 @@ jobs:
           push: true
           tags: |
             quay.io/puzzle/prometheus-basics-training:latest-acend
-      - 
-        name: 'Deploy'
-        uses: 'deliverybot/helm@v1'
+      -
+        name: Run vulnerability scanner Puzzle
+        uses: aquasecurity/trivy-action@master
         with:
-          release: 'latest'
-          namespace: 'acend-prometheus-basics-training-prod'
-          version: '${{ github.sha }}'
-          repository: 'https://acend.github.io/helm-charts/'
-          chart: 'acend-training-chart'
-          token: '${{ github.token }}'
-          helm: 'helm3'
-          value-files: |
-            [
-              "helm-chart/values.yaml"
-            ]
-
-        env:
-          KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
-      - 
-        name: redeploy puzzle deployment
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
+          image-ref: 'quay.io/puzzle/prometheus-basics-training:latest-acend'
+          format: 'table'
+          output: 'trivy-results.txt'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os'
+          severity: 'CRITICAL,HIGH'
+      -
+        name: Archive vulnerability scan results
+        uses: actions/upload-artifact@v2
         with:
-          args: rollout restart deployment/latest-prometheus-basics-puzzle --namespace acend-prometheus-basics-training-prod
+          name: trivy-results-build
+          path: trivy-results.txt
       - 
-        name: redeploy acend deployment
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBECONFIG_BASE64 }}
+        name: 'Install Helm'
+        uses: azure/setup-helm@v1
         with:
-          args: rollout restart deployment/latest-prometheus-basics-acend --namespace acend-prometheus-basics-training-prod
+          version: v3.6.2
+      - 
+        name: Install Kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: v1.21.2
+      - 
+        name: Create KUBECONFIG
+        env:
+          KUBE_CONFIG: '${{ secrets.KUBECONFIG }}'
+        run: |
+          mkdir -p $HOME/.kube
+          echo "$KUBE_CONFIG" > $HOME/.kube/config
+      - 
+        name: Deploy Helm Release
+        env:
+          TRAINING_HELM_RELEASE: 'latest'
+          TRAINING_NAMESPACE: 'acend-prometheus-basics-training-prod'
+          TRAINING_VERSION: '${{ github.sha }}'
+        run: |
+          helm upgrade $TRAINING_HELM_RELEASE acend-training-chart --install --wait --kubeconfig $HOME/.kube/config  --namespace=$TRAINING_NAMESPACE --set=app.name=$HELM_RELEASE --set=app.version=$TRAINING_VERSION --repo=https://acend.github.io/helm-charts/ --values=helm-chart/values.yaml --atomic
+      - 
+        name: Redeploy Deployments
+        env:
+          TRAINING_HELM_RELEASE: 'latest'
+          TRAINING_NAMESPACE: 'acend-prometheus-basics-training-prod'
+        run: |
+          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-prometheus-basics-puzzle --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/$TRAINING_HELM_RELEASE-prometheus-basics-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
