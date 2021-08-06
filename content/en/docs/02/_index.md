@@ -81,3 +81,39 @@ sum(kubelet_running_pods)
 
 {{% /details %}}
 
+## Visualize
+
+
+### Task {{% param sectionnumber %}}.4 Create your first dashboard
+
+**Task description**:
+
+In this task you're going to create your first own dashboard `my_dashboard`. You will add the panel `Memory Utilisation` with the metric `container_memory_working_set_bytes`.
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+* Navigate to **+** (left navigation menu) > **Dashboard**
+  * Select **Add an empty panel**
+  * Add the query `container_memory_working_set_bytes{pod=~"prometheus-k8s-.*", container="prometheus"}` in the **Metrics browser** field
+  * Set the panel title to `Memory Utilisation` under **Panel options > Title** (you may need to open the options pane with the **<** button on the right hand side just below the **Apply** button)
+* Save the dashboard and give it the name `my_dashboard`
+
+{{% /details %}}
+
+
+### Task {{% param sectionnumber %}}.5 Add a Gauge panel to the dashboard
+
+**Task description**:
+
+Add another panel to the existing `my_dashboard` with the panel name `Pod count`. Display the metric `kubelet_running_pods` and change the panel type to `Gauge`.
+
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+* Hit **Add panel** (top navigation menu) **> Add an empty panel**
+  * Add the query `sum(kubelet_running_pods)` to the **Metrics browser** field
+  * Set the panel title to `Pod count` under **Panel options > Title** (you may need to open the options pane with the **<** button on the right hand side just below the **Apply** button)
+  * Choose **Gauge** in the dropdown menu just below the **Apply** button
+* Save the dashboard
+
+{{% /details %}}
