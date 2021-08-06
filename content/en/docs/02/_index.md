@@ -4,7 +4,72 @@ weight: 1
 sectionnumber: 2
 ---
 
-## Query
+## Prometheus exposition format
+
+{{% alert title="Note" color="primary" %}}
+Prometheus consumes metrics in Prometheus text-based exposition format and plans to adopt the [OpenMetrics](https://openmetrics.io/) standard: <https://prometheus.io/docs/introduction/roadmap/#adopt-openmetrics>.
+{{% /alert %}}
+
+[Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/)
+```
+metric_name [
+  "{" label_name "=" `"` label_value `"` { "," label_name "=" `"` label_value `"` } [ "," ] "}"
+] value [ timestamp ]
+```
+
+As an example, check the metrics of your Prometheus server (<http://LOCALHOST:19090/metrics>).
+```
+...
+# HELP prometheus_tsdb_head_samples_appended_total Total number of appended samples.
+# TYPE prometheus_tsdb_head_samples_appended_total counter
+prometheus_tsdb_head_samples_appended_total 463
+# HELP prometheus_tsdb_head_series Total number of series in the head block.
+# TYPE prometheus_tsdb_head_series gauge
+prometheus_tsdb_head_series 463
+...
+```
+
+{{% alert title="Note" color="primary" %}}
+There are 4 different metric types in Prometheus
+
+* Counter
+* Gauge
+* Histogram
+* Summary
+
+[Prometheus Metric Types](https://prometheus.io/docs/concepts/metric_types/)
+{{% /alert %}}
+
+
+## Explore Prometheus metrics
+
+Open your Prometheus [web UI](http://LOCALHOST:19090) and navigate to the **Graph** menu. You can use the `insert metric at cursor` drop-down list (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
+
+Learn more about:
+
+* [Prometheus operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
+* [Prometheus functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
+* [PromLens](https://promlens.com/), the power tool for querying Prometheus
+
+## Special labels
+
+As you have already seen in several examples, a Prometheus metric is defined by one or more labels with the corresponding values. Two of those labels are special, because the Prometheus server will automatically generate them for every metric:
+
+
+* instance
+
+     The instance label describes the endpoint where Prometheus scraped the metric. This can be any application or exporter. In addition to the ip address or hostname, this label usually also contains the port number. Example: `10.0.0.25:9100`
+
+* job
+
+     This label contains the name of the scrape job as configured in the Prometheus configuration file. All instances configured in the same scrape job will share the same job label.
+
+
+{{% alert title="Note" color="primary" %}}
+Prometheus will append these labels dynamically before sample ingestion. Therefore you will not see these labels if you query the metrics endpoint directly (e.g. by using `curl`).
+
+{{% /alert %}}
+
 
 ### Task {{% param sectionnumber %}}.1: Container restart alerting rule
 
@@ -80,8 +145,6 @@ count(sum(kube_pod_container_status_running == 1) by (pod,namespace))
 ```
 
 {{% /details %}}
-
-## Visualize
 
 
 ### Task {{% param sectionnumber %}}.4 Create your first dashboard
