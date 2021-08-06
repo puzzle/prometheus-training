@@ -11,7 +11,7 @@ sectionnumber: 2
 Navigate to the [Prometheus user interface](http://LOCALHOST:19090/rules) and take a look at the provided default Prometheus rules.
 
 {{% alert title="Note" color="primary" %}}
-Search for an alert with `CrashLooping` in its name
+Search for an Alerting rule with `CrashLooping` in its name
 {{% /alert %}}
 
 **Task description**:
@@ -67,16 +67,16 @@ id="/kubepods/burstable/pode2ab8dc5-ad8e-4b5c-9b0f-49c3bb5a8a34/dce2373557fb05e0
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-There are different ways to archive this. You can for example query all running containers and group them by `pod` and `namespace`.
-
-```promql
-count(sum(kube_pod_container_status_running == 1) by (pod,namespace))
-```
-
-You may also sum() all running pods on your Kubernetes nodes
+There are different ways to archive this. You may sum() all running pods on your Kubernetes nodes
 
 ```promql
 sum(kubelet_running_pods)
+```
+
+You can also query all running containers and group them by `pod` and `namespace`.
+
+```promql
+count(sum(kube_pod_container_status_running == 1) by (pod,namespace))
 ```
 
 {{% /details %}}
@@ -88,12 +88,13 @@ sum(kubelet_running_pods)
 
 **Task description**:
 
-In this task you're going to create your first own dashboard `my_dashboard`. You will add the panel `Memory Utilisation` with the metric `container_memory_working_set_bytes`.
+Navigate to the [Grafana server](http://LOCALHOST:13000), create a dashboard `my_dashboard` and add the panel `Memory Utilisation` with the metric `container_memory_working_set_bytes`.
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
 * Navigate to **+** (left navigation menu) > **Dashboard**
   * Select **Add an empty panel**
+  * Select the **prometheus** datasource
   * Add the query `container_memory_working_set_bytes{pod=~"prometheus-k8s-.*", container="prometheus"}` in the **Metrics browser** field
   * Set the panel title to `Memory Utilisation` under **Panel options > Title** (you may need to open the options pane with the **<** button on the right hand side just below the **Apply** button)
 * Save the dashboard and give it the name `my_dashboard`
@@ -111,9 +112,10 @@ Add another panel to the existing `my_dashboard` with the panel name `Pod count`
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
 * Hit **Add panel** (top navigation menu) **> Add an empty panel**
+  * Select the **prometheus** datasource
   * Add the query `sum(kubelet_running_pods)` to the **Metrics browser** field
   * Set the panel title to `Pod count` under **Panel options > Title** (you may need to open the options pane with the **<** button on the right hand side just below the **Apply** button)
-  * Choose **Gauge** in the dropdown menu just below the **Apply** button
+  * Choose **Gauge** in the visualization dropdown menu just below the **Apply** button
 * Save the dashboard
 
 {{% /details %}}

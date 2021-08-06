@@ -176,17 +176,17 @@ echo 'export KUBE_EDITOR="nano"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+Resources can be changed by using `kubectl edit`.
+
+```bash
+kubectl -n monitoring edit "type" "name"
+```
+
 Alternatively, you can export your resources, edit them in Theia, and apply them to the Kubernetes cluster. For example:
 
 ```bash
 kubectl get deployment "name" -o yaml > ~/work/deployment.yaml
 kubectl apply -f ~/work/deployment.yaml
-```
-
-Custom resources can be changed by using `kubectl edit`.
-
-```bash
-kubectl -n monitoring edit "type" "name"
 ```
 
 {{% /alert %}}
