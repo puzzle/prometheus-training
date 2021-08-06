@@ -4,7 +4,7 @@ weight: 1
 sectionnumber: 1
 ---
 
-## Prometheus
+## Prometheus on Kubernetes
 
 We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
@@ -125,33 +125,7 @@ Explore those two views on your results. Shrink the time range in the Graph tab.
 
 {{% /details %}}
 
-### Task {{% param sectionnumber %}}.2: Metric Prometheus server version
-
-Prometheus collects its own metrics, so information such as the current build version of your Prometheus server is displayed as a metric.
-
-Let's find a metric that shows you the version of your Prometheus server.
-
-{{% details title="Hints" mode-switcher="normalexpertmode" %}}
-
-Start typing `prometheus_...` in the expression browser, choose the `prometheus_build_info` metric and click the `Execute` Button.
-
-Something similar to the following will be displayed
-
-```promql
-prometheus_build_info{branch="HEAD", container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.13:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-1", revision="3cafc58827d1ebd1a67749f88be4218f0bab3d8d", service="prometheus-k8s", version="2.26.0"}
-	1
-prometheus_build_info{branch="HEAD", container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.14:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-0", revision="3cafc58827d1ebd1a67749f88be4218f0bab3d8d", service="prometheus-k8s", version="2.26.0"}
-	1
-```
-
-The actual Version of your Prometheus Server will be available as label `version`
-```promql
-{version="2.26.0"}
-```
-
-{{% /details %}}
-
-### Task {{% param sectionnumber %}}.3: Display pod metrics in Kubernetes Grafana
+### Task {{% param sectionnumber %}}.2: Grafana default dashboards
 
 The Prometheus operator stack provides a few generic dashboards for your Kubernetes cluster deployment. These dashboards provide you with information about the resource usage of Kubernetes infrastructure components or your deployed apps. They also show you latency and availability of Kubernetes core components.
 
@@ -175,10 +149,40 @@ You get usage metrics for CPU and memory as well as network statistics per pod i
 
 {{% /details %}}
 
-### Task {{% param sectionnumber %}}.4: Configure Prometheus Retention
+### Task {{% param sectionnumber %}}.3: Prometheus configuration
 
 By default, the Prometheus operator stack will set the retention of your metrics to `24h`.
 Read about [retention operational-aspects](https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects) for options to manage retention.
+
+{{% alert title="Note" color="primary" %}}
+To get the custom resources name of your Alertmanager or Prometheus run:
+
+```bash
+kubectl -n monitoring get prometheuses
+kubectl -n monitoring get alertmanagers
+```
+
+The default text editor in Kubernetes is `Vim`. If you are not familiar with `Vim`, you can switch to `Nano` or `Emacs` by setting the `KUBE_EDITOR` environment variable. Example to use `nano`:
+
+```bash
+echo 'export KUBE_EDITOR="nano"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Alternatively, you can export your resources, edit them in Theia, and apply them to the Kubernetes cluster. For example:
+
+```bash
+kubectl get deployment "name" -o yaml > ~/work/deployment.yaml
+kubectl apply -f ~/work/deployment.yaml
+```
+
+Custom resources can be changed by using `kubectl edit`.
+
+```bash
+kubectl -n monitoring edit "type" "name"
+```
+
+{{% /alert %}}
 
 **Task description**:
 
@@ -218,3 +222,4 @@ Containers:
 ```
 
 {{% /details %}}
+
