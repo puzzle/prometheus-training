@@ -6,6 +6,13 @@ sectionnumber: 1
 
 ## Prometheus on Kubernetes
 
+Navigate to your home directory and create the directories work and downloads:
+
+```bash
+mkdir ~/{work,downloads}
+cd ~/downloads
+```
+
 We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
 {{% alert title="Minikube" color="primary" %}}
