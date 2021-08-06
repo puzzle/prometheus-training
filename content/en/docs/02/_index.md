@@ -115,7 +115,7 @@ Add another panel to the existing `my_dashboard` with the panel name `Pod count`
   * Select the **prometheus** datasource
   * Add the query `sum(kubelet_running_pods)` to the **Metrics browser** field
   * Set the panel title to `Pod count` under **Panel options > Title** (you may need to open the options pane with the **<** button on the right hand side just below the **Apply** button)
-  * Choose **Gauge** in the visualization dropdown menu just below the **Apply** button
+  * Choose **Gauge** in the **visualization** dropdown menu just below the **Apply** button
 * Save the dashboard
 
 {{% /details %}}

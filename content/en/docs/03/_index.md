@@ -37,11 +37,11 @@ Use the following command to verify the deployment, that the pod `example-web-py
 kubectl -n application-metrics get pod -w
 ```
 
-We also need to create a service for the new application. Create a file with the name `~/work/service.yaml` with the following content:
+We also need to create a Service for the new application. Create a file with the name `~/work/service.yaml` with the following content:
 
 {{< highlight yaml >}}{{< readfile file="content/en/docs/03/service.yaml" >}}{{< /highlight >}}
 
-Create the service with the following command:
+Create the Service with the following command:
 
 ```bash
 kubectl apply -f ~/work/service.yaml -n application-metrics
@@ -50,7 +50,7 @@ kubectl apply -f ~/work/service.yaml -n application-metrics
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ```bash
-kubectl -n application-metrics get services
+kubectl -n application-metrics get Services
 ```
 
 Which gives you an output similar to this:
@@ -90,15 +90,15 @@ Since our newly deployed application now exposes metrics, the next thing we need
 
 ## Service Discovery
 
-When configuring Prometheus to scrape metrics from Container deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be way to static and won't really work in a highly dynamic environment.
+When configuring Prometheus to scrape metrics from Containers deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be far too static and wouldn't really work in a highly dynamic environment.
 
-In fact we actually integrate Prometheus with Kubernetes tightly and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
+In fact, we tightly integrate Prometheus with Kubernetes and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
 
 The tight integration between Prometheus and Kubernetes can be configured with the [Kubernetes Service Discovery Config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config).
 
-If we now want to tell Prometheus to scrape our application metrics from the example application, we can create a so called ServiceMonitor.
+Now we instruct Prometheus to scrape our application metrics from the sample application by creating a ServiceMonitor.
 
-ServiceMonitors are custom Kubernetes resources, which basically represent the scrape_config and look like this:
+ServiceMonitors are Kubernetes custom resources, which basically represent the scrape_config and look like this:
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
@@ -147,7 +147,7 @@ metadata:
 
 This means Prometheus scrapes all Endpoints where the `prometheus-monitoring: 'true'` label is set.
 
-The `spec` section in the ServiceMonitor resource allows us to further configure the targets Prometheus will scrape.
+The `spec` section in the ServiceMonitor resource allows to further configure the targets.
 In our case Prometheus will scrape:
 
 * Every 30 seconds
@@ -163,21 +163,21 @@ Create a ServiceMonitor  for the example application
 * Create a ServiceMonitor, which will configure Prometheus to scrape metrics from the example-web-python application every 30 seconds.
   * hint: `kubectl -n application-metrics apply -f my_file.yaml` will create a resource in the Kubernetes namespace
 
-For this to work make sure:
+For this to work, you need to ensure:
 
 * The example-web-python Service is labeled correctly and matches the labels you've defined in your ServiceMonitor.
 * The port name in your ServiceMonitor configuration matches the port name in the Service definition.
   * hint: check with `kubectl get service example-web-python -n application-metrics -o yaml`
 * Verify the target in the Prometheus user interface
 
-{{% alert title="Best-practice: Troubleshoot when metrics are not scraped" color="primary" %}}
+{{% alert title="Troubleshooting: Prometheus is not scrapping metrics" color="primary" %}}
 
-Does the config of the ServiceMonitor appear in the Prometheus scrape config?
+Does the configuration of the ServiceMonitor appear in the Prometheus scrape config?
 
 * Check if the label of your ServiceMonitor matches the label defined in the Prometheus custom resource
 * Check the Prometheus operator logs for errors (Permission issues or invalid ServiceMonitors)
 
-The Endpoint appears in the Prometheus scrape config but not under targets. The service discovery can't find the Endpoint.
+The Endpoint appears in the Prometheus scrape config but not under targets. The Service Discovery can't find the Endpoint.
 
 * The namespaceSelector in the ServiceMonitor does not match the namespace of your app
 * The label selector does not match the Service of your app
