@@ -74,7 +74,7 @@ Prometheus will append these labels dynamically before sample ingestion. Therefo
 
 {{% /alert %}}
 
-Let's take a look at the following scrape config (exmaple, no need to change the Prometheus configuration on your lab VM):
+Let's take a look at the following scrape config (example, no need to change the Prometheus configuration on your lab VM):
 
 ```yaml
 scrape_configs:
