@@ -4,7 +4,6 @@ weight: 8
 sectionnumber: 8
 ---
 
-
 ## Collecting Application Metrics
 
 When running applications in production, a fast feedback loop is a key factor. The following reasons show why it's essential to gather and combine all sorts of metrics when running an applications in production:
@@ -38,11 +37,11 @@ Use the following command to verify the deployment, that the pod `example-web-py
 kubectl -n application-metrics get pod -w
 ```
 
-We also need to create a service for the new application. Create a file with the name `~/work/service.yaml` with the following content:
+We also need to create a Service for the new application. Create a file with the name `~/work/service.yaml` with the following content:
 
 {{< highlight yaml >}}{{< readfile file="content/en/docs/08/service.yaml" >}}{{< /highlight >}}
 
-Create the service with the following command:
+Create the Service with the following command:
 
 ```bash
 kubectl apply -f ~/work/service.yaml -n application-metrics
@@ -91,15 +90,15 @@ Since our newly deployed application now exposes metrics, the next thing we need
 
 ## Service Discovery
 
-When configuring Prometheus to scrape metrics from Services, Endpoints, Deployments and Pods deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be way to static and won't really work in a highly dynamic environment. Instead it makes sense to use a similar concept, like we used in [Lab 1 - Dynamic configuration](../01/#dynamic-configuration).
+When configuring Prometheus to scrape metrics from Containers deployed in a Kubernetes Cluster it doesn't really make sense to configure every single target manually. That would be far too static and wouldn't really work in a highly dynamic environment. Instead it makes sense to use a similar concept, like we used in [Lab 1 - Dynamic configuration](../01/#dynamic-configuration).
 
-In fact we actually integrate Prometheus with Kubernetes tightly and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
+In fact, we tightly integrate Prometheus with Kubernetes and let Prometheus discover the targets, which need to be scraped automatically via the Kubernetes API.
 
 The tight integration between Prometheus and Kubernetes can be configured with the [Kubernetes Service Discovery Config](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config).
 
-If we now want to tell Prometheus to scrape our application metrics from the example application, we can create a so called ServiceMonitor.
+Now we instruct Prometheus to scrape our application metrics from the sample application by creating a ServiceMonitor.
 
-ServiceMonitors are custom Kubernetes resources, which basically represent the scrape_config and look like this:
+ServiceMonitors are Kubernetes custom resources, which basically represent the scrape_config and look like this:
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
@@ -148,7 +147,7 @@ metadata:
 
 This means Prometheus scrapes all Endpoints where the `prometheus-monitoring: 'true'` label is set.
 
-The `spec` section in the ServiceMonitor resource allows us to further configure the targets Prometheus will scrape.
+The `spec` section in the ServiceMonitor resource allows to further configure the targets.
 In our case Prometheus will scrape:
 
 * Every 30 seconds
