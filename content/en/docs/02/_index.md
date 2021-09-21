@@ -12,9 +12,9 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 
 [Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/)
 ```
-metric_name [
-  "{" label_name "=" `"` label_value `"` { "," label_name "=" `"` label_value `"` } [ "," ] "}"
-] value [ timestamp ]
+# HELP <metric name> <info>
+# TYPE <metric name> <metric type>
+<metric name>{<label name>=<label value>, ...} <sample value>
 ```
 
 As an example, check the metrics of your Prometheus server (<http://LOCALHOST:19090/metrics>).
@@ -51,25 +51,6 @@ Learn more about:
 * [Prometheus functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
 * [PromLens](https://promlens.com/), the power tool for querying Prometheus
 
-## Special labels
-
-As you have already seen in several examples, a Prometheus metric is defined by one or more labels with the corresponding values. Two of those labels are special, because the Prometheus server will automatically generate them for every metric:
-
-
-* instance
-
-     The instance label describes the endpoint where Prometheus scraped the metric. This can be any application or exporter. In addition to the ip address or hostname, this label usually also contains the port number. Example: `10.0.0.25:9100`
-
-* job
-
-     This label contains the name of the scrape job as configured in the Prometheus configuration file. All instances configured in the same scrape job will share the same job label.
-
-
-{{% alert title="Note" color="primary" %}}
-Prometheus will append these labels dynamically before sample ingestion. Therefore you will not see these labels if you query the metrics endpoint directly (e.g. by using `curl`).
-
-{{% /alert %}}
-
 
 ### Task {{% param sectionnumber %}}.1: Container restart alerting rule
 
@@ -91,8 +72,7 @@ The Alerting rule is called `KubePodCrashLooping` and the PromQL defined for the
 ```promql
 rate(kube_pod_container_status_restarts_total{job="kube-state-metrics"}[10m]) * 60 * 5 > 0
 ```
-
-When you take a look at the query you will see, that there is filter to use just metrics from the `kube-state-metrics` exporter.
+If you take a look at the query, you will see that there is a filter that only uses metrics from the `kube-state-metrics` exporter.
 
 {{% /details %}}
 
@@ -147,7 +127,39 @@ count(sum(kube_pod_container_status_running == 1) by (pod,namespace))
 {{% /details %}}
 
 
-### Task {{% param sectionnumber %}}.4 Create your first dashboard
+### Task {{% param sectionnumber %}}.4: Rate Function
+
+Use the `rate()` function to display the current CPU **idle** usage per CPU core of the Prometheus server in % based on data of the last 5 minutes.
+
+{{% alert title="Hint" color="primary" %}}
+Read the [documentation](https://prometheus.io/docs/prometheus/latest/querying/functions/) about the `rate()` function.
+{{% /alert %}}
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+The CPU metrics are collected and exposed by the `node_exporter` therefore the metric we're looking for is under the `node` namespace.
+
+```promql
+node_cpu_seconds_total
+```
+
+To get the `idle` CPU seconds, we add the label filter `{mode="idle"}`.
+
+Since the `rate` function calculates the per-second average increase of the time series in a **range vector**, we have to pass a range vector to the function `node_cpu_seconds_total{mode="idle"}[5m]`
+
+To get the idle usage in % we therefore have to multiply it with 100.
+
+```promql
+rate(
+  node_cpu_seconds_total{mode="idle"}[5m]
+  )
+* 100
+```
+
+{{% /details %}}
+
+
+### Task {{% param sectionnumber %}}.5 Create your first dashboard
 
 **Task description**:
 
@@ -165,7 +177,7 @@ Navigate to the [Grafana server](http://LOCALHOST:13000), create a dashboard `my
 {{% /details %}}
 
 
-### Task {{% param sectionnumber %}}.5 Add a Gauge panel to the dashboard
+### Task {{% param sectionnumber %}}.6 Add a Gauge panel to the dashboard
 
 **Task description**:
 
