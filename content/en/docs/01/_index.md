@@ -132,7 +132,30 @@ Explore those two views on your results. Shrink the time range in the Graph tab.
 
 {{% /details %}}
 
-### Task {{% param sectionnumber %}}.2: Grafana default dashboards
+### Task {{% param sectionnumber %}}.2: Metric Prometheus server version
+
+Prometheus collects its own metrics, so information such as the current build version of your Prometheus server is displayed as a metric.
+
+Let's find a metric that shows you the version of your Prometheus server.
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+Start typing `prometheus_...` in the expression browser, choose the `prometheus_build_info` metric and click the `Execute` Button.
+
+Something similar to the following will be displayed
+
+```promql
+metricname                                  Value
+prometheus_build_info{..., container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.11:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-0", service="prometheus-k8s", version="2.26.0"} 1
+prometheus_build_info{..., container="prometheus", endpoint="web", goversion="go1.16.2", instance="172.17.0.12:9090", job="prometheus-k8s", namespace="monitoring", pod="prometheus-k8s-1", service="prometheus-k8s", version="2.26.0"} 1
+```
+
+The actual Version of your Prometheus Server will be available as label `version`
+```promql
+{version="2.26.0"}
+```
+
+### Task {{% param sectionnumber %}}.3: Grafana default dashboards
 
 The Prometheus operator stack provides a few generic dashboards for your Kubernetes cluster deployment. These dashboards provide you with information about the resource usage of Kubernetes infrastructure components or your deployed apps. They also show you latency and availability of Kubernetes core components.
 
@@ -156,7 +179,7 @@ You get usage metrics for CPU and memory as well as network statistics per pod i
 
 {{% /details %}}
 
-### Task {{% param sectionnumber %}}.3: Prometheus configuration
+### Task {{% param sectionnumber %}}.4: Prometheus configuration
 
 By default, the Prometheus operator stack will set the retention of your metrics to `24h`.
 Read about [retention operational-aspects](https://prometheus.io/docs/prometheus/latest/storage/#operational-aspects) for options to manage retention.
