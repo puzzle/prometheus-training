@@ -51,7 +51,7 @@ The Prometheus operator allows you to extend the existing Prometheus rules with 
 
 **Task description**:
 
-* Add a custom Prometheus rule to the monitoring stack, wich checks if you have reached the defined retention size
+* Add a custom Prometheus rule to the monitoring stack, which checks if you have reached the defined retention size
 
 {{% alert title="Note" color="primary" %}}
 You can use the `prometheus_tsdb_size_retentions_total` metric
