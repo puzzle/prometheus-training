@@ -203,7 +203,7 @@ Apply it using the following command:
 kubectl -n application-metrics apply -f ~/work/servicemonitor.yaml
 ```
 
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/example-web-python-monitor/0`
+Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/example-web-python-monitor/0` (It may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
 {{% /details %}}
 
@@ -234,7 +234,7 @@ Apply it using the following command:
 kubectl -n application-metrics apply -f ~/work/probe.yaml
 ```
 
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/example-web-python-probe`
+Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/example-web-python-probe` (It may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
 Check for the following metric in Prometheus:
 

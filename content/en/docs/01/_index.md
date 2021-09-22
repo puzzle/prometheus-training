@@ -238,7 +238,7 @@ spec:
 ...
 ```
 
-Check if the retention parameter is set in the running pod.
+Verify that the pods are redeployed with `kubectl -n monitoring get pods` and that the retention parameter is set in the newly created pods.
 
 ```bash
 kubectl -n monitoring describe pods prometheus-k8s-0
