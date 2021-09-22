@@ -114,7 +114,7 @@ spec:
 
 **Task description**:
 
-* Configure Alertmanger to send all alerts from the monitoring namespace to [MailCatcher](http://LOCALHOST:1080) 
+* Configure Alertmanger to send all alerts from the monitoring namespace to [MailCatcher](http://LOCALHOST:1080)
 * Create a `AlertmanagerConfig` custom resource. See [example](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/alerting.md#alertmanagerconfig-resource) as reference
 * Name the resource `mailcatcher`
 * Define the following route and receiver
