@@ -12,9 +12,9 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 
 [Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/)
 ```
-metric_name [
-  "{" label_name "=" `"` label_value `"` { "," label_name "=" `"` label_value `"` } [ "," ] "}"
-] value [ timestamp ]
+# HELP <metric name> <info>
+# TYPE <metric name> <metric type>
+<metric name>{<label name>=<label value>, ...} <sample value>
 ```
 
 As an example, check the metrics of your Prometheus server (<http://LOCALHOST:9090/metrics>).
