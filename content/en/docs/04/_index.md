@@ -9,7 +9,7 @@ sectionnumber: 4
 In this section you will find some optional tasks.
 
 
-### Task {{% param sectionnumber %}}.1: Check if Alertmanager is running clustered (optional)
+### Task {{% param sectionnumber %}}.1: Check if Alertmanager is running clustered
 
 The Prometheus operator stack deployed three Alertmanagers. Normally there would be further configuration needed to make sure that these instances running clustered. But as we are running Alertmanager managed by Prometheus operator this should be done automatically.
 
