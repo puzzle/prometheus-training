@@ -79,13 +79,14 @@ spec:
 
 There are different ways to archive this. The first approach is to just check the number of times that blocks were deleted because the maximum number of bytes was exceeded.
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/04/prometheus-custom-rule.yml" >}}{{< /highlight >}}
-
 ```bash
 curl -o ~/work/prometheus-custom-rule.yml \
 https://raw.githubusercontent.com/puzzle/prometheus-training/cloud-native-day/content/en/docs/04/prometheus-custom-rule.yml
 kubectl -n monitoring create -f ~/work/prometheus-custom-rule.yml
 ```
+
+`prometheus-custom-rule.yml` content:
+{{< highlight yaml >}}{{< readfile file="content/en/docs/04/prometheus-custom-rule.yml" >}}{{< /highlight >}}
 
 Another approach is to alert, when the on-disk time series database size is greater than `prometheus_tsdb_retention_limit_bytes`. For example:
 
@@ -94,6 +95,9 @@ prometheus_tsdb_storage_blocks_bytes >= prometheus_tsdb_retention_limit_bytes
 ```
 
 {{% /details %}}
+
+
+In the [Prometheus web UI](http://LOCALHOST:19090) there is an Alerts menu item which shows you information about the configured alert.
 
 
 ### Task {{% param sectionnumber %}}.3: Configure additional Alertmanager receiver
@@ -150,8 +154,6 @@ route
 
 Add the AlertmanagerConfig
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/04/mailcatcher.yml" >}}{{< /highlight >}}
-
 ```bash
 curl -o ~/work/mailcatcher.yml \
 https://raw.githubusercontent.com/puzzle/prometheus-training/cloud-native-day/content/en/docs/04/mailcatcher.yml
@@ -159,6 +161,8 @@ https://raw.githubusercontent.com/puzzle/prometheus-training/cloud-native-day/co
 kubectl -n monitoring create -f ~/work/mailcatcher.yml
 ```
 
+`mailcatcher.yml` content:
+{{< highlight yaml >}}{{< readfile file="content/en/docs/04/mailcatcher.yml" >}}{{< /highlight >}}
 
 **Optional**: You can add an alert to check your configuration using the amtool and check if the [MailCatcher](http://LOCALHOST:1080) received the mail. It can take up to 5 minutes as the alarms are grouped together based on the [group_interval](https://prometheus.io/docs/alerting/latest/configuration/#route). E.g.
 
@@ -173,7 +177,7 @@ amtool alert add --alertmanager.url=http://localhost:9093 alertname=test namespa
 
 **Task description**:
 
-As we've learned in [Lab 4 - Prometheus exporters](../../../04/) when applications do not expose metrics in the Prometheus format, there are a lot of exporters available to convert metrics into the correct format. In Kubernetes this is often done by deploying so called sidecar containers along with the actual application.
+When applications do not expose metrics in the Prometheus format, there are a lot of exporters available to convert metrics into the correct format. In Kubernetes this is often done by deploying so called sidecar containers along with the actual application.
 
 Use the following command to deploy a MariaDB database in the `application-metrics` namespace.
 
@@ -211,6 +215,6 @@ Then we also need to create a new ServiceMonitor `~/work/servicemonitor-sidecar.
 kubectl -n application-metrics apply -f ~/work/servicemonitor-sidecar.yaml
 ```
 
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0`
+Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
 {{% /details %}}
