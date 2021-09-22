@@ -4,7 +4,7 @@ pygmentsStyle = "tango"
 
 [params]
 copyright = "acend gmbh"
-github_repo = "https://github.com/puzzle/prometheus-labs"
+github_repo = "https://github.com/puzzle/prometheus-training"
 imagePrefix = "acend_"
 modeSwitcher = "true"
 
@@ -18,7 +18,7 @@ url = "https://www.acend.ch"
 [[params.links.developer]]
 name = "GitHub"
 icon = "fab fa-github" 
-url = "https://github.com/puzzle/prometheus-labs"
+url = "https://github.com/puzzle/prometheus-training"
 
 [[params.links.user]]
 name = "Twitter"
