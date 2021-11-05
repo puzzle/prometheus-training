@@ -7,13 +7,10 @@ sectionnumber: 1
 Our goal with this lab is to give you a brief overview how to visualize your Prometheus time series produced in the previous labs.
 For a more detailed tutorial, please refer to the [Grafana tutorials](https://grafana.com/tutorials/).
 
-Grafana is already installed and running on your machine. Login to your Grafana instance on <http://LOCALHOST:3000/> with the following credentials:
+Grafana is already installed and running on your machine. Login to your Grafana instance on <http://LOCALHOST:3000/>. Use your personal credentials to access the Grafana login page. Then use the Grafana default credentials (username: `admin`, password: `admin`) to log in to Grafana.
 
-{{% alert title="Note" color="primary" %}}
-Use the default Grafana logging credentials and change the password
-
-* username: admin
-* password: admin
+{{% alert title="Note" color="warning" %}}
+Wou will have to **authenticate twice** to access Grafana. First use your personal credentials (same used in the earlier labs to log in to Prometheus or Alertmanager) then on the Grafana login page use the Grafana default credentials (`admin`/`admin`)
 
 {{% /alert %}}
 
