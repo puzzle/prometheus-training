@@ -3,7 +3,6 @@ kind: Service
 metadata:
   labels:
     app: loki
-    prometheus-monitoring: 'true'
   name: loki
 spec:
   ports:
