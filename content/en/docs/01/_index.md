@@ -124,12 +124,6 @@ We will learn more about other configuration options (`evaluation_interval`, `al
 
 1. Verify that Prometheus is up and running by navigating to <http://LOCALHOST:9090> with your browser. You should now see the Prometheus web UI.
 
-{{% alert title="Note" color="primary" %}}
-If you use the provided Vagrant setup then ports 9090 (Prometheus), 9093 (Alertmanager), and 3000 (Grafana) are forwarded to the VM where Prometheus is running.
-Check out the Vagrantfile for details.
-{{% /alert %}}
-
-
 ## Targets
 
 Since Prometheus is a pull-based monitoring system, the Prometheus server maintains a set of targets to scrape. This set can be configured using the `scrape_configs` option in the Prometheus configuration file. The `scrape_configs` consist of a list of jobs defining the targets as well as additional parameters (path, port, authentication, etc.) which are required to scrape these targets.
