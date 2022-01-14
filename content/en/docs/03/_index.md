@@ -90,9 +90,9 @@ The Alertmanager instance we installed before must be configured in Prometheus. 
 # Alertmanager configuration
 alerting:
   alertmanagers:
-  - static_configs:
-    - targets:
-       - localhost:9093
+    - static_configs:
+        - targets:
+            - localhost:9093
 ```
 
 ## Alert rules in Prometheus
