@@ -6,10 +6,6 @@ sectionnumber: 1
 
 ## Prometheus in Kubernetes
 
-{{% alert title="Note" color="primary" %}}
-When running the [Vagrant](https://prometheus-training.puzzle.ch/setup/) setup, make sure you have at least 16Gi on your local machine to run the Prometheus Kubernetes setup.
-{{% /alert %}}
-
 We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
 {{% alert title="Minikube" color="primary" %}}
@@ -99,16 +95,5 @@ Use the default Grafana logging credentials and change the password
 
 * username: admin
 * password: admin
-
-{{% /alert %}}
-
-{{% alert title="Note" color="primary" %}}
-When you run the [Vagrant](https://prometheus-training.puzzle.ch/setup/) setup, you can make your monitoring component accessible through port-forward.
-
-```bash
-kubectl -n monitoring port-forward svc/prometheus-k8s 19090:9090 &
-kubectl -n monitoring port-forward svc/alertmanager-main 19093:9093 &
-kubectl -n monitoring port-forward svc/grafana 13000:3000 &
-```
 
 {{% /alert %}}
