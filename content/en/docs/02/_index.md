@@ -80,10 +80,10 @@ Let's take a look at the following scrape config (example, no need to change the
 scrape_configs:
 - job_name: node_exporter
   static_configs:
-  - targets:
-    - '10.0.0.25:9100'
-    - '10.0.0.26:9100'
-    - '10.0.0.27:9100'
+    - targets:
+        - '10.0.0.25:9100'
+        - '10.0.0.26:9100'
+        - '10.0.0.27:9100'
 ```
 
 In the example above we configured a single scrape job with the name `node_exporter` and three targets. After ingestion into Prometheus, every metric scraped by this job will have the label: `job="node_exporter"`. In addition, metrics scraped by this job from the target `10.0.0.25` will have the label `instance="10.0.0.25:9100"`
