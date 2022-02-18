@@ -48,8 +48,8 @@ In theory, we could simply run Prometheus by executing the `prometheus` binary i
 
     ```bash
     sudo mkdir /etc/prometheus /var/lib/prometheus
-    sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus
-    sudo chmod g+w /etc/prometheus /var/lib/prometheus
+    sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus /etc/systemd/system/prometheus.service
+    sudo chmod g+w /etc/prometheus /var/lib/prometheus /etc/systemd/system/prometheus.service
     ```
 
 1. Create the systemd unit file and reload systemd manager configuration
@@ -134,7 +134,7 @@ Each job definition must at least consist of a `job_name` and a target configura
 
 There are two basic types of target configurations:
 
-### Static configuration
+### Static configuration (example)
 
 In this case, the Prometheus configuration file contains a static list of targets. In order to make changes to the list, you need to change the configuration file. We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
 
@@ -147,7 +147,7 @@ scrape_configs:
       - server2:8080
 ```
 
-### Dynamic configuration
+### Dynamic configuration (example)
 
 In addition to the static target configuration, Prometheus provides many ways to dynamically add/remove targets. There are builtin service discovery mechanisms for cloud providers such as AWS, GCP, Hetzner, and many more. In addition, there are more versatile discovery mechanisms available which allow you to implement Prometheus in your environment (e.g., DNS service discovery or file service discovery).
 Let's take a look at an example of a file service discovery configuration:
