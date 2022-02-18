@@ -55,7 +55,7 @@ kubectl -n application-metrics get services
 
 Which gives you an output similar to this:
 
-```bash
+```
 NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
 example-web-python   NodePort   10.101.249.125   <none>        5000:31626/TCP   2m9s
 ```
