@@ -77,7 +77,7 @@ curl $(minikube service example-web-python --url -n application-metrics)/metrics
 
 Should result in something like:
 
-```bash
+```
 # HELP python_gc_objects_collected_total Objects collected during gc
 # TYPE python_gc_objects_collected_total counter
 python_gc_objects_collected_total{generation="0"} 541.0
