@@ -59,7 +59,7 @@ kubectl create -f manifests/setup
 
 The manifest will deploy a complete monitoring stack consisting of:
 
-* Two Prometheis
+* Two Prometheis - [What is the plural of Prometheus? ;)](https://prometheus.io/docs/introduction/faq/#what-is-the-plural-of-prometheus)
 * Alertmanager cluster
 * Grafana
 * kube-state metrics exporter
