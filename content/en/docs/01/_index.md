@@ -139,12 +139,15 @@ There are two basic types of target configurations:
 In this case, the Prometheus configuration file contains a static list of targets. In order to make changes to the list, you need to change the configuration file. We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
 
 ```yaml
+...
 scrape_configs:
+  ...
   - job_name: "example-job" # this is a minimal example of a job definition containing the job_name and a target configuration
     static_configs:
     - targets:
       - server1:8080
       - server2:8080
+  ...
 ```
 
 ### Dynamic configuration (example)
@@ -153,11 +156,14 @@ In addition to the static target configuration, Prometheus provides many ways to
 Let's take a look at an example of a file service discovery configuration:
 
 ```yaml
+...
 scrape_configs:
+  ...
   - job_name: example_file_sd
     file_sd_configs:
     - files:
       - /etc/prometheus/file_sd/targets.yml
+  ...
 ```
 In this example, Prometheus will lookup a list of targets in the file `/etc/prometheus/file_sd/targets.yml`. Prometheus will also pickup changes in the file automatically (without reloading) and adjust the list of targets accordingly.
 

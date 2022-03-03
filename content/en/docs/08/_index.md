@@ -55,7 +55,7 @@ kubectl -n application-metrics get services
 
 Which gives you an output similar to this:
 
-```
+```bash
 NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
 example-web-python   NodePort   10.101.249.125   <none>        5000:31626/TCP   2m9s
 ```
@@ -77,7 +77,7 @@ curl $(minikube service example-web-python --url -n application-metrics)/metrics
 
 Should result in something like:
 
-```
+```promql
 # HELP python_gc_objects_collected_total Objects collected during gc
 # TYPE python_gc_objects_collected_total counter
 python_gc_objects_collected_total{generation="0"} 541.0
