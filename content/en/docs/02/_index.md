@@ -11,14 +11,14 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 {{% /alert %}}
 
 [Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/)
-```
+```promql
 # HELP <metric name> <info>
 # TYPE <metric name> <metric type>
 <metric name>{<label name>=<label value>, ...} <sample value>
 ```
 
 As an example, check the metrics of your Prometheus server (<http://LOCALHOST:9090/metrics>).
-```
+```promql
 ...
 # HELP prometheus_tsdb_head_samples_appended_total Total number of appended samples.
 # TYPE prometheus_tsdb_head_samples_appended_total counter
@@ -77,13 +77,16 @@ Prometheus will append these labels dynamically before sample ingestion. Therefo
 Let's take a look at the following scrape config (example, no need to change the Prometheus configuration on your lab VM):
 
 ```yaml
+...
 scrape_configs:
-- job_name: "node_exporter"
-  static_configs:
-    - targets:
+  ...
+  - job_name: "node_exporter"
+    static_configs:
+      - targets:
         - "10.0.0.25:9100"
         - "10.0.0.26:9100"
         - "10.0.0.27:9100"
+  ...
 ```
 
 In the example above we configured a single scrape job with the name `node_exporter` and three targets. After ingestion into Prometheus, every metric scraped by this job will have the label: `job="node_exporter"`. In addition, metrics scraped by this job from the target `10.0.0.25` will have the label `instance="10.0.0.25:9100"`

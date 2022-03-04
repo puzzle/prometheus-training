@@ -87,12 +87,14 @@ For more insights of the configuration options, study the following resources:
 The Alertmanager instance we installed before must be configured in Prometheus. Open `/etc/prometheus/prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus.service`.
 
 ```yaml
+...
 # Alertmanager configuration
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
             - localhost:9093
+...
 ```
 
 ## Alert rules in Prometheus
