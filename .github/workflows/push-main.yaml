@@ -103,7 +103,7 @@ jobs:
         env:
           TRAINING_HELM_RELEASE: 'latest'
           TRAINING_HELM_NAME: 'prometheus-basics'
-          TRAINING_NAMESPACE: 'acend-hugo-training-template-prod'
+          TRAINING_NAMESPACE: 'acend-prometheus-basics-training-prod'
         run: |
           kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
           kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-puzzle --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
