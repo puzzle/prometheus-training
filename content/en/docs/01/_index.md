@@ -44,19 +44,20 @@ In theory, we could simply run Prometheus by executing the `prometheus` binary i
     ```bash
     sudo cp ~/work/prometheus-2.32.1.linux-amd64/{prometheus,promtool} /usr/local/bin
     ```
-1. Create the required directories for Prometheus
-
-    ```bash
-    sudo mkdir /etc/prometheus /var/lib/prometheus
-    sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus /etc/systemd/system/prometheus.service
-    sudo chmod g+w /etc/prometheus /var/lib/prometheus /etc/systemd/system/prometheus.service
-    ```
 
 1. Create the systemd unit file and reload systemd manager configuration
 
     ```bash
     sudo curl -o /etc/systemd/system/prometheus.service https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/01/labs/prometheus.service
     sudo systemctl daemon-reload
+    ```
+
+1. Create the required directories for Prometheus
+
+    ```bash
+    sudo mkdir /etc/prometheus /var/lib/prometheus
+    sudo chown ansible.ansible /etc/prometheus /var/lib/prometheus /etc/systemd/system/prometheus.service
+    sudo chmod g+w /etc/prometheus /var/lib/prometheus /etc/systemd/system/prometheus.service
     ```
 
 1. Copy the Prometheus configuration to /etc/prometheus/prometheus.yml
