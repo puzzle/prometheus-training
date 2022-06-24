@@ -6,7 +6,7 @@ COPY . /src
 
 RUN hugo --environment ${ACEND_HUGO_ENV} --minify
 
-FROM nginxinc/nginx-unprivileged:1.21-alpine
+FROM nginxinc/nginx-unprivileged:1.23-alpine
 
 # prevent nginx from adding ports in redirects
 USER root
