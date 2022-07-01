@@ -111,7 +111,7 @@ The [build action](.github/workflows/build.yaml) is fired on Pull Requests does 
 
 The [pr-cleanup action](.github/workflows/pr-cleanup.yaml) is fired when Pull Requests are closed and does the following
 
-* Uninstalls PR Prometheus Release
+* Uninstalls PR Helm Release
 
 
 ### Push Main
@@ -124,7 +124,7 @@ The [push main action](.github/workflows/push-main.yaml) is fired when a commit 
 * Triggers a redeployment
 
 
-## Prometheus
+## Helm
 
 Manually deploy the training Release using the following command:
 
