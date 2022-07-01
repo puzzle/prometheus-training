@@ -1,7 +1,6 @@
 # Prometheus Basics Training
 
-In this guided hands-on training, we show the participants the basics of Prometheus, the package manager for Kubernetes.
-
+Interactive Prometheus Basics Training: [prometheus-training.puzzle.ch](https://prometheus-training.puzzle.ch/)
 
 ## Content Sections
 
