@@ -77,7 +77,7 @@ distroName = "Kubernetes"
 cliToolName = "kubectl"
 
 [params.replaceContent]
-allowedHrefHosts = ['localhost', 'acend.ch']
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
 
 [[params.replaceContent.placeholders]]
 placeholder = "http://LOCALHOST"
