@@ -66,7 +66,7 @@ jobs:
           context: .
           file: ./Dockerfile
           build-args: |
-            ACEND_HUGO_ENV=acend
+            TRAINING_HUGO_ENV=acend
           push: true
           tags: |
             quay.io/puzzle/prometheus-basics-training:pr-${{ github.event.pull_request.number }}-acend
