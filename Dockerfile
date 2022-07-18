@@ -17,7 +17,7 @@ RUN apt-get update \
 
 COPY --from=builder /src/public /
 
-RUN wkhtmltopdf --enable-internal-links --enable-local-file-access \
+RUN wkhtmltopdf --enable-internal-links --enable-local-file-access --enable-javascript --javascript-delay 3000 \
     --margin-top 35mm --margin-bottom 22mm --margin-left 15mm --margin-right 10mm \
     --enable-internal-links --enable-local-file-access \
     --header-html /pdf/header/index.html --footer-html /pdf/footer/index.html \
