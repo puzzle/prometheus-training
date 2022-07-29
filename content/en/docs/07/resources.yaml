@@ -55,7 +55,7 @@ metadata:
   name: prometheus-k8s-config
 rules:
   - apiGroups:
-      - ""
+      - ''
     resources:
       - services
       - endpoints

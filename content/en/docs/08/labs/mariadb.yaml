@@ -20,10 +20,10 @@ metadata:
     prometheus-monitoring: 'true'
 spec:
   ports:
-  - name: mariadb
-    port: 3306
-    protocol: TCP
-    targetPort: 3306
+    - name: mariadb
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
   selector:
     app: mariadb
 ---
@@ -48,28 +48,28 @@ spec:
         - image: mariadb:10.5
           name: mariadb
           args:
-            - "--ignore-db-dir=lost+found"
+            - --ignore-db-dir=lost+found
           env:
-          - name: MYSQL_USER
-            valueFrom:
-              secretKeyRef:
-                key: database-user
-                name: mariadb
-          - name: MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: database-password
-                name: mariadb
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: database-root-password
-                name: mariadb
-          - name: MYSQL_DATABASE
-            valueFrom:
-              secretKeyRef:
-                key: database-name
-                name: mariadb
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: mariadb
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: mariadb
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-root-password
+                  name: mariadb
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: mariadb
           livenessProbe:
             tcpSocket:
               port: 3306
