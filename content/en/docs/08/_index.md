@@ -39,7 +39,7 @@ kubectl -n application-metrics get pod -w
 
 We also need to create a Service for the new application. Create a file with the name `~/work/service.yaml` with the following content:
 
-{{< readfile file="content/en/docs/08/service.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/content/en/docs/08/service.yaml" code="true" lang="yaml" >}}
 
 Create the Service with the following command:
 
