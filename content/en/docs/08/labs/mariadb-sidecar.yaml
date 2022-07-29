@@ -8,14 +8,14 @@ metadata:
     prometheus-monitoring: 'true'
 spec:
   ports:
-  - name: mariadb
-    port: 3306
-    protocol: TCP
-    targetPort: 3306
-  - name: mariadb-exp
-    port: 9104
-    protocol: TCP
-    targetPort: 9104
+    - name: mariadb
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    - name: mariadb-exp
+      port: 9104
+      protocol: TCP
+      targetPort: 9104
   selector:
     app: mariadb
 ---
@@ -40,56 +40,56 @@ spec:
         - image: quay.io/prometheus/mysqld-exporter:latest
           name: mariadb-exporter
           env:
-          - name: MYSQL_USER
-            valueFrom:
-              secretKeyRef:
-                key: database-user
-                name: mariadb
-          - name: MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: database-password
-                name: mariadb
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: database-root-password
-                name: mariadb
-          - name: MYSQL_DATABASE
-            valueFrom:
-              secretKeyRef:
-                key: database-name
-                name: mariadb
-          - name: DATA_SOURCE_NAME
-            value: "$(MYSQL_USER):$(MYSQL_PASSWORD)@(127.0.0.1:3306)/$(MYSQL_DATABASE)"
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: mariadb
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: mariadb
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-root-password
+                  name: mariadb
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: mariadb
+            - name: DATA_SOURCE_NAME
+              value: $(MYSQL_USER):$(MYSQL_PASSWORD)@(127.0.0.1:3306)/$(MYSQL_DATABASE)
           ports:
             - containerPort: 9104
               name: mariadb-exp
         - image: mariadb:10.5
           name: mariadb
           args:
-            - "--ignore-db-dir=lost+found"
+            - --ignore-db-dir=lost+found
           env:
-          - name: MYSQL_USER
-            valueFrom:
-              secretKeyRef:
-                key: database-user
-                name: mariadb
-          - name: MYSQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: database-password
-                name: mariadb
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: database-root-password
-                name: mariadb
-          - name: MYSQL_DATABASE
-            valueFrom:
-              secretKeyRef:
-                key: database-name
-                name: mariadb
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: mariadb
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: mariadb
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-root-password
+                  name: mariadb
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: mariadb
           livenessProbe:
             tcpSocket:
               port: 3306

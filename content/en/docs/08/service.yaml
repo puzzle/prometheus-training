@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,10 +8,10 @@ metadata:
   name: example-web-python
 spec:
   ports:
-  - name: http
-    port: 5000
-    protocol: TCP
-    targetPort: 5000
+    - name: http
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
   selector:
     app: example-web-python
   type: NodePort
