@@ -21,7 +21,7 @@ Let's begin with the installation of Prometheus by downloading and extracting th
 1. Download Prometheus:
 
     ```bash
-    curl -L -O https://github.com/prometheus/prometheus/releases/download/v2.32.1/prometheus-2.32.1.linux-amd64.tar.gz
+    curl -L -O https://github.com/prometheus/prometheus/releases/download/v2.39.0/prometheus-2.39.0.linux-amd64.tar.gz
     ```
 
     {{% alert title="Note" color="primary" %}}
@@ -31,18 +31,18 @@ Binaries for other CPU architectures such as ARM or other operating systems (e.g
 1. Extract the archive to the work folder:
 
     ```bash
-    tar fvxz prometheus-2.32.1.linux-amd64.tar.gz -C ~/work
+    tar fvxz prometheus-2.39.0.linux-amd64.tar.gz -C ~/work
     ```
 
 
     {{% alert title="Note" color="primary" %}}
-In theory, we could simply run Prometheus by executing the `prometheus` binary in `~/work/prometheus-2.32.1.linux-amd64`. However, to simplify tasks such as reloading or restarting, we are going to create a systemd unit file.
+In theory, we could simply run Prometheus by executing the `prometheus` binary in `~/work/prometheus-2.39.0.linux-amd64`. However, to simplify tasks such as reloading or restarting, we are going to create a systemd unit file.
     {{% /alert %}}
 
 1. Copy the `prometheus` and `promtool` binaries to `/usr/local/bin`
 
     ```bash
-    sudo cp ~/work/prometheus-2.32.1.linux-amd64/{prometheus,promtool} /usr/local/bin
+    sudo cp ~/work/prometheus-2.39.0.linux-amd64/{prometheus,promtool} /usr/local/bin
     ```
 
 1. Create the systemd unit file and reload systemd manager configuration
@@ -63,7 +63,7 @@ In theory, we could simply run Prometheus by executing the `prometheus` binary i
 1. Copy the Prometheus configuration to /etc/prometheus/prometheus.yml
 
     ```bash
-    cp ~/work/prometheus-2.32.1.linux-amd64/prometheus.yml /etc/prometheus/prometheus.yml
+    cp ~/work/prometheus-2.39.0.linux-amd64/prometheus.yml /etc/prometheus/prometheus.yml
     ```
 
 ### Configuration
