@@ -15,7 +15,7 @@ Before we get started, take the time to familiarize yourself with the config rep
 The working directory for this training is the folder in your team's config repository with the `-monitoring` suffix.
 
 {{% alert title="Note" color="warning" %}}
-Please name all files created in this training with the filename prefix `training-`. This naming pattern will help in cleaning up all related files after training completion.
+Please name all files created in this training with the filename prefix `training_`. This naming pattern will help in cleaning up all related files after training completion.
 {{% /alert %}}
 
 ### Task {{% param sectionnumber %}}.2: Create static targets
