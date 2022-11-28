@@ -10,7 +10,7 @@ In this first lab you are going to configure Prometheus to scrape the OpenShift-
 
 ### Task {{% param sectionnumber %}}.1: Identify your monitoring repository
 
-Before we get started, take the time to familiarize yourself with the config repository of your team - it should already be available as described in <link-to-doc>.
+Before we get started, take the time to familiarize yourself with the config repository of your team - it should already be available as described in [Deploying the Baloise Monitoring Stack](https://confluence.baloisenet.com/atlassian/display/BALMATE/01+-+Deploying+the+Baloise+Monitoring+Stack).
 
 The working directory for this training is the folder in your team's config repository with the `-monitoring` suffix.
 
