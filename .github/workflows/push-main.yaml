@@ -74,6 +74,17 @@ jobs:
           tags: |
             quay.io/puzzle/prometheus-basics-training:latest-acend
       -
+        name: Build Baloise Version
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: |
+            TRAINING_HUGO_ENV=baloise
+          push: true
+          tags: |
+            quay.io/puzzle/prometheus-basics-training:latest-baloise
+      -
         name: 'Install Helm'
         uses: azure/setup-helm@v3
         with:
@@ -107,3 +118,4 @@ jobs:
         run: |
           kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-acend --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
           kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-puzzle --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
+          kubectl rollout restart deployment/${TRAINING_HELM_RELEASE}-${TRAINING_HELM_NAME}-baloise --kubeconfig $HOME/.kube/config --namespace $TRAINING_NAMESPACE
