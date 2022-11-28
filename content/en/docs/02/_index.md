@@ -20,7 +20,6 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 #### FIXME web UI
 As an example, check the metrics of your Prometheus server (<http://LOCALHOST:9090/metrics>).
 
-
 {{% onlyWhenNot baloise %}}
 ```promql
 ...
