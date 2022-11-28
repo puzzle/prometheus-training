@@ -17,7 +17,11 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 <metric name>{<label name>=<label value>, ...} <sample value>
 ```
 
+### FIXME web UI
+
 As an example, check the metrics of your Prometheus server (<http://LOCALHOST:9090/metrics>).
+
+{{% onlyWhenNot baloise %}}
 ```promql
 ...
 # HELP prometheus_tsdb_head_samples_appended_total Total number of appended samples.
@@ -28,6 +32,21 @@ prometheus_tsdb_head_samples_appended_total 463
 prometheus_tsdb_head_series 463
 ...
 ```
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen baloise %}}
+```promql
+...
+# HELP prometheus_tsdb_head_min_time_seconds Minimum time bound of the head block.
+# TYPE prometheus_tsdb_head_min_time_seconds gauge
+prometheus_tsdb_head_min_time_seconds 1.669622401e+09
+# HELP prometheus_tsdb_head_samples_appended_total Total number of appended samples.
+# TYPE prometheus_tsdb_head_samples_appended_total counter
+prometheus_tsdb_head_samples_appended_total 2.5110946e+07
+...
+```
+{{% /onlyWhen %}}
+
 
 {{% alert title="Note" color="primary" %}}
 There are 4 different metric types in Prometheus
@@ -42,6 +61,8 @@ There are 4 different metric types in Prometheus
 
 
 ## Explore Prometheus metrics
+
+### FIXME web UI
 
 Open your Prometheus [web UI](http://LOCALHOST:9090) and navigate to the **Graph** menu. You can use the `Open metrics explorer` icon (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
 
