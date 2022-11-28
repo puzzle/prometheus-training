@@ -4,6 +4,7 @@ weight: 1
 sectionnumber: 1
 ---
 
+{{% onlyWhenNot baloise %}}
 ## Installation
 
 ### Setup
@@ -124,6 +125,8 @@ We will learn more about other configuration options (`evaluation_interval`, `al
     ```
 
 1. Verify that Prometheus is up and running by navigating to <http://LOCALHOST:9090> with your browser. You should now see the Prometheus web UI.
+
+{{% /onlyWhenNot %}}
 
 ## Targets
 
