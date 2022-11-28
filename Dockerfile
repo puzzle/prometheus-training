@@ -6,7 +6,10 @@ COPY . /src
 
 RUN hugo --environment ${TRAINING_HUGO_ENV} --minify
 
-RUN find /src/public/docs/ -regex '.*\(jpg\|jpeg\|png\|gif\)' -exec cp "{}" /src/public/ \; 
+RUN apt-get update \
+    && apt-get install -y imagemagick
+
+RUN find /src/public/docs/ -regex '.*\(jpg\|jpeg\|png\|gif\)' -exec mogrify -path /src/public -resize 800\> -unsharp 0.25x0.25+8+0.065 "{}" \;
 
 FROM ubuntu:jammy AS wkhtmltopdf
 RUN apt-get update \
@@ -23,6 +26,7 @@ RUN wkhtmltopdf --enable-internal-links --enable-local-file-access --enable-java
     --margin-top 35mm --margin-bottom 22mm --margin-left 15mm --margin-right 10mm \
     --enable-internal-links --enable-local-file-access \
     --header-html /pdf/header/index.html --footer-html /pdf/footer/index.html \
+    --dpi 600 \
     /pdf/index.html /pdf.pdf
 
 FROM nginxinc/nginx-unprivileged:1.23-alpine
