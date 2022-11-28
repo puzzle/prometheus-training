@@ -37,7 +37,7 @@ In our example we added the host `myhost1.balgroupit.com` with an exporter runni
 
 As soon as the ConfigMap has been synchronized by ArgoCD, your defined targets should appear in Prometheus in the "Status -> Targets" submenu.
 
-#FIXME: Prometheus URL
+FIXME: Prometheus URL
 
 ![Prometheus UI - Target Down](target-down.png)
 
