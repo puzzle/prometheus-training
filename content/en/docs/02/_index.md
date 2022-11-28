@@ -32,7 +32,7 @@ prometheus_tsdb_head_samples_appended_total 463
 prometheus_tsdb_head_series 463
 ...
 ```
-{{% /onlyWhen %}}
+{{% /onlyWhenNot %}}
 
 {{% onlyWhen baloise %}}
 ```promql
