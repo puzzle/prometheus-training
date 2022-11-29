@@ -114,6 +114,8 @@ Routing tree:
 
 Add a test alert and check if your defined target mailbox receives the mail. It can take up to 5 minutes as the alarms are grouped together based on the [group_interval](https://prometheus.io/docs/alerting/latest/configuration/#route).
 
+![Alerting Mail](../alert-mail.png)
+
 ```bash
 oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
 amtool alert add --alertmanager.url=http://localhost:9093 env=dev severity=critical
