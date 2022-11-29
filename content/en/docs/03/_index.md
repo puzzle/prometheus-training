@@ -49,7 +49,7 @@ global:
   resolve_timeout: 5m
   http_config:
     follow_redirects: true
-  smtp_from: devops@baloise.com
+  smtp_from: devops@example.com
   smtp_hello: localhost
   smtp_smarthost: smtp.baloisenet.com:25
   smtp_require_tls: false
