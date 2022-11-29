@@ -10,7 +10,8 @@ An increasing number of applications directly instrument a Prometheus metrics en
 There are lots of exporters available for many applications, such as MySQL/MariaDB, Nginx, Ceph, etc. Some of these exporters are maintained by the [Prometheus GitHub organization](https://github.com/prometheus?q=exporter) while others are maintained by the community or third-party vendors. Check out the [list of exporters](https://prometheus.io/docs/instrumenting/exporters/) on the Prometheus website for an up-to-date list of exporters.
 {{% /alert %}}
 
-One example of a Prometheus exporter is the `node_exporter` we configured in the first chapter of this training. This exporter collects information from different files and folders (e.g., `/proc/net/arp`, `/proc/sys/fs/file-nr`, etc.) and uses this information to create the appropriate Prometheus metrics.
+
+One example of a Prometheus exporter is the `node_exporter` we used in the first chapter of this training. This exporter collects information from different files and folders (e.g., `/proc/net/arp`, `/proc/sys/fs/file-nr`, etc.) and uses this information to create the appropriate Prometheus metrics.
 In the tasks of this chapter we will configure two additional exporters.
 
 ## Special exporters
