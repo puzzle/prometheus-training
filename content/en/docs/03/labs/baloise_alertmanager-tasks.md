@@ -60,7 +60,7 @@ In this task you can use the [amtool](https://github.com/prometheus/alertmanager
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-To send a test alert with the labels `alername=UP` and `node=bar` you can simply execute the following command.
+To send a test alert with the labels `alertname=Up` and `node=bar` you can simply execute the following command.
 
 ```bash
 oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
