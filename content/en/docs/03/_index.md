@@ -41,7 +41,7 @@ At Baloise the Alertmanager is part of the managed monitoring stack and does not
 
 ### Configuration
 
-Alertmanager's configuration is managed by the monitoring stack and can be configured done using a YAML config file and CLI flags. Take a look at the default configuration in use at Baloise:
+Alertmanager's configuration is managed by the monitoring stack and can be configured using a YAML config file and CLI flags. Take a look at the default configuration in use at Baloise:
 
 ```yaml
 # baloise config
