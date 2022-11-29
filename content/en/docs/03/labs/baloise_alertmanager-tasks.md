@@ -56,7 +56,7 @@ You can build/verify your Query in your Thanos Querier UI. As soon, as you apply
 
 ### Task {{% param sectionnumber %}}.2: Send a test alert
 
-In this taks you can use the [amtool](https://github.com/prometheus/alertmanager#amtool) command to send a test alert.
+In this task you can use the [amtool](https://github.com/prometheus/alertmanager#amtool) command to send a test alert.
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
