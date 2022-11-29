@@ -8,6 +8,7 @@ sectionnumber: 1
 
 ### Setup
 
+{{% onlyWhenNot baloise %}}
 The alertmanager is already installed on your system and can be controlled using systemctl:
 
 ```bash
@@ -33,6 +34,169 @@ The configuration file of alertmanager is located here: `/etc/alertmanager/alert
 
 Alertmanager's configuration is done using a YAML config file and CLI flags. Take a look at the very basic configuration file at `/etc/alertmanager/alertmanager.yml`:
 
+{{% /onlyWhenNot %}}
+{{% onlyWhen baloise %}}
+
+At Baloise the Alertmanager is part of the managed monitoring stack and does not need to be installed. We will have a look at the default configuration in the next chapter.
+
+### Configuration
+
+Alertmanager's configuration is managed by the monitoring stack and can be configured using a YAML config file and CLI flags. Take a look at the default configuration in use at Baloise:
+
+```yaml
+# baloise config
+global:
+  resolve_timeout: 5m
+  http_config:
+    follow_redirects: true
+  smtp_from: devops@example.com
+  smtp_hello: localhost
+  smtp_smarthost: smtp.example.com:25
+  smtp_require_tls: false
+  pagerduty_url: https://events.pagerduty.com/v2/enqueue
+  opsgenie_api_url: https://api.opsgenie.com/
+  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/
+  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/
+  telegram_api_url: https://api.telegram.org
+route:
+  receiver: default
+  group_by:
+  - namespace
+  - alertname
+  continue: false
+  routes:
+  - receiver: mail-critical
+    match_re:
+      severity: critical|warning
+    continue: true
+  - receiver: deadmanswitch
+    match_re:
+      alertname: DeadMansSwitch
+    continue: false
+    group_wait: 0s
+    group_interval: 5s
+    repeat_interval: 1m
+  - receiver: teams-critical-prod
+    matchers:
+    - env="prod"
+    - severity="critical"
+    continue: false
+  - receiver: teams-warning-prod
+    matchers:
+    - env="prod"
+    - severity="warning"
+    continue: false
+  - receiver: teams-info-prod
+    matchers:
+    - env="prod"
+    continue: false
+  - receiver: teams-critical-nonprod
+    matchers:
+    - env!="prod"
+    - severity="critical"
+    continue: false
+  - receiver: teams-warning-nonprod
+    matchers:
+    - env!="prod"
+    - severity="warning"
+    continue: false
+  - receiver: teams-info-nonprod
+    matchers:
+    - env!="prod"
+    - severity="info"
+    continue: false
+  - receiver: teams-warning-prod
+    matchers:
+    - env!="prod"
+    continue: false
+  group_wait: 30s
+  group_interval: 1m
+  repeat_interval: 12h
+inhibit_rules:
+- source_match:
+    severity: critical
+  target_match_re:
+    severity: warning|info
+  equal:
+  - namespace
+  - alertname
+- source_match:
+    severity: warning
+  target_match_re:
+    severity: info
+  equal:
+  - namespace
+  - alertname
+receivers:
+- name: default
+- name: mail-critical
+  email_configs:
+  - send_resolved: false
+    to: group.devops_system@example.com
+    from: devops@example.com
+    hello: localhost
+    smarthost: smtp.example.com:25
+    headers:
+      From: devops@example.com
+      Subject: '{{ template "email.default.subject" . }}'
+      To: group.devops_system@example.com
+    html: '{{ template "email.default.html" . }}'
+    require_tls: false
+- name: teams-critical-prod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8089/v2/critical
+    max_alerts: 0
+- name: teams-warning-prod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8089/v2/warning
+    max_alerts: 0
+- name: teams-info-prod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8089/v2/info
+    max_alerts: 0
+- name: teams-critical-nonprod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8090/v2/critical
+    max_alerts: 0
+- name: teams-warning-nonprod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8090/v2/warning
+    max_alerts: 0
+- name: teams-info-nonprod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8090/v2/info
+    max_alerts: 0
+- name: deadmanswitch
+  webhook_configs:
+  - send_resolved: false
+    http_config:
+      follow_redirects: true
+    url: http://deadmanswitch:8080/ping/bv8e5ooa63m8rt59b780
+    max_alerts: 0
+templates: []
+```
+
+{{% /onlyWhen %}}
+{{% onlyWhenNot baloise %}}
+
 ```yaml
 global:
   resolve_timeout: 5m
@@ -55,9 +219,7 @@ inhibit_rules:
     equal: ['alertname', 'dev', 'instance']
 ```
 
-{{% alert title="Note" color="primary" %}}
-For the moment we leave it with the default configuration and come back to it later in the course.
-{{% /alert %}}
+{{% /onlyWhenNot %}}
 
 ## Configuration in Alertmanager
 
@@ -81,21 +243,6 @@ For more insights of the configuration options, study the following resources:
 
 * Example configuration provided by [Alertmanager on GitHub](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
 * General overview of [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
-
-## Enable Alertmanager in Prometheus
-
-The Alertmanager instance we installed before must be configured in Prometheus. Open `/etc/prometheus/prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus.service`.
-
-```yaml
-...
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-            - localhost:9093
-...
-```
 
 ## Alert rules in Prometheus
 
