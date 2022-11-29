@@ -45,6 +45,153 @@ Alertmanager's configuration is managed by the monitoring stack and can be confi
 
 ```yaml
 # baloise config
+global:
+  resolve_timeout: 5m
+  http_config:
+    follow_redirects: true
+  smtp_from: devops@baloise.com
+  smtp_hello: localhost
+  smtp_smarthost: smtp.baloisenet.com:25
+  smtp_require_tls: false
+  pagerduty_url: https://events.pagerduty.com/v2/enqueue
+  opsgenie_api_url: https://api.opsgenie.com/
+  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/
+  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/
+  telegram_api_url: https://api.telegram.org
+route:
+  receiver: default
+  group_by:
+  - namespace
+  - alertname
+  continue: false
+  routes:
+  - receiver: mail-critical
+    match_re:
+      severity: critical|warning
+    continue: true
+  - receiver: deadmanswitch
+    match_re:
+      alertname: DeadMansSwitch
+    continue: false
+    group_wait: 0s
+    group_interval: 5s
+    repeat_interval: 1m
+  - receiver: teams-critical-prod
+    matchers:
+    - env="prod"
+    - severity="critical"
+    continue: false
+  - receiver: teams-warning-prod
+    matchers:
+    - env="prod"
+    - severity="warning"
+    continue: false
+  - receiver: teams-info-prod
+    matchers:
+    - env="prod"
+    continue: false
+  - receiver: teams-critical-nonprod
+    matchers:
+    - env!="prod"
+    - severity="critical"
+    continue: false
+  - receiver: teams-warning-nonprod
+    matchers:
+    - env!="prod"
+    - severity="warning"
+    continue: false
+  - receiver: teams-info-nonprod
+    matchers:
+    - env!="prod"
+    - severity="info"
+    continue: false
+  - receiver: teams-warning-prod
+    matchers:
+    - env!="prod"
+    continue: false
+  group_wait: 30s
+  group_interval: 1m
+  repeat_interval: 12h
+inhibit_rules:
+- source_match:
+    severity: critical
+  target_match_re:
+    severity: warning|info
+  equal:
+  - namespace
+  - alertname
+- source_match:
+    severity: warning
+  target_match_re:
+    severity: info
+  equal:
+  - namespace
+  - alertname
+receivers:
+- name: default
+- name: mail-critical
+  email_configs:
+  - send_resolved: false
+    to: group.ch_dcs_devops_system@baloise.ch
+    from: devops@baloise.com
+    hello: localhost
+    smarthost: smtp.baloisenet.com:25
+    headers:
+      From: devops@baloise.com
+      Subject: '{{ template "email.default.subject" . }}'
+      To: group.ch_dcs_devops_system@baloise.ch
+    html: '{{ template "email.default.html" . }}'
+    require_tls: false
+- name: teams-critical-prod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8089/v2/critical
+    max_alerts: 0
+- name: teams-warning-prod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8089/v2/warning
+    max_alerts: 0
+- name: teams-info-prod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8089/v2/info
+    max_alerts: 0
+- name: teams-critical-nonprod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8090/v2/critical
+    max_alerts: 0
+- name: teams-warning-nonprod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8090/v2/warning
+    max_alerts: 0
+- name: teams-info-nonprod
+  webhook_configs:
+  - send_resolved: true
+    http_config:
+      follow_redirects: true
+    url: http://localhost:8090/v2/info
+    max_alerts: 0
+- name: deadmanswitch
+  webhook_configs:
+  - send_resolved: false
+    http_config:
+      follow_redirects: true
+    url: http://deadmanswitch:8080/ping/bv8e5ooa63m8rt59b780
+    max_alerts: 0
+templates: []
 ```
 
 {{% /onlyWhen %}}
