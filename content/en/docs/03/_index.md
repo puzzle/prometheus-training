@@ -51,7 +51,7 @@ global:
     follow_redirects: true
   smtp_from: devops@example.com
   smtp_hello: localhost
-  smtp_smarthost: smtp.baloisenet.com:25
+  smtp_smarthost: smtp.example.com:25
   smtp_require_tls: false
   pagerduty_url: https://events.pagerduty.com/v2/enqueue
   opsgenie_api_url: https://api.opsgenie.com/
@@ -132,14 +132,14 @@ receivers:
 - name: mail-critical
   email_configs:
   - send_resolved: false
-    to: group.ch_dcs_devops_system@baloise.ch
-    from: devops@baloise.com
+    to: group.devops_system@example.com
+    from: devops@example.com
     hello: localhost
-    smarthost: smtp.baloisenet.com:25
+    smarthost: smtp.example.com:25
     headers:
-      From: devops@baloise.com
+      From: devops@example.com
       Subject: '{{ template "email.default.subject" . }}'
-      To: group.ch_dcs_devops_system@baloise.ch
+      To: group.devops_system@example.com
     html: '{{ template "email.default.html" . }}'
     require_tls: false
 - name: teams-critical-prod
