@@ -8,6 +8,7 @@ sectionnumber: 1
 
 ### Setup
 
+{{% onlyWhenNot baloise %}}
 The alertmanager is already installed on your system and can be controlled using systemctl:
 
 ```bash
@@ -33,6 +34,22 @@ The configuration file of alertmanager is located here: `/etc/alertmanager/alert
 
 Alertmanager's configuration is done using a YAML config file and CLI flags. Take a look at the very basic configuration file at `/etc/alertmanager/alertmanager.yml`:
 
+{{% /onlyWhenNot %}}
+{{% onlyWhen baloise %}}
+
+At Baloise the Alertmanager is part of the managed monitoring stack and does not need to be installed. We will have a look at the default configuration in the next chapter.
+
+### Configuration
+
+Alertmanager's configuration is managed by the monitoring stack and can be configured done using a YAML config file and CLI flags. Take a look at the default configuration in use at Baloise:
+
+```yaml
+# baloise config
+```
+
+{{% /onlyWhen %}}
+{{% onlyWhenNot baloise %}}
+
 ```yaml
 global:
   resolve_timeout: 5m
@@ -55,9 +72,7 @@ inhibit_rules:
     equal: ['alertname', 'dev', 'instance']
 ```
 
-{{% alert title="Note" color="primary" %}}
-For the moment we leave it with the default configuration and come back to it later in the course.
-{{% /alert %}}
+{{% /onlyWhenNot %}}
 
 ## Configuration in Alertmanager
 
@@ -81,21 +96,6 @@ For more insights of the configuration options, study the following resources:
 
 * Example configuration provided by [Alertmanager on GitHub](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
 * General overview of [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
-
-## Enable Alertmanager in Prometheus
-
-The Alertmanager instance we installed before must be configured in Prometheus. Open `/etc/prometheus/prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus.service`.
-
-```yaml
-...
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-            - localhost:9093
-...
-```
 
 ## Alert rules in Prometheus
 

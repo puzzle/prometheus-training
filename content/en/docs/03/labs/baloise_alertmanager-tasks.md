@@ -1,8 +1,8 @@
 ---
-title: "3.1 Tasks: Enable and configure Alertmanager"
+title: "3.1 Tasks: Setup custom alerting rules"
 weight: 2
 sectionnumber: 3.1
-onlyWhenNot baloise
+onlyWhen baloise
 ---
 
 ### Task {{% param sectionnumber %}}.1: Enable Alertmanager in Prometheus
