@@ -12,7 +12,7 @@ Alertmanager will automatically send mails to the defined `responsible` email ad
 To change this behaviour and/or add Alerting to MS Teams, check the documentation [03 - Setup custom alerting rules](https://confluence.baloisenet.com/atlassian/display/BALMATE/03+-+Setup+custom+alerting+rules#id-03Setupcustomalertingrules-Alerting) in Confluence.
 {{% /alert %}}
 
-The Prometheus Operator allows you to configure Alerting Rules (PrometheusRules). This enables OpenShift User to configure and maintain alerting rules for their projects. Furthermore it is possible to treat Alerting Rules like any other Kubernetes resource and lets you manage them in Helm or Kustomize. A PrometheusRule has the following form:
+The Prometheus Operator allows you to configure Alerting Rules (PrometheusRules). This enables OpenShift users to configure and maintain alerting rules for their projects. Furthermore it is possible to treat Alerting Rules like any other Kubernetes resource and lets you manage them in Helm or Kustomize. A PrometheusRule has the following form:
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
