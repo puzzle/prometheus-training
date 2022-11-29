@@ -5,101 +5,145 @@ sectionnumber: 3.1
 onlyWhen baloise
 ---
 
-### Task {{% param sectionnumber %}}.1: Enable Alertmanager in Prometheus
-
-The Alertmanager instance we installed before must be configured in Prometheus. Open `/etc/prometheus/prometheus.yml`, add the config below, and reload the Prometheus config with `sudo systemctl reload prometheus.service`.
-
-```yaml
-...
-# Alertmanager configuration
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-            - localhost:9093
-...
-```
-
-### Task {{% param sectionnumber %}}.2: Add Alertmanager as monitoring target
+### Task {{% param sectionnumber %}}.1: Add alerting rules
 
 {{% alert title="Note" color="primary" %}}
-This setup is only suitable for our lab environment. In real life, you must consider how to monitor your monitoring infrastructure:
-Having an Alertmanager instance as an Alertmanager AND as a target only in the same Prometheus is a bad idea!
+Alertmanager will automatically send mails to the defined `responsible` email address in the teams root configuration when you set the label `severity=critical` in your PrometheusRule.
+To change this behaviour and/or add Alerting to MS Teams, check the documentation [03 - Setup custom alerting rules](https://confluence.baloisenet.com/atlassian/display/BALMATE/03+-+Setup+custom+alerting+rules#id-03Setupcustomalertingrules-Alerting) in Confluence.
 {{% /alert %}}
 
-This is repetition: The Alertmanager (`localhost:9093`) also exposes metrics which can be scraped by Prometheus.
+The Prometheus Operator allows you to configure Alerting Rules (PrometheusRules). This enables OpenShift User to configure and maintain alerting rules for their projects. Furthermore it is possible to treat Alerting Rules like any other Kubernetes resource and lets you manage them in Helm or Kustomize. A PrometheusRule has the following form:
 
-Configure the metric endpoint of Alertmanager in Prometheus and check, if the target in Prometheus can be scraped.
-
-{{% details title="Hints" mode-switcher="normalexpertmode" %}}
-
-Configure a new job under `scrape_configs` in `/etc/prometheus/prometheus.yml`:
 ```yaml
-  ...
-  - job_name: "alertmanager"
-    static_configs:
-      - targets: ["localhost:9093"]
-  ...
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+name: <resource-name>
+spec:
+  <rule definition>
 ```
 
-Reload Prometheus
-```bash
-sudo systemctl reload prometheus
+See [the Alertmanager documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) for `<rule definition>`
+
+Example:
+To add an Alerting rule you need to create a PrometheusRule resource in the monitoring folder of your CAASI Team Config Repository.
+
+```yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: testrules
+spec:
+  groups:
+    - name: testrulesgroup
+      rules:
+        - alert: kubePodCrashLooping # this will be the mail subject, enter which ever text you want
+          expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="testnamespace"}[5m]) * 60 * 5 > 0
+          for: 15m
+          annotations:
+            message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
+          labels:
+            severity: critical
 ```
 
-Check in the [Prometheus web UI](http://LOCALHOST:9090/targets) if the target can be scraped.
+This will fire an alert, everytime the following query matches
 
-{{% /details %}}
+```
+rate(kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="testnamespace"}[5m]) * 60 * 5 > 0
+```
 
-### Task {{% param sectionnumber %}}.3: Query an Alertmanager metric
+You can build/verify your Query in your Thanos Querier UI. As soon, as you apply the PrometheusRule resource, you should be able to see the alert in your Thanos Ruler implementation.
 
-After you add the Alertmanager metrics endpoint, you will have huge bunch of different values and identifiers.
+### Task {{% param sectionnumber %}}.2: Send a test alert
 
-Use curl to get a list of all available metrics and query any one from the Alertmanager.
+In this taks you can use the [amtool](https://github.com/prometheus/alertmanager#amtool) command to send a test alert.
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-To find out which metrics are available for one service you might query its metrics endpoint with `curl`, e.g. for Alertmanager:
+To send a test alert with the labels `alername=UP` and `node=bar` you can simply execute the following command.
 
 ```bash
-curl localhost:9093/metrics
+oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
+amtool alert add --alertmanager.url=http://localhost:9093 alertname=Up node=bar
 ```
 
-Then you get all metrics as follows (shortened), and you can pick whatever you're interested in.
+Check in the [Alertmanger web UI](http://LOCALHOST:9093) if you see the test alert with the correct labels set.
 
-```promql
-# HELP alertmanager_alerts How many alerts by state.
-# TYPE alertmanager_alerts gauge
-alertmanager_alerts{state="active"} 0
-alertmanager_alerts{state="suppressed"} 0
-# HELP alertmanager_alerts_invalid_total The total number of received alerts that were invalid.
-# TYPE alertmanager_alerts_invalid_total counter
-alertmanager_alerts_invalid_total{version="v1"} 0
-alertmanager_alerts_invalid_total{version="v2"} 0
-# HELP alertmanager_alerts_received_total The total number of received alerts.
-# TYPE alertmanager_alerts_received_total counter
-alertmanager_alerts_received_total{status="firing",version="v1"} 0
-alertmanager_alerts_received_total{status="firing",version="v2"} 0
-alertmanager_alerts_received_total{status="resolved",version="v1"} 0
-alertmanager_alerts_received_total{status="resolved",version="v2"} 0
-...
+### Task {{% param sectionnumber %}}.3: Show the routing tree
+
+Show routing tree:
+
+```bash
+oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
+amtool config routes --config.file /etc/alertmanager/config/alertmanager.yml
 ```
 
-{{% /details %}}
+Depending on the configured receivers your output might vary.
 
-### Task {{% param sectionnumber %}}.4: Get all Metrics from Alertmanager
+The routing tree of the monitoring stack in namespace `infra-config` is more complex than the one of the `examples-monitoring` namespace:
 
-After you successfully configured Prometheus to scrape the Alertmanager you can also query them using PromQL
+Namespace `config-caasi01-monitoring`:
 
-Write a PromQL query, which selects all metrics exposed by the Alertmanager (`job="alertmanager"`).
-
-{{% details title="Hints" mode-switcher="normalexpertmode" %}}
-
-To do that, we can simply execute a query without a metrics name and only the job label filter `job="alertmanager"`.
-
-```promql
-{job="alertmanager"}
+```bash
+$ oc -n config-caasi01-monitoring exec -it sts/alertmanager-alertmanager -- amtool config routes --config.file /etc/alertmanager/config/alertmanager.yaml
+Routing tree:
+.
+└── default-route  receiver: default
+    ├── {severity=~"^(?:critical|warning)$"}  continue: true  receiver: mail-critical
+    ├── {alertname=~"^(?:DeadMansSwitch)$"}  receiver: deadmanswitch
+    ├── {env="prod",severity="critical"}  receiver: teams-critical-prod
+    ├── {env="prod",severity="warning"}  receiver: teams-warning-prod
+    ├── {env="prod"}  receiver: teams-info-prod
+    ├── {env!="prod",severity="critical"}  receiver: teams-critical-nonprod
+    ├── {env!="prod",severity="warning"}  receiver: teams-warning-nonprod
+    ├── {env!="prod",severity="info"}  receiver: teams-info-nonprod
+    └── {env!="prod"}  receiver: teams-warning-prod
 ```
 
-{{% /details %}}
+Namespace `examples-monitoring`:
+
+```bash
+$ oc -n examples-monitoring exec -it sts/alertmanager-alertmanager -- amtool config routes --config.file /etc/alertmanager/config/alertmanager.yaml
+Routing tree:
+.
+└── default-route  receiver: default
+    └── {severity=~"^(?:critical|warning)$"}  continue: true  receiver: mail-critical
+```
+
+### Task {{% param sectionnumber %}}.4: Test your alert receivers
+
+Add a test alert and check if your defined target mailbox receives the mail. It can take up to 5 minutes as the alarms are grouped together based on the [group_interval](https://prometheus.io/docs/alerting/latest/configuration/#route).
+
+```bash
+oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
+amtool alert add --alertmanager.url=http://localhost:9093 env=dev severity=critical
+```
+
+Example:
+
+```bash
+oc -n examples-monitoring exec -it sts/alertmanager-alertmanager -- sh
+amtool alert add --alertmanager.url=http://localhost:9093 alert=test severity=critical
+```
+
+It is also advisable to validate the routing configuration against a test dataset to avoid unintended changes. With the option `--verify.receivers` the expected output can be specified:
+
+```bash
+oc -n examples-monitoring exec -it sts/alertmanager-alertmanager -- sh
+amtool config routes test --config.file /etc/alertmanager/config/alertmanager.yaml --verify.receivers=mail-critical env=dev severity=info
+```
+
+```bash
+default
+WARNING: Expected receivers did not match resolved receivers.
+```
+
+```bash
+oc -n examples-monitoring exec -it sts/alertmanager-alertmanager -- sh
+amtool config routes test --config.file /etc/alertmanager/config/alertmanager.yaml --verify.receivers=mail-critical env=prod severity=critical
+```
+
+```bash
+mail-critical
+```
 
