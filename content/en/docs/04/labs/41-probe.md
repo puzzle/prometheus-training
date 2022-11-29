@@ -38,12 +38,15 @@ spec:
         env: prod
 ```
 
-You can verify this by directly running a curl on this url. The `probe_success` metric should have the value `1`.
+You can verify this by directly running a curl inside the prometheus pod on this url. The `probe_success` metric should have the value `1`.
 
 
-#### FIXME: How to run curl (openshift console?)
+FIXME: team replacer
+
 ```bash
-curl "http://127.0.0.1:9115/probe?target=https://bitbucket.balgroupit.com/status&module=http_2xx"
+team=
+oc -n $team-monitoring exec prometheus-prometheus-0 -c prometheus-proxy -- \
+curl blackbox:9115/probe?target=https://bitbucket.balgroupit.com/status&module=http_2xx
 ...
 # HELP probe_success Displays whether or not the probe was a success
 # TYPE probe_success gauge
@@ -64,7 +67,8 @@ We can select all metrics for the target with the following query:
 {instance="https://bitbucket.balgroupit.com/status"}
 ```
 
-#### FIXME URL replacer
+FIXME: URL replacer
+
 or directly navigate to your [Prometheus instance](http://LOCALHOST:9090/graph?g0.expr=%7Binstance%3D"https%3A%2F%2Fbitbucket.balgroupit.com%2Fstatus"%7D&g0.tab=1)
 
 
