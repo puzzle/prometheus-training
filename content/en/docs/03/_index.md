@@ -53,11 +53,6 @@ global:
   smtp_hello: localhost
   smtp_smarthost: smtp.example.com:25
   smtp_require_tls: false
-  pagerduty_url: https://events.pagerduty.com/v2/enqueue
-  opsgenie_api_url: https://api.opsgenie.com/
-  wechat_api_url: https://qyapi.weixin.qq.com/cgi-bin/
-  victorops_api_url: https://alert.victorops.com/integrations/generic/20131114/alert/
-  telegram_api_url: https://api.telegram.org
 route:
   receiver: default
   group_by:
@@ -189,7 +184,7 @@ receivers:
   - send_resolved: false
     http_config:
       follow_redirects: true
-    url: http://deadmanswitch:8080/ping/bv8e5ooa63m8rt59b780
+    url: http://deadmanswitch:8080/ping/...
     max_alerts: 0
 templates: []
 ```

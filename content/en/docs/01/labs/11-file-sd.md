@@ -22,7 +22,7 @@ Please name all files created in this training with the filename prefix `trainin
 
 We are going to use the file-based service discovery mechanism that has been deployed on OpenShift. As file input you will create a ConfigMap defining the static targets.
 
-In the monitoring folder within you repository, create a YAML file defining a ConfigMap and add the file to your repository. You can take the below example as inspiration.
+In the monitoring folder within you repository, create a YAML file `training_target.yaml` defining a ConfigMap and add the file to your repository. You can take the below example as inspiration.
 
 ```yaml
 apiVersion: v1
@@ -51,6 +51,27 @@ FIXME: Prometheus URL
 
 ![Prometheus UI - Target Down](../target-down.png)
 
-As you can see, the target is down and cannot be scraped by Prometheus. The reason is provided in the error message: "Get "https://myhost1.balgroupit.com:9100/metrics": dial tcp: lookup myhost1.balgroupit.com on 172.24.0.10:53: no such host"
+As you can see, the target is down and cannot be scraped by Prometheus. The reason is provided in the error message: `Get "https://myhost1.balgroupit.com:9100/metrics": dial tcp: lookup myhost1.balgroupit.com on 172.24.0.10:53: no such host`
 
-In our example we used a non-existing host `myhost1.balgroupit.com`. To fix this, use an existing host as your target.
+In our example we used a non-existing host `myhost1.balgroupit.com`. To fix this, use the existing host `prometheus-training.balgroupit.com` as your target.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mylinuxvms
+  labels:
+    monitoring: external
+data:
+  auth-mylinuxvms.yaml: |
+    - targets: # provide targets
+        - prometheus-training.balgroupit.com:9100
+      labels:
+        cmdbName: ServerLinux
+        location: OMO
+        purpose: VM
+```
+
+Check the target again and make sure it is shown as up.
+
+![Prometheus UI - Target Up](../target-up.png)

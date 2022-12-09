@@ -141,7 +141,12 @@ There are two basic types of target configurations:
 
 ### Static configuration (example)
 
-In this case, the Prometheus configuration file contains a static list of targets. In order to make changes to the list, you need to change the configuration file. We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
+In this case, the Prometheus configuration file contains a static list of targets. In order to make changes to the list, you need to change the configuration file.
+
+{{% onlyWhenNot baloise %}}
+We used this type of configuration in the previous section to scrape the metrics of the Prometheus server:
+{{% /onlyWhenNot %}}
+
 
 ```yaml
 ...
@@ -157,7 +162,7 @@ scrape_configs:
 
 ### Dynamic configuration (example)
 
-In addition to the static target configuration, Prometheus provides many ways to dynamically add/remove targets. There are builtin service discovery mechanisms for cloud providers such as AWS, GCP, Hetzner, and many more. In addition, there are more versatile discovery mechanisms available which allow you to implement Prometheus in your environment (e.g., DNS service discovery or file service discovery).
+In addition to the static target configuration, Prometheus provides many ways to dynamically add/remove targets. There are builtin service discovery mechanisms for cloud providers such as Kubernetes, AWS, GCP, Hetzner, and many more. In addition, there are more versatile discovery mechanisms available which allow you to implement Prometheus in your environment (e.g., DNS service discovery or file service discovery).
 Let's take a look at an example of a file service discovery configuration:
 
 ```yaml
