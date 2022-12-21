@@ -6,6 +6,8 @@ sectionnumber: 1
 
 ## Prometheus in Kubernetes
 
+{{% onlyWhenNot baloise %}}
+
 We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
 {{% alert title="Minikube" color="primary" %}}
@@ -97,3 +99,12 @@ Use the default Grafana logging credentials and change the password
 * password: admin
 
 {{% /alert %}}
+
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen baloise %}}
+
+Have a look at the [Baloise Monitoring Stack](https://confluence.baloisenet.com/atlassian/display/BALMATE/06+-+Monitor+your+application+using+the+Baloise+Monitoring+Stack) and take a look at the different components and how they work together.
+
+{{% /onlyWhen %}}
+
