@@ -37,8 +37,7 @@ data:
         - myhost1.balgroupit.com:9100 # path defaults to /metrics
       labels: # provide additional labels (optional)
         cmdbName: ServerLinux
-        location: OMO
-        purpose: VM
+        namespace: foo
 ```
 
 In our example we added the host `myhost1.balgroupit.com` with an exporter running on port 9100 as static target. We also added custom labels to help us identify our metrics.
@@ -68,8 +67,7 @@ data:
         - prometheus-training.balgroupit.com:9100
       labels:
         cmdbName: ServerLinux
-        location: OMO
-        purpose: VM
+        namespace: foo
 ```
 
 Check the target again and make sure it is shown as up.

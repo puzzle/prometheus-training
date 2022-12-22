@@ -43,7 +43,7 @@ spec:
           annotations:
             message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
           labels:
-            severity: critical
+            severity: info
 ```
 
 This will fire an alert, everytime the following query matches

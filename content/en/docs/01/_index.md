@@ -205,3 +205,20 @@ There are four types of relabelings:
 * `write_relabel_configs` (remote write relabeling)
 
   Remote write relabeling is similar to `metric_relabel_configs`, but applies to `remote_write` configurations.
+
+{{% onlyWhen baloise %}}
+
+## Add your application as monitoring target at Baloise
+
+Have a look at the [Add Monitoring Targets outside of OpenShift](https://confluence.baloisenet.com/atlassian/display/BALMATE/02+-+Add+your+application+as+monitoring+target#id-02Addyourapplicationasmonitoringtarget-AddMonitoringTargetsoutsideofOpenShift) documentation. There are two ways to add machines outside of OpenShift to your monitoring stack.
+
+* Using `File Service Discovery` you have the following options
+  * Add targets using TLS and using the default credentials provided
+  * Add targets without TLS and authentication
+* You can use the approach with `ServiceMonitors`, which provides more flexibility for cases like
+  * custom targets with non standard basic authentication
+  * custom targets with non TLS and non standard basic authentication
+  * provide ca to verify custom certificate on the exporter side
+  * define a non default `scrape_interval`
+
+{{% /onlyWhen %}}
