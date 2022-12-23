@@ -90,7 +90,7 @@ Create the following file `training_python-deployment.yaml` in that directory.
 Use the following command to verify the deployment, that the pod `example-web-python` is Ready and Running. (use CTRL C to exit the command)
 
 ```bash
-kubectl -n examples-monitoring get pod -w
+kubectl -n [monitoring-namespace] get pod -w
 ```
 
 We also need to create a Service for the new application. Create a file with the name `training_python-service.yaml` with the following content:
@@ -100,7 +100,7 @@ We also need to create a Service for the new application. Create a file with the
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ```bash
-kubectl -n examples-monitoring get svc
+kubectl -n [monitoring-namespace] get svc
 ```
 
 Which gives you an output similar to this:
@@ -117,7 +117,7 @@ Our example application can now be reached on the port `5000`.
 We can now make the application directly availabl on our machine using [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
 ```bash
-kubectl -n examples-monitoring port-forward svc/example-web-python 5000
+kubectl -n [monitoring-namespace] port-forward svc/example-web-python 5000
 ```
 
 Use `curl` and verify the successful deployment of our example application:

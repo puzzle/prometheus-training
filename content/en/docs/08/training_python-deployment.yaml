@@ -19,5 +19,4 @@ spec:
       - image: quay.io/acend/example-web-python
         imagePullPolicy: Always
         name: example-web-python
-        resources: {}
       restartPolicy: Always

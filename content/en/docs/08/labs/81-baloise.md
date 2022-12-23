@@ -2,7 +2,7 @@
 title: "8.1 Tasks: Application Monitoring"
 weight: 8
 sectionnumber: 8.1
-onlyWhenNot: baloise
+onlyWhen: baloise
 ---
 
 ### Task {{% param sectionnumber %}}.1: Create a ServiceMonitor
@@ -12,29 +12,23 @@ onlyWhenNot: baloise
 Create a ServiceMonitor for the example application
 
 * Create a ServiceMonitor, which will configure Prometheus to scrape metrics from the example-web-python application every 30 seconds.
-  * hint: `kubectl -n application-metrics apply -f my_file.yaml` will create a resource in the Kubernetes namespace
 
 For this to work, you need to ensure:
 
 * The example-web-python Service is labeled correctly and matches the labels you've defined in your ServiceMonitor.
 * The port name in your ServiceMonitor configuration matches the port name in the Service definition.
-  * hint: check with `kubectl -n application-metrics get service example-web-python -o yaml`
+  * hint: check with `kubectl -n [monitoring-namespace] get service example-web-python -o yaml`
 * Verify the target in the Prometheus user interface
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-Create the following ServiceMonitor (`~/work/servicemonitor.yaml`) in the `application-metrics` namespace
+Create the following ServiceMonitor (`training_python-servicemonitor.yaml`)
 
-{{< readfile file="/content/en/docs/08/labs/servicemonitor.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/content/en/docs/08/labs/training_python-servicemonitor.yaml" code="true" lang="yaml" >}}
 
-Apply it using the following command:
-
-```bash
-kubectl -n application-metrics apply -f ~/work/servicemonitor.yaml
-```
-
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `serviceMonitor/application-metrics/example-web-python-monitor/0` (It may take up to a minute for Prometheus to load the new
+Verify that the target gets scraped in the Prometheus user interface (Either on CAASI or CAAST, depending where you deployed the application). Target name: `serviceMonitor/examples-monitoring/example-web-python-monitor/0` (It may take up to a minute for Prometheus to load the new
 configuration and scrape the metrics).
+
 {{% /details %}}
 
 
@@ -44,39 +38,37 @@ configuration and scrape the metrics).
 
 As we've learned in [Lab 4 - Prometheus exporters](../../../04/) when applications do not expose metrics in the Prometheus format, there are a lot of exporters available to convert metrics into the correct format. In Kubernetes this is often done by deploying so called sidecar containers along with the actual application.
 
-Use the following command to deploy a MariaDB database in the `application-metrics` namespace.
+Use the following command to deploy a MariaDB database your monitoring or application namespace on CAAST.
 
-```bash
-curl -o ~/work/mariadb.yaml \
-https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/08/labs/mariadb.yaml
-kubectl -n application-metrics apply -f ~/work/mariadb.yaml
-```
+Create the following deployment (`training_baloise_mariadb.yaml`)
+{{< readfile file="/content/en/docs/08/labs/baloise_mariadb.yaml" code="true" lang="yaml" >}}
+
 
 This will create a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) (username password to access the database), a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) and the [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
 * Deploy the [mariadb exporter](https://github.com/prometheus/mysqld_exporter) from <https://registry.hub.docker.com/r/prom/mysqld-exporter/> as a sidecar container
-  * Alter the existing MariaDB deployment definition (~/work/mariadb.yaml) to contain the side car
-  * Apply your changes to the cluster with `kubectl -n application-metrics apply -f ~/work/mariadb.yaml`
+  * Alter the existing MariaDB deployment definition to contain the side car
 * Create a ServiceMonitor to instruct Prometheus to scrape the sidecar container
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-First we need to alter the deployment of the MariaDB with adding the MariaDB exporter as a second container.
+First we need to alter the MariaDB deployment `training_baloise_mariadb.yaml` with adding the MariaDB exporter as a second container.
+
+{{< readfile file="/content/en/docs/08/labs/baloise_mariadb-deployment.yaml" code="true" lang="yaml" >}}
+
 Then extend the service by adding a second port for the MariaDB exporter.
 
-{{< readfile file="/content/en/docs/08/labs/mariadb-sidecar.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/content/en/docs/08/labs/baloise_mariadb-service.yaml" code="true" lang="yaml" >}}
 
-We can apply the file above using:
-
-```bash
-kubectl -n application-metrics apply -f ~/work/mariadb.yaml
-```
-
-Then we also need to create a new ServiceMonitor `~/work/servicemonitor-sidecar.yaml`.
+Then we also need to create a new ServiceMonitor `training_servicemonitor-sidecar.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-sidecar.yaml" code="true" lang="yaml" >}}
 
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and
+```bash
+kubectl -n application-metrics apply -f ~/work/servicemonitor-sidecar.yaml
+```
+
+Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `serviceMonitor/examples-monitoring/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and
 scrape the metrics).
 
 {{% /details %}}
@@ -231,4 +223,34 @@ Check for the following metric in Prometheus:
 ```promql
 {instance="example-web-python.application-metrics.svc:5000/health"}
 ```
+{{% /details %}}
+
+### Task {{% param sectionnumber %}}.4: generic-chart MariaDB deployment (optional)
+
+
+**Task description**:
+
+* Deploy the [mariadb exporter](https://github.com/prometheus/mysqld_exporter) from <https://registry.hub.docker.com/r/prom/mysqld-exporter/> as a sidecar container
+* Define all parameters using the [generic-chart](https://bitbucket.balgroupit.com/projects/CONTAINER/repos/generic-chart/browse)
+
+{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+
+Create an application on CAAST and deploy the following configuration.
+
+* `Chart.yaml`
+
+{{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-Chart.yaml" code="true" lang="yaml" >}}
+
+* `values.yaml`
+
+{{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-values.yaml" code="true" lang="yaml" >}}
+
+* `templates/secret.yaml`
+
+{{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-secret.yaml" code="true" lang="yaml" >}}
+
+Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
+
+Make sure to remove the deployment once finished.
+
 {{% /details %}}
