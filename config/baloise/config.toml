@@ -76,7 +76,7 @@ modeSwitcher = "true"
 distroName = "OpenShift"
 cliToolName = "oc"
 
- use those placeholder params to replace the content when the component don't run under the same url
+# use those placeholder params to replace the content when the component don't run under the same url
 # eg. set prometheus to LOCALHOST_PROM alertmanager to LOCALHOST_ALERT and the pass different query params to replace the values individually 
 [params.replacePlaceholder]
 prometheus = "LOCALHOST_PROM"
