@@ -26,7 +26,7 @@ spec:
 See [the Alertmanager documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) for `<rule definition>`
 
 Example:
-To add an Alerting rule you need to create a PrometheusRule resource in the monitoring folder of your CAASI Team Config Repository.
+To add an Alerting rule, create a PrometheusRule resource `training_testrules.yaml` in the monitoring folder of your CAASI Team Config Repository.
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
@@ -43,7 +43,7 @@ spec:
           annotations:
             message: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 5 minutes.
           labels:
-            severity: critical
+            severity: info
 ```
 
 This will fire an alert, everytime the following query matches
@@ -120,6 +120,12 @@ Add a test alert and check if your defined target mailbox receives the mail. It 
 oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
 amtool alert add --alertmanager.url=http://localhost:9093 env=dev severity=critical
 ```
+
+{{% alert title="Note" color="primary" %}}
+Alerts with the label `severity=critical` will send a mail to the defined `responsible` mail address in the teams [root configuration](https://bitbucket.balgroupit.com/projects/OSDPL/repos/apps-global-config/browse) and post the alert as a message in the defined Teams channel (if enabled).
+Therefore, inform your team before triggering the alert or skip this task.
+{{% /alert %}}
+
 
 Example:
 
