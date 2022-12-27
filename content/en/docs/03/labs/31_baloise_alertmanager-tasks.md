@@ -18,7 +18,7 @@ The Prometheus Operator allows you to configure Alerting Rules (PrometheusRules)
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-name: <resource-name>
+  name: <resource-name>
 spec:
   <rule definition>
 ```
