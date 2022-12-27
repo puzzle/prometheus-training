@@ -190,7 +190,7 @@ The quickest way to do this is to follow the instructions in the info box above.
 
 ### Task {{% param sectionnumber %}}.4: Cleanup your monitoring workspace
 
-Make sure to remove all files with the `training_ ` prefix in your monitoring directory.
+Make sure to remove all files with the `training_` prefix in your monitoring directory.
 
 
 ### Task {{% param sectionnumber %}}.5: generic-chart MariaDB deployment (optional)
