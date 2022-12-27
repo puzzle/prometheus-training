@@ -19,7 +19,7 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 
 ### FIXME web UI
 
-As an example, check the metrics of your Prometheus server (<http://LOCALHOST:9090/metrics>).
+As an example, check the metrics of your Prometheus server (<http://{{% param replacePlaceholder.prometheus %}}/metrics>).
 
 {{% onlyWhenNot baloise %}}
 ```promql
@@ -64,7 +64,7 @@ There are 4 different metric types in Prometheus
 
 ### FIXME web UI
 
-Open your Prometheus [web UI](http://LOCALHOST:9090) and navigate to the **Graph** menu. You can use the `Open metrics explorer` icon (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
+Open your Prometheus [web UI](http://{{% param replacePlaceholder.prometheus %}}) and navigate to the **Graph** menu. You can use the `Open metrics explorer` icon (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
 
 Learn more about:
 

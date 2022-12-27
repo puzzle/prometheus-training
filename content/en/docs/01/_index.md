@@ -125,7 +125,7 @@ We will learn more about other configuration options (`evaluation_interval`, `al
     sudo systemctl start prometheus
     ```
 
-1. Verify that Prometheus is up and running by navigating to <http://LOCALHOST:9090> with your browser. You should now see the Prometheus web UI.
+1. Verify that Prometheus is up and running by navigating to <http://{{% param replacePlaceholder.prometheus %}}> with your browser. You should now see the Prometheus web UI.
 
 {{% /onlyWhenNot %}}
 

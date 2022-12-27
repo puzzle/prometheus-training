@@ -77,6 +77,17 @@ modeSwitcher = "true"
 distroName = "Kubernetes"
 cliToolName = "kubectl"
 
+# use those placeholder params to replace the content when the component don't run under the same url
+# eg. set prometheus to LOCALHOST_PROM alertmanager to LOCALHOST_ALERT and the pass different query params to replace the values individually 
+[params.replacePlaceholder]
+prometheus = "LOCALHOST:9090"
+alertmanager = "LOCALHOST:9093"
+mailcatcher = "LOCALHOST:1080"
+grafana = "LOCALHOST:3000"
+k8sPrometheus = "LOCALHOST:19090"
+k8sAlertmanager = "LOCALHOST:19093"
+k8sGrafana = "LOCALHOST:13000"
+
 [params.replaceContent]
 allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
 
@@ -90,6 +101,11 @@ href = true
 placeholder = "<namespace>"
 queryParam = "n"
 defaultValue = "<namespace>"
+
+[[params.replaceContent.placeholders]]
+placeholder = "<team>"
+queryParam = "t"
+defaultValue = "<team>"
 
 # Enable Lunr.js offline search
 offlineSearch = true

@@ -87,11 +87,11 @@ Wait until all pods are running
 watch kubectl -n monitoring get pods
 ```
 
-Check if you can access the Prometheus web interface at <http://LOCALHOST:19090>
+Check if you can access the Prometheus web interface at <http://{{% param replacePlaceholder.k8sPrometheus %}}>
 
-Check access to Alertmanager at <http://LOCALHOST:19093>
+Check access to Alertmanager at <http://{{% param replacePlaceholder.k8sAlertmanager %}}>
 
-Check access to Grafana at <http://LOCALHOST:13000>
+Check access to Grafana at <http://{{% param replacePlaceholder.k8sGrafana %}}>
 {{% alert title="Note" color="primary" %}}
 Use the default Grafana logging credentials and change the password
 
