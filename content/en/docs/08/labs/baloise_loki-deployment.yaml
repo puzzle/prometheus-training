@@ -19,4 +19,26 @@ spec:
       - image: quay.balgroupit.com/acend/loki
         imagePullPolicy: Always
         name: loki
+        volumeMounts:
+        - mountPath: /loki/chunks
+          name: chunks
+        - mountPath: /loki/boltdb-shipper-cache
+          name: boltdb-shipper-cache
+        - mountPath: /loki/boltdb-shipper-active
+          name: shipper-active
+        - mountPath: /loki/wal
+          name: wal
+        - mountPath: /loki/compactor
+          name: compactor
       restartPolicy: Always
+      volumes:
+      - name: chunks
+        emptyDir: {}
+      - name: boltdb-shipper-cache
+        emptyDir: {}
+      - name: shipper-active
+        emptyDir: {}
+      - name: wal
+        emptyDir: {}
+      - name: compactor
+        emptyDir: {}

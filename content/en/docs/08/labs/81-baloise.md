@@ -87,7 +87,7 @@ Create a Service `training_service-loki.yaml`
 
 {{< readfile file="/content/en/docs/08/labs/baloise_loki-service.yaml" code="true" lang="yaml" >}}
 
-Create the Loki ServiceMonitor
+Create the Loki ServiceMonitor `training_servicemonitor-loki.yaml`
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-loki.yaml" code="true" lang="yaml" >}}
 
@@ -119,22 +119,24 @@ The quickest way to do this is to follow the instructions in the info box above.
 * The Endpoint appears in the [Prometheus configuration](http://LOCALHOST:19090/config) but not under targets.
   * Lets check if the application is running
     ```bash
-    kubectl -n loki get pod
+    kubectl -n [monitoring-namespace] get pod
     ```
     The output should be similar to the following:
     ```bash
     NAME                    READY   STATUS    RESTARTS   AGE
-    loki-5846d87f4c-tthsr   1/1     Running   0          34m
+    ...
+    example-loki-7bb486b647-dj5r4          1/1     Running   0             112s
+    ...
     ```
   * Lets check if the application is exposing metrics
     ```bash
-    PODNAME=$(kubectl get pod -n loki -l app=loki -o name)
-    kubectl -n loki exec $PODNAME -it -- wget -O - localhost:3100/metrics
+    PODNAME=$(kubectl -n [monitoring-namespace] get pod -l app=loki -o name)
+    kubectl -n [monitoring-namespace] exec $PODNAME -it -- wget -O - localhost:3100/metrics
     ...
     ```
   * The application exposes metrics and Prometheus generated the configuration according to the defined servicemonitor. Let's verify, if the ServiceMonitor matches the Service.
     ```bash
-    kubectl -n loki get svc loki -o yaml
+    kubectl -n [monitoring-namespace] get svc loki -o yaml
     ```
 
     ```yaml
@@ -144,8 +146,8 @@ The quickest way to do this is to follow the instructions in the info box above.
       ...
       labels:
         app: loki
+        argocd.argoproj.io/instance: ...
       name: loki
-      namespace: loki
     spec:
       ...
       ports:
@@ -154,7 +156,7 @@ The quickest way to do this is to follow the instructions in the info box above.
     ```
     We see that the Service has the port named `http` and the label `app: loki` set. Let's check the ServiceMonitor
     ```bash
-    kubectl -n loki get servicemonitor loki -o yaml
+    kubectl -n [monitoring-namespace] get servicemonitor loki -o yaml
     ```
 
     ```yaml
@@ -171,10 +173,20 @@ The quickest way to do this is to follow the instructions in the info box above.
         matchLabels:
           prometheus-monitoring: "true"
     ```
-    We see that the ServiceMonitor expect the port named `http` and a label `prometheus-monitoring: "true"` set. So the culprit is the missing label. Let's set the label on the Service.
-    ```bash
-    kubectl -n loki label svc loki prometheus-monitoring=true
-    ```
+    We see that the ServiceMonitor expect the port named `http` and a label `prometheus-monitoring: "true"` set. So the culprit is the missing label. Let's set the label on the Service by updating the the service.
+
+   ```yaml
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: loki
+     labels:
+       app: loki
+       prometheus-monitoring: true
+   spec:
+   ...
+   ```
 
     Verify that the target now gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets).
 
