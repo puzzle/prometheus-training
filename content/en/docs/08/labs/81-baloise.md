@@ -79,11 +79,13 @@ We will now deploy an application with an error in the monitoring configration.
 
 Deploy [Loki](https://grafana.com/oss/loki/) in the monitoring namespace
 
-{{< readfile file="/content/en/docs/08/labs/baloise-loki-deployment.yaml" code="true" lang="yaml" >}}
+Create a deployment `training_loki-deployment.yaml`
 
-Create a Service for Loki
+{{< readfile file="/content/en/docs/08/labs/baloise_loki-deployment.yaml" code="true" lang="yaml" >}}
 
-{{< readfile file="/content/en/docs/08/labs/service-loki.yaml" code="true" lang="yaml" >}}
+Create a Service `training_service-loki.yaml`
+
+{{< readfile file="/content/en/docs/08/labs/baloise_loki-service.yaml" code="true" lang="yaml" >}}
 
 Create the Loki ServiceMonitor
 

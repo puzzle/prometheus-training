@@ -16,7 +16,7 @@ spec:
         app: loki
     spec:
       containers:
-      - image: quay.io/acend/loki
+      - image: quay.balgroupit.com/acend/loki
         imagePullPolicy: Always
         name: loki
       restartPolicy: Always
