@@ -75,7 +75,7 @@ Show routing tree:
 
 ```bash
 oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
-amtool config routes --config.file /etc/alertmanager/config/alertmanager.yml
+amtool config routes --config.file /etc/alertmanager/config/alertmanager.yaml
 ```
 
 Depending on the configured receivers your output might vary.
