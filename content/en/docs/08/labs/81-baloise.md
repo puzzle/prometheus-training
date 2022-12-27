@@ -188,44 +188,12 @@ The quickest way to do this is to follow the instructions in the info box above.
 
 {{% /details %}}
 
-### Task {{% param sectionnumber %}}.4: Blackbox monitoring in Kubernetes (optional)
+### Task {{% param sectionnumber %}}.4: Cleanup your monitoring workspace
 
-In [Lab 4 - Prometheus exporters](../../../04/) we came across the blackbox exporter and learned how configuring a [multi-target exporter through relabel_configs](https://prometheus.io/docs/guides/multi-target-exporter/) can be a bit tricky to understand. The Prometheus operator brings us a so-called Probe custom resource, which allows us to define the targets for a black box exporter in a much simplified way.
+Make sure to remove all files with the `training_ ` prefix in your monitoring directory.
 
-**Task description**:
 
-* Create a [Probe custom resource](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/design.md#probe) in the application-metrics namespace for the example-web-python application
-* Use the Prometheus expression browser to check if the new metric is being scraped
-
-{{% alert title="Note" color="primary" %}}
-
-Use `kubectl describe crd probe | less` to describe the crd and get the available options.
-
-{{% /alert %}}
-
-{{% details title="Hints" mode-switcher="normalexpertmode" %}}
-
-Create the following probe custom resource (`~/work/probe.yaml`) in the `application-metrics` namespace
-
-{{< readfile file="/content/en/docs/08/labs/probe.yaml" code="true" lang="yaml" >}}
-
-Apply it using the following command:
-
-```bash
-kubectl -n application-metrics apply -f ~/work/probe.yaml
-```
-
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/example-web-python-probe` (It may take up to a minute for Prometheus to load the new
-configuration and scrape the metrics).
-
-Check for the following metric in Prometheus:
-
-```promql
-{instance="example-web-python.application-metrics.svc:5000/health"}
-```
-{{% /details %}}
-
-### Task {{% param sectionnumber %}}.4: generic-chart MariaDB deployment (optional)
+### Task {{% param sectionnumber %}}.5: generic-chart MariaDB deployment (optional)
 
 
 **Task description**:
@@ -237,15 +205,15 @@ Check for the following metric in Prometheus:
 
 Create an application on CAAST and deploy the following configuration.
 
-* `Chart.yaml`
+Chart.yaml
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-Chart.yaml" code="true" lang="yaml" >}}
 
-* `values.yaml`
+values.yaml
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-values.yaml" code="true" lang="yaml" >}}
 
-* `templates/secret.yaml`
+templates/secret.yaml
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-secret.yaml" code="true" lang="yaml" >}}
 
