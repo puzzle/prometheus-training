@@ -17,7 +17,6 @@ Wou will have to **authenticate twice** to access Grafana. First use your person
 
 {{% /onlyWhenNot %}}
 {{% onlyWhen baloise %}}
-FIXME: URL
 Grafana is already provided in your Stack. Login to your Grafana instance on <http://{{% param replacePlaceholder.grafana %}}/>. Use your personal credentials to log in to Grafana.
 {{% /onlyWhen %}}
 

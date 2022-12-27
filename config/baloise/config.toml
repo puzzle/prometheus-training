@@ -80,6 +80,7 @@ cliToolName = "oc"
 # eg. set prometheus to LOCALHOST_PROM alertmanager to LOCALHOST_ALERT and the pass different query params to replace the values individually 
 [params.replacePlaceholder]
 prometheus = "LOCALHOST_PROM"
+thanos = "LOCALHOST_THANOS"
 alertmanager = "LOCALHOST_ALERT"
 mailcatcher = "LOCALHOST_MAIL_CATCHER"
 grafana = "LOCALHOST_GRAFANA"
@@ -106,6 +107,12 @@ href = true
 placeholder = "http://LOCALHOST_GRAFANA"
 queryParam = "g"
 defaultValue = "https://localhost_grafana"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_THANOS"
+queryParam = "th"
+defaultValue = "https://localhost_thanos"
 href = true
 
 [[params.replaceContent.placeholders]]
