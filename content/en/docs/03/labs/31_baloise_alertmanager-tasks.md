@@ -26,7 +26,7 @@ spec:
 See [the Alertmanager documentation](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) for `<rule definition>`
 
 Example:
-To add an Alerting rule create a PrometheusRule resource `training_testrules.yaml` in the monitoring folder of your CAASI Team Config Repository.
+To add an Alerting rule, create a PrometheusRule resource `training_testrules.yaml` in the monitoring folder of your CAASI Team Config Repository.
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
