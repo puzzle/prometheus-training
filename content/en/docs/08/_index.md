@@ -85,7 +85,7 @@ We will deploy an application for demonstration purposes in our monitoring names
 
 Create the following file `training_python-deployment.yaml` in that directory.
 
-{{< readfile file="/content/en/docs/08/training_python-deployment.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/content/en/docs/08/baloise_python-deployment.yaml" code="true" lang="yaml" >}}
 
 Use the following command to verify the deployment, that the pod `example-web-python` is Ready and Running. (use CTRL C to exit the command)
 
@@ -95,7 +95,7 @@ kubectl -n [monitoring-namespace] get pod -w
 
 We also need to create a Service for the new application. Create a file with the name `training_python-service.yaml` with the following content:
 
-{{< readfile file="/content/en/docs/08/training_python-service.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/content/en/docs/08/baloise_python-service.yaml" code="true" lang="yaml" >}}
 
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 

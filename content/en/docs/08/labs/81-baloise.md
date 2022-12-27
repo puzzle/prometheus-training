@@ -24,7 +24,7 @@ For this to work, you need to ensure:
 
 Create the following ServiceMonitor (`training_python-servicemonitor.yaml`)
 
-{{< readfile file="/content/en/docs/08/labs/training_python-servicemonitor.yaml" code="true" lang="yaml" >}}
+{{< readfile file="/content/en/docs/08/labs/baloise_python-servicemonitor.yaml" code="true" lang="yaml" >}}
 
 Verify that the target gets scraped in the Prometheus user interface (Either on CAASI or CAAST, depending where you deployed the application). Target name: `serviceMonitor/examples-monitoring/example-web-python-monitor/0` (It may take up to a minute for Prometheus to load the new
 configuration and scrape the metrics).
@@ -77,27 +77,17 @@ scrape the metrics).
 
 We will now deploy an application with an error in the monitoring configration.
 
-* Deploy [Loki](https://grafana.com/oss/loki/) in the loki namespace
+Deploy [Loki](https://grafana.com/oss/loki/) in the monitoring namespace
 
-```bash
-kubectl create ns loki
-kubectl -n loki create deployment loki \
---image=mirror.gcr.io/grafana/loki:latest
-```
+{{< readfile file="/content/en/docs/08/labs/baloise-loki-deployment.yaml" code="true" lang="yaml" >}}
 
-* Create a Service for Loki
+Create a Service for Loki
 
-```bash
-kubectl -n loki create -f \
-https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/08/labs/service-loki.yaml
-```
+{{< readfile file="/content/en/docs/08/labs/service-loki.yaml" code="true" lang="yaml" >}}
 
-* Create the Loki ServiceMonitor
+Create the Loki ServiceMonitor
 
-```bash
-kubectl -n loki create -f \
-https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/08/labs/servicemonitor-loki.yaml
-```
+{{< readfile file="/content/en/docs/08/labs/servicemonitor-loki.yaml" code="true" lang="yaml" >}}
 
 * When you visit the [Prometheus user interface](http://LOCALHOST:19090/targets) you will notice, that the Prometheus Server does not scrape metrics from Loki. Try to find out why.
 
