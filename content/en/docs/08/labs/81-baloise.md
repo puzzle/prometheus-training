@@ -114,14 +114,12 @@ The quickest way to do this is to follow the instructions in the info box above.
 * The Endpoint appears in the [Prometheus configuration](http://{{% param replacePlaceholder.prometheus %}}/config) but not under targets.
   * Let's check if the application is running:
     ```bash
-    {{% param cliToolName %}} -n <team>-monitoring get pod
+    {{% param cliToolName %}} -n <team>-monitoring get pod -l app=loki
     ```
     The output should be similar to the following:
     ```bash
     NAME                    READY   STATUS    RESTARTS   AGE
-    ...
     example-loki-7bb486b647-dj5r4          1/1     Running   0             112s
-    ...
     ```
   * Lets check if the application is exposing metrics:
     ```bash
@@ -168,20 +166,19 @@ The quickest way to do this is to follow the instructions in the info box above.
         matchLabels:
           prometheus-monitoring: "true"
     ```
-    We see that the ServiceMonitor expect the port named `http` and a label `prometheus-monitoring: "true"` set. So the culprit is the missing label. Let's set the label on the Service by updating the the service.
+    We see that the ServiceMonitor expect the port named `http` and a label `prometheus-monitoring: "true"` set. So the culprit is the missing label. Let's set the label on the Service by updating the the service `training_service-loki.yaml`.
 
-   ```yaml
-   ---
-   apiVersion: v1
-   kind: Service
-   metadata:
-     name: loki
-     labels:
-       app: loki
-       prometheus-monitoring: true
-   spec:
-   ...
-   ```
+    ```yaml
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: loki
+      labels:
+        app: loki
+        prometheus-monitoring: "true"
+    spec:
+    ...
+    ```
 
     Verify that the target gets scraped in the [Prometheus user interface](http://{{% param replacePlaceholder.prometheus %}}/targets).
 
@@ -197,27 +194,27 @@ Make sure to remove all files with the `training_` prefix in your monitoring dir
 
 **Task description**:
 
-* Deploy the [mariadb exporter](https://github.com/prometheus/mysqld_exporter) from <https://registry.hub.docker.com/r/prom/mysqld-exporter/> as a sidecar container.
+* Deploy the [mariadb exporter](https://github.com/prometheus/mysqld_exporter) from [quay.io/prometheus/mysqld-exporter](https://quay.io/repository/prometheus/mysqld-exporter) as a sidecar container.
 * Define all parameters using the [generic-chart](https://bitbucket.balgroupit.com/projects/CONTAINER/repos/generic-chart/browse).
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
 Create an application on CAAST and deploy the following configuration.
 
-Chart.yaml
+**Chart.yaml**
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-Chart.yaml" code="true" lang="yaml" >}}
 
-values.yaml
+**values.yaml**
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-values.yaml" code="true" lang="yaml" >}}
 
-templates/secret.yaml
+**templates/secret.yaml**
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-secret.yaml" code="true" lang="yaml" >}}
 
 Verify that the target gets scraped in the [Prometheus user interface](http://{{% param replacePlaceholder.prometheus %}}/targets). Target name: `application-metrics/mariadb/0` (it may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
-Make sure to remove the deployment once finished.
+Make sure to remove the files `Chart.yaml`, `values.yaml` and `templates/secret.yaml` once finished.
 
 {{% /details %}}
