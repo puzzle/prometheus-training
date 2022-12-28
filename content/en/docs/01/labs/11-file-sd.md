@@ -22,7 +22,7 @@ Please name all files created in this training with the filename prefix `trainin
 
 We are going to use the file-based service discovery mechanism that has been deployed on OpenShift. As file input you will create a ConfigMap defining the static targets.
 
-In the monitoring folder within you repository, create a YAML file `training_target.yaml` defining a ConfigMap and add the file to your repository. You can take the example below as an inspiration.
+In the monitoring folder within your repository, create a YAML file `training_target.yaml` defining a ConfigMap and add the file to your repository. You can take the example below as an inspiration.
 
 ```yaml
 apiVersion: v1

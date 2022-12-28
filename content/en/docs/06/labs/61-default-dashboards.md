@@ -15,9 +15,12 @@ Have a look at the provided dashboard.
 
 ### Task {{% param sectionnumber %}}.2 Have a look at the default team namespace dashboard
 
-The Monitoring Stack provides a dashboard that shows you metrics of your applications. The dashboard can be found under the name `Openshift Namespace Dashboard`.
+The Monitoring Stack provides a dashboard that shows you metrics of your applications.
 
-* Selecto metrics about your
+* Navigate to **Dashboards** (Icon with the four squares on the left navigation menu)
+* The dashboard can be found under the name `Openshift Namespace Dashboard`
+
+* Select metrics about your
   * `prometheus` container
   * running on the `caast01` cluster
 
