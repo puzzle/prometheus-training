@@ -83,7 +83,7 @@ curl $(minikube service example-web-python --url -n application-metrics)/metrics
 
 We will deploy an application for demonstration purposes in our monitoring namespace. This should never be done for production use caes. If you are familiar with deploying on OpenShift, you can complete the lab by deploying the application on our test cluster, which is more like a real world application.
 
-Create the following file `training_python-deployment.yaml` in that directory.
+Create the following file `training_python-deployment.yaml` in your monitoring directory.
 
 {{< readfile file="/content/en/docs/08/baloise_python-deployment.yaml" code="true" lang="yaml" >}}
 
