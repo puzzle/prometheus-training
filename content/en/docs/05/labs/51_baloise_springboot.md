@@ -5,34 +5,48 @@ sectionnumber: 5.1
 onlyWhen: baloise
 ---
 
-### Task {{% param sectionnumber %}}.1: Scrape config
+### Task {{% param sectionnumber %}}.1: Spring Boot Example Instrumentation
 
-Configure Prometheus to scrape the metrics endpoint of the Spring Boot Application `http://localhost:8083`, like you've done it in previous labs.
+Using the [micrometer metrics facade](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) in Spring Boot Applications lets us collect all sort of metrics within a Spring Boot application. Those metrics can be exported for Prometheus to scrape by a few additional dependencies and configuration.
 
-{{% details title="Hints" mode-switcher="normalexpertmode" %}}
+Let's have a deeper look at how the instrumentation of a Spring Boot application works. For that we can use the prometheus-training-spring-boot-example application located at https://github.com/acend/prometheus-training-spring-boot-example. To make the application collect metrics and provide a Prometheus endpoint we now need to simply add the following two dependencies in the `pom.xml` file, where it says `<!-- Add Dependencies here-->`:
 
-Add a new Job to the `scrape_configs` in your `/etc/prometheus/prometheus.yml`:
+{{% alert title="Note" color="primary" %}}
+For your convenience, the changes mentioned below are already implemented in the `solution` subfolder of the git repository. You therefore do not have to make any changes in the code.
+{{% /alert %}}
 
-```yaml
-scrape_configs:
-  ...
-  - job_name: "spring_boot_app"
-    metrics_path: "/actuator/prometheus"
-    static_configs:
-      - targets:
-          - "localhost:8083"
-  ...
+```xml
+        ....
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        ....
 ```
 
-Note that you can always validate the configuration with:
+Additionally to those dependencies we also need to configure the metrics endpoints to be exposed.
+
+This can be done in the file `src/main/resources/application.properties` by adding the following line:
+
+```ini
+management.endpoints.web.exposure.include=prometheus,health,info,metric
+```
+
+As mentioned above, these changes have already been implemented in the `solution` subfolder of the repository. A pre-built docker image is also available under FIXME. In the next step we will deploy our appliction to our OpenShift Cluster:
 
 ```bash
-promtool check config /etc/prometheus/prometheus.yml
+{{% param cliToolName %}} -n [monitoring-namespace] apply -f https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/05/labs/springboot-example.yaml
 ```
 
-Do not forget to reload or restart the Prometheus server.
+{{% alert title="Note" color="primary" %}}
+The command above will create a `Deployment`, a `Service` and a `ServiceMonitor` resource in our monitoring namespace. We will learn about `ServiceMonitors` later in labs 8. For now, we only need to know, that a `ServiceMonitor` resource will configure Prometheus targets based on the pods linked to the service.
+{{% /alert %}}
 
-{{% /details %}}
 
 ### Task {{% param sectionnumber %}}.2: Metric names
 
