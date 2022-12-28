@@ -64,12 +64,7 @@ Then we also need to create a new ServiceMonitor `training_servicemonitor-sideca
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-sidecar.yaml" code="true" lang="yaml" >}}
 
-```bash
-{{% param cliToolName %}} -n application-metrics apply -f ~/work/servicemonitor-sidecar.yaml
-```
-
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `serviceMonitor/examples-monitoring/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and
-scrape the metrics).
+Verify that the target gets scraped in the [Prometheus user interface](http://{{% param replacePlaceholder.prometheus %}}/targets). Target name: `serviceMonitor/<team>-monitoring/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
 {{% /details %}}
 
@@ -91,7 +86,7 @@ Create the Loki ServiceMonitor `training_servicemonitor-loki.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-loki.yaml" code="true" lang="yaml" >}}
 
-* When you visit the [Prometheus user interface](http://LOCALHOST:19090/targets) you will notice that the Prometheus Server does not scrape metrics from Loki. Try to find out why.
+* When you visit the [Prometheus user interface](http://{{% param replacePlaceholder.prometheus %}}/targets) you will notice that the Prometheus Server does not scrape metrics from Loki. Try to find out why.
 
 {{% alert title="Troubleshooting: Prometheus is not scraping metrics" color="primary" %}}
 The cause that Prometheus is not able to scrape metrics is usually one of the following:
@@ -115,8 +110,8 @@ The cause that Prometheus is not able to scrape metrics is usually one of the fo
 The quickest way to do this is to follow the instructions in the info box above. So let's first find out which of the following statements apply to us:
 
 * The configuration defined in the ServiceMonitor does not appear in the Prometheus scrape configuration.
-  * Let's check if Prometheus reads the configuration defined in the ServiceMonitor resource. To do so, navigate to [Prometheus configuration](http://LOCALHOST:19090/config) and search if `loki` appears in the scrape_configuration. You should find a job with the name `serviceMonitor/loki/loki/0`, therefore this should not be the issue in this case.
-* The Endpoint appears in the [Prometheus configuration](http://LOCALHOST:19090/config) but not under targets.
+  * Let's check if Prometheus reads the configuration defined in the ServiceMonitor resource. To do so, navigate to [Prometheus configuration](http://{{% param replacePlaceholder.prometheus %}}/config) and search if `loki` appears in the scrape_configuration. You should find a job with the name `serviceMonitor/loki/loki/0`, therefore this should not be the issue in this case.
+* The Endpoint appears in the [Prometheus configuration](http://{{% param replacePlaceholder.prometheus %}}/config) but not under targets.
   * Let's check if the application is running:
     ```bash
     {{% param cliToolName %}} -n [monitoring-namespace] get pod
@@ -188,7 +183,7 @@ The quickest way to do this is to follow the instructions in the info box above.
    ...
    ```
 
-    Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets).
+    Verify that the target gets scraped in the [Prometheus user interface](http://{{% param replacePlaceholder.prometheus %}}/targets).
 
 {{% /details %}}
 
@@ -221,7 +216,7 @@ templates/secret.yaml
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-secret.yaml" code="true" lang="yaml" >}}
 
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0` (it may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
+Verify that the target gets scraped in the [Prometheus user interface](http://{{% param replacePlaceholder.prometheus %}}/targets). Target name: `application-metrics/mariadb/0` (it may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
 Make sure to remove the deployment once finished.
 
