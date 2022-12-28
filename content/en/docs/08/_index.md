@@ -91,7 +91,7 @@ Use the following command to verify that the pod of the deployment `example-web-
 
 ```bash
 team=<team>
-{{% param cliToolName %}} -n $team-monitoring get pod -w
+{{% param cliToolName %}} -n $team-monitoring get pod -w -l app=example-web-python
 ```
 
 We also need to create a Service for the new application. Create a file with the name `training_python-service.yaml` with the following content:
@@ -102,16 +102,14 @@ This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concept
 
 ```bash
 team=<team>
-{{% param cliToolName %}} -n $team-monitoring get svc
+{{% param cliToolName %}} -n $team-monitoring get svc -l app=example-web-python
 ```
 
 Which gives you an output similar to this:
 
 ```bash
 NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-...
 example-web-python                  ClusterIP   172.24.195.25    <none>        5000/TCP                     24s
-...
 ```
 
 Our example application can now be reached on port `5000`.
@@ -123,7 +121,7 @@ team=<team>
 {{% param cliToolName %}} -n $team-monitoring port-forward svc/example-web-python 5000
 ```
 
-Use `curl` and verify the successful deployment of our example application:
+Use `curl` and verify the successful deployment of our example application in a separate terminal:
 
 ```bash
 curl localhost:5000/metrics
