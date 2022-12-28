@@ -201,15 +201,15 @@ Make sure to remove all files with the `training_` prefix in your monitoring dir
 
 Create an application on CAAST and deploy the following configuration.
 
-**Chart.yaml**
+**Chart.yaml**:
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-Chart.yaml" code="true" lang="yaml" >}}
 
-**values.yaml**
+**values.yaml**:
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-values.yaml" code="true" lang="yaml" >}}
 
-**templates/secret.yaml**
+**templates/secret.yaml**:
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-secret.yaml" code="true" lang="yaml" >}}
 
