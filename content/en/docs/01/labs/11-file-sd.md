@@ -32,7 +32,7 @@ metadata:
   labels:
     monitoring: external # provide label to match monitoring procedure
 data:
-  auth-mylinuxvms.yaml: | # provide an unique file name (filename starting  with auth_* will use default credentials | filename starting with nonauth_ will not use authentication)
+  auth-mylinuxvms.yaml: | # provide an unique file name
     - targets: # provide targets
         - myhost1.balgroupit.com:9100 # path defaults to /metrics
       labels: # provide additional labels (optional)
