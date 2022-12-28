@@ -140,7 +140,8 @@ amtool alert add --alertmanager.url=http://localhost:9093 alert=test severity=cr
 It is also advisable to validate the routing configuration against a test dataset to avoid unintended changes. With the option `--verify.receivers` the expected output can be specified:
 
 ```bash
-oc -n examples-monitoring exec -it sts/alertmanager-alertmanager -- sh
+team=<team>
+oc -n $team-monitoring  exec -it sts/alertmanager-alertmanager -- sh
 amtool config routes test --config.file /etc/alertmanager/config/alertmanager.yaml --verify.receivers=mail-critical env=dev severity=info
 ```
 
@@ -150,7 +151,8 @@ WARNING: Expected receivers did not match resolved receivers.
 ```
 
 ```bash
-oc -n examples-monitoring exec -it sts/alertmanager-alertmanager -- sh
+team=<team>
+oc -n $team-monitoring exec -it sts/alertmanager-alertmanager -- sh
 amtool config routes test --config.file /etc/alertmanager/config/alertmanager.yaml --verify.receivers=mail-critical env=prod severity=critical
 ```
 
