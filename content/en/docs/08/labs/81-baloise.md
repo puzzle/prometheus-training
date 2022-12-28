@@ -114,7 +114,7 @@ The quickest way to do this is to follow the instructions in the info box above.
 * The Endpoint appears in the [Prometheus configuration](http://{{% param replacePlaceholder.prometheus %}}/config) but not under targets.
   * Let's check if the application is running:
     ```bash
-    {{% param cliToolName %}} -n [monitoring-namespace] get pod
+    {{% param cliToolName %}} -n <team>-monitoring get pod
     ```
     The output should be similar to the following:
     ```bash
@@ -125,13 +125,13 @@ The quickest way to do this is to follow the instructions in the info box above.
     ```
   * Lets check if the application is exposing metrics:
     ```bash
-    PODNAME=$({{% param cliToolName %}} -n [monitoring-namespace] get pod -l app=loki -o name)
-    {{% param cliToolName %}} -n [monitoring-namespace] exec $PODNAME -it -- wget -O - localhost:3100/metrics
+    PODNAME=$({{% param cliToolName %}} -n <team>-monitoring get pod -l app=loki -o name)
+    {{% param cliToolName %}} -n <team>-monitoring exec $PODNAME -it -- wget -O - localhost:3100/metrics
     ...
     ```
   * The application exposes metrics and Prometheus generated the configuration according to the defined ServiceMonitor. Let's verify, if the ServiceMonitor matches the Service.
     ```bash
-    {{% param cliToolName %}} -n [monitoring-namespace] get svc loki -o yaml
+    {{% param cliToolName %}} -n <team>-monitoring get svc loki -o yaml
     ```
 
     ```yaml
@@ -151,7 +151,7 @@ The quickest way to do this is to follow the instructions in the info box above.
     ```
     We see that the Service has the port named `http` and the label `app: loki` set. Let's check the ServiceMonitor:
     ```bash
-    {{% param cliToolName %}} -n [monitoring-namespace] get servicemonitor loki -o yaml
+    {{% param cliToolName %}} -n <team>-monitoring get servicemonitor loki -o yaml
     ```
 
     ```yaml
