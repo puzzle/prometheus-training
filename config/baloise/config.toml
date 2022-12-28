@@ -89,7 +89,7 @@ k8sAlertmanager = "LOCALHOST:19093"
 k8sGrafana = "LOCALHOST:13000"
 
 [params.replaceContent]
-allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch', 'balgroupit.com']
 
 [[params.replaceContent.placeholders]]
 placeholder = "http://LOCALHOST_PROM"
