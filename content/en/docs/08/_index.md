@@ -81,16 +81,16 @@ curl $(minikube service example-web-python --url -n application-metrics)/metrics
 
 {{% onlyWhen baloise %}}
 
-We will deploy an application for demonstration purposes in our monitoring namespace. This should never be done for production use caes. If you are familiar with deploying on OpenShift, you can complete the lab by deploying the application on our test cluster, which is more like a real world application.
+We will deploy an application for demonstration purposes in our monitoring namespace. This should never be done for production use cases. If you are familiar with deploying on OpenShift, you can complete this lab by deploying the application on our test cluster.
 
 Create the following file `training_python-deployment.yaml` in that directory.
 
 {{< readfile file="/content/en/docs/08/baloise_python-deployment.yaml" code="true" lang="yaml" >}}
 
-Use the following command to verify the deployment, that the pod `example-web-python` is Ready and Running. (use CTRL C to exit the command)
+Use the following command to verify that the pod of the deployment `example-web-python` is ready and running (use CTRL+C to exit the command).
 
 ```bash
-kubectl -n [monitoring-namespace] get pod -w
+{{% param cliToolName %}} -n [monitoring-namespace] get pod -w
 ```
 
 We also need to create a Service for the new application. Create a file with the name `training_python-service.yaml` with the following content:
@@ -100,7 +100,7 @@ We also need to create a Service for the new application. Create a file with the
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ```bash
-kubectl -n [monitoring-namespace] get svc
+{{% param cliToolName %}} -n [monitoring-namespace] get svc
 ```
 
 Which gives you an output similar to this:
@@ -112,12 +112,12 @@ example-web-python                  ClusterIP   172.24.195.25    <none>        5
 ...
 ```
 
-Our example application can now be reached on the port `5000`.
+Our example application can now be reached on port `5000`.
 
-We can now make the application directly availabl on our machine using [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+We can now make the application directly available on our machine using [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
 ```bash
-kubectl -n [monitoring-namespace] port-forward svc/example-web-python 5000
+{{% param cliToolName %}} -n [monitoring-namespace] port-forward svc/example-web-python 5000
 ```
 
 Use `curl` and verify the successful deployment of our example application:
