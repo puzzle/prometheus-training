@@ -18,6 +18,8 @@ As we saw in [Lab 5 - Instrumenting with client libraries](../05/) Application M
 
 The instrumented application provides Prometheus scrapable application metrics.
 
+{{% onlyWhenNot baloise %}}
+
 Create a namespace where the example application can be deployed to.
 
 ```bash
@@ -75,6 +77,56 @@ Use `curl` and verify the successful deployment of our example application:
 curl $(minikube service example-web-python --url -n application-metrics)/metrics
 ```
 
+{{% /onlyWhenNot %}}
+
+{{% onlyWhen baloise %}}
+
+We will deploy an application for demonstration purposes in our monitoring namespace. This should never be done for production use cases. If you are familiar with deploying on OpenShift, you can complete this lab by deploying the application on our test cluster.
+
+Create the following file `training_python-deployment.yaml` in your monitoring directory.
+
+{{< readfile file="/content/en/docs/08/baloise_python-deployment.yaml" code="true" lang="yaml" >}}
+
+Use the following command to verify that the pod of the deployment `example-web-python` is ready and running (use CTRL+C to exit the command).
+
+```bash
+{{% param cliToolName %}} -n [monitoring-namespace] get pod -w
+```
+
+We also need to create a Service for the new application. Create a file with the name `training_python-service.yaml` with the following content:
+
+{{< readfile file="/content/en/docs/08/baloise_python-service.yaml" code="true" lang="yaml" >}}
+
+This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
+
+```bash
+{{% param cliToolName %}} -n [monitoring-namespace] get svc
+```
+
+Which gives you an output similar to this:
+
+```bash
+NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+...
+example-web-python                  ClusterIP   172.24.195.25    <none>        5000/TCP                     24s
+...
+```
+
+Our example application can now be reached on port `5000`.
+
+We can now make the application directly available on our machine using [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+
+```bash
+{{% param cliToolName %}} -n [monitoring-namespace] port-forward svc/example-web-python 5000
+```
+
+Use `curl` and verify the successful deployment of our example application:
+
+```bash
+curl localhost:5000/metrics
+```
+{{% /onlyWhen %}}
+
 Should result in something like:
 
 ```promql
@@ -87,6 +139,7 @@ python_gc_objects_collected_total{generation="2"} 15.0
 ```
 
 Since our newly deployed application now exposes metrics, the next thing we need to do, is to tell our Prometheus server to scrape metrics from the Kubernetes deployment. In a highly dynamic environment like Kubernetes this is done with so called Service Discovery.
+
 
 ## Service Discovery
 
