@@ -6,7 +6,7 @@ sectionnumber: 8
 
 ## Collecting Application Metrics
 
-When running applications in production, a fast feedback loop is a key factor. The following reasons show why it's essential to gather and combine all sorts of metrics when running an applications in production:
+When running applications in production, a fast feedback loop is a key factor. The following reasons show why it's essential to gather and combine all sorts of metrics when running an application in production:
 
 * To make sure that an application runs smoothly
 * To be able to see production issues and send alerts
