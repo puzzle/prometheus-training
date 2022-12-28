@@ -9,7 +9,7 @@ onlyWhen: baloise
 
 **Task description**:
 
-Create a ServiceMonitor for the example application
+Create a ServiceMonitor for the example application.
 
 * Create a ServiceMonitor, which will configure Prometheus to scrape metrics from the example-web-python application every 30 seconds.
 
@@ -17,16 +17,16 @@ For this to work, you need to ensure:
 
 * The example-web-python Service is labeled correctly and matches the labels you've defined in your ServiceMonitor.
 * The port name in your ServiceMonitor configuration matches the port name in the Service definition.
-  * hint: check with `kubectl -n [monitoring-namespace] get service example-web-python -o yaml`
-* Verify the target in the Prometheus user interface
+  * hint: check with `{{% param cliToolName %}} -n [monitoring-namespace] get service example-web-python -o yaml`
+* Verify the target in the Prometheus user interface.
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-Create the following ServiceMonitor (`training_python-servicemonitor.yaml`)
+Create the following ServiceMonitor (`training_python-servicemonitor.yaml`):
 
 {{< readfile file="/content/en/docs/08/labs/baloise_python-servicemonitor.yaml" code="true" lang="yaml" >}}
 
-Verify that the target gets scraped in the Prometheus user interface (Either on CAASI or CAAST, depending where you deployed the application). Target name: `serviceMonitor/examples-monitoring/example-web-python-monitor/0` (It may take up to a minute for Prometheus to load the new
+Verify that the target gets scraped in the Prometheus user interface (either on CAASI or CAAST, depending where you deployed the application). Target name: `serviceMonitor/examples-monitoring/example-web-python-monitor/0` (it may take up to a minute for Prometheus to load the new
 configuration and scrape the metrics).
 
 {{% /details %}}
@@ -52,7 +52,7 @@ This will create a [Secret](https://kubernetes.io/docs/concepts/configuration/se
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-First we need to alter the MariaDB deployment `training_baloise_mariadb.yaml` with adding the MariaDB exporter as a second container.
+First we need to alter the MariaDB deployment `training_baloise_mariadb.yaml` by adding the MariaDB exporter as a second container.
 
 {{< readfile file="/content/en/docs/08/labs/baloise_mariadb-deployment.yaml" code="true" lang="yaml" >}}
 
@@ -65,7 +65,7 @@ Then we also need to create a new ServiceMonitor `training_servicemonitor-sideca
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-sidecar.yaml" code="true" lang="yaml" >}}
 
 ```bash
-kubectl -n application-metrics apply -f ~/work/servicemonitor-sidecar.yaml
+{{% param cliToolName %}} -n application-metrics apply -f ~/work/servicemonitor-sidecar.yaml
 ```
 
 Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `serviceMonitor/examples-monitoring/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and
@@ -77,33 +77,33 @@ scrape the metrics).
 
 We will now deploy an application with an error in the monitoring configration.
 
-Deploy [Loki](https://grafana.com/oss/loki/) in the monitoring namespace
+Deploy [Loki](https://grafana.com/oss/loki/) in the monitoring namespace.
 
-Create a deployment `training_loki-deployment.yaml`
+Create a deployment `training_loki-deployment.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/baloise_loki-deployment.yaml" code="true" lang="yaml" >}}
 
-Create a Service `training_service-loki.yaml`
+Create a Service `training_service-loki.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/baloise_loki-service.yaml" code="true" lang="yaml" >}}
 
-Create the Loki ServiceMonitor `training_servicemonitor-loki.yaml`
+Create the Loki ServiceMonitor `training_servicemonitor-loki.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-loki.yaml" code="true" lang="yaml" >}}
 
-* When you visit the [Prometheus user interface](http://LOCALHOST:19090/targets) you will notice, that the Prometheus Server does not scrape metrics from Loki. Try to find out why.
+* When you visit the [Prometheus user interface](http://LOCALHOST:19090/targets) you will notice that the Prometheus Server does not scrape metrics from Loki. Try to find out why.
 
-{{% alert title="Troubleshooting: Prometheus is not scrapping metrics" color="primary" %}}
-The cause that Prometheus is not able to scrape metrics is usually one of the following.
+{{% alert title="Troubleshooting: Prometheus is not scraping metrics" color="primary" %}}
+The cause that Prometheus is not able to scrape metrics is usually one of the following:
 
-* The configuration defined in the ServiceMonitor does not appear in the Prometheus scrape configuration
+* The configuration defined in the ServiceMonitor does not appear in the Prometheus scrape configuration.
   * Check if the label of your ServiceMonitor matches the label defined in the `serviceMonitorSelector` field of the Prometheus custom resource
-  * Check the Prometheus operator logs for errors (Permission issues or invalid ServiceMonitors)
+  * Check the Prometheus operator logs for errors (permission issues or invalid ServiceMonitors)
 * The Endpoint appears in the Prometheus scrape config but not under targets.
   * The namespaceSelector in the ServiceMonitor does not match the namespace of your app
   * The label selector does not match the Service of your app
   * The port name does not match the Service of your app
-* The Endpoint appears as a Prometheus target, but no data gets scraped
+* The Endpoint appears as a Prometheus target, but no data gets scraped.
   * The application does not provide metrics under the correct path and port
   * Networking issues
   * Authentication required, but not configured
@@ -112,14 +112,14 @@ The cause that Prometheus is not able to scrape metrics is usually one of the fo
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-The quickest way to do this is to follow the instructions in the info box above. So let's first find out which of the following statements apply to us
+The quickest way to do this is to follow the instructions in the info box above. So let's first find out which of the following statements apply to us:
 
-* The configuration defined in the ServiceMonitor does not appear in the Prometheus scrape configuration
-  * Let's check if Prometheus reads the configuration defined in the ServiceMonitor resource. To do so navigate to [Prometheus configuration](http://LOCALHOST:19090/config) and search if `loki` appears in the scrape_configuration. You should find a job with the name `serviceMonitor/loki/loki/0`, therefore this should not be the issue in this case.
+* The configuration defined in the ServiceMonitor does not appear in the Prometheus scrape configuration.
+  * Let's check if Prometheus reads the configuration defined in the ServiceMonitor resource. To do so, navigate to [Prometheus configuration](http://LOCALHOST:19090/config) and search if `loki` appears in the scrape_configuration. You should find a job with the name `serviceMonitor/loki/loki/0`, therefore this should not be the issue in this case.
 * The Endpoint appears in the [Prometheus configuration](http://LOCALHOST:19090/config) but not under targets.
-  * Lets check if the application is running
+  * Let's check if the application is running:
     ```bash
-    kubectl -n [monitoring-namespace] get pod
+    {{% param cliToolName %}} -n [monitoring-namespace] get pod
     ```
     The output should be similar to the following:
     ```bash
@@ -128,15 +128,15 @@ The quickest way to do this is to follow the instructions in the info box above.
     example-loki-7bb486b647-dj5r4          1/1     Running   0             112s
     ...
     ```
-  * Lets check if the application is exposing metrics
+  * Lets check if the application is exposing metrics:
     ```bash
-    PODNAME=$(kubectl -n [monitoring-namespace] get pod -l app=loki -o name)
-    kubectl -n [monitoring-namespace] exec $PODNAME -it -- wget -O - localhost:3100/metrics
+    PODNAME=$({{% param cliToolName %}} -n [monitoring-namespace] get pod -l app=loki -o name)
+    {{% param cliToolName %}} -n [monitoring-namespace] exec $PODNAME -it -- wget -O - localhost:3100/metrics
     ...
     ```
-  * The application exposes metrics and Prometheus generated the configuration according to the defined servicemonitor. Let's verify, if the ServiceMonitor matches the Service.
+  * The application exposes metrics and Prometheus generated the configuration according to the defined ServiceMonitor. Let's verify, if the ServiceMonitor matches the Service.
     ```bash
-    kubectl -n [monitoring-namespace] get svc loki -o yaml
+    {{% param cliToolName %}} -n [monitoring-namespace] get svc loki -o yaml
     ```
 
     ```yaml
@@ -154,9 +154,9 @@ The quickest way to do this is to follow the instructions in the info box above.
       - name: http
         ...
     ```
-    We see that the Service has the port named `http` and the label `app: loki` set. Let's check the ServiceMonitor
+    We see that the Service has the port named `http` and the label `app: loki` set. Let's check the ServiceMonitor:
     ```bash
-    kubectl -n [monitoring-namespace] get servicemonitor loki -o yaml
+    {{% param cliToolName %}} -n [monitoring-namespace] get servicemonitor loki -o yaml
     ```
 
     ```yaml
@@ -188,7 +188,7 @@ The quickest way to do this is to follow the instructions in the info box above.
    ...
    ```
 
-    Verify that the target now gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets).
+    Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets).
 
 {{% /details %}}
 
@@ -202,8 +202,8 @@ Make sure to remove all files with the `training_` prefix in your monitoring dir
 
 **Task description**:
 
-* Deploy the [mariadb exporter](https://github.com/prometheus/mysqld_exporter) from <https://registry.hub.docker.com/r/prom/mysqld-exporter/> as a sidecar container
-* Define all parameters using the [generic-chart](https://bitbucket.balgroupit.com/projects/CONTAINER/repos/generic-chart/browse)
+* Deploy the [mariadb exporter](https://github.com/prometheus/mysqld_exporter) from <https://registry.hub.docker.com/r/prom/mysqld-exporter/> as a sidecar container.
+* Define all parameters using the [generic-chart](https://bitbucket.balgroupit.com/projects/CONTAINER/repos/generic-chart/browse).
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
@@ -221,7 +221,7 @@ templates/secret.yaml
 
 {{< readfile file="/content/en/docs/08/labs/baloise-generic-chart-secret.yaml" code="true" lang="yaml" >}}
 
-Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0` (It may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
+Verify that the target gets scraped in the [Prometheus user interface](http://LOCALHOST:19090/targets). Target name: `application-metrics/mariadb/0` (it may take up to a minute for Prometheus to load the new configuration and scrape the metrics).
 
 Make sure to remove the deployment once finished.
 
