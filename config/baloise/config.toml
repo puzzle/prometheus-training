@@ -84,6 +84,8 @@ thanos = "LOCALHOST_THANOS"
 alertmanager = "LOCALHOST_ALERT"
 mailcatcher = "LOCALHOST_MAIL_CATCHER"
 grafana = "LOCALHOST_GRAFANA"
+git = "LOCALHOST_GIT"
+openshift_console = "LOCALHOST_OPENSHIFT"
 k8sPrometheus = "LOCALHOST:19090"
 k8sAlertmanager = "LOCALHOST:19093"
 k8sGrafana = "LOCALHOST:13000"
@@ -113,6 +115,18 @@ href = true
 placeholder = "http://LOCALHOST_THANOS"
 queryParam = "th"
 defaultValue = "https://localhost_thanos"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_GIT"
+queryParam = "git"
+defaultValue = "https://localhost_git"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_OPENSHIFT"
+queryParam = "ocp"
+defaultValue = "https://localhost_openshift"
 href = true
 
 [[params.replaceContent.placeholders]]
