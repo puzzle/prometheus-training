@@ -16,7 +16,7 @@ spec:
         app: example-spring-boot
     spec:
       containers:
-      - image: quay.io/acend/example-spring-boot # FIXME
+      - image: quay.io/acend/prometheus-training-spring-boot-example:latest
         imagePullPolicy: Always
         name: example-spring-boot
       restartPolicy: Always
@@ -48,7 +48,7 @@ spec:
   - interval: 30s
     port: http
     scheme: http
-    path: /metrics
+    path: /actuator/prometheus
   selector:
     matchLabels:
       prometheus-monitoring: 'true'

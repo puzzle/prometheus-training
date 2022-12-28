@@ -111,11 +111,20 @@ http_requests_total{status="404"} 15
 In this lab you're going to create your own custom metric in the java Spring Boot application.
 
 {{% alert title="Note" color="primary" %}}
-
+This tasks requires that you have docker and git installed on your local machine.
 This counter is just a simple example for the sake of this lab. Those kind of metrics are provided by the micrometer Prometheus Spring Boot integration out of the box.
 {{% /alert %}}
 
-Create a new CustomMetrics RestController class in your Spring Boot application `~/downloads/prometheus-training-spring-boot-example/src/main/java/ch/acend/prometheustrainingspringbootexample/CustomMetricController.java`:
+First we need to clone the repository to our local machine:
+
+```bash
+git clone https://github.com/acend/prometheus-training-spring-boot-example && cd prometheus-training-spring-boot-example
+```
+
+and then configure the dependencies and `application.properties` as described in Task {{% param sectionnumber %}}.1.
+
+
+Next, create a new CustomMetrics RestController class in your Spring Boot application `src/main/java/ch/acend/prometheustrainingspringbootexample/CustomMetricController.java`:
 
 ```java
 package ch.acend.prometheustrainingspringbootexample;
@@ -154,28 +163,28 @@ We register our custom counter `myCounter` on the `MeterRegistry` in the constru
 
 Then we simply increase the counter every time the endpoint `/api` is hit. (just an example endpoint)
 
-Again build and
+To build the application we will use the `Dockerfile` provided in the root folder of the repository.
 
 ```bash
-./mvnw clean package
+docker build -t prometheus-training-spring-boot-example:local .
 ```
 
 Start the Spring Boot application:
 
 ```bash
-java -jar -Dserver.port=8083 target/prometheus-training-spring-boot-example-0.0.1-SNAPSHOT.jar
+docker run --rm -p 8080:8080 prometheus-training-spring-boot-example:local
 ```
 
 Let's create a couple of requests to our new endpoint, make sure to run those commands from a second terminal window, while the Spring Boot application is still running.
 
 ```bash
-curl http://localhost:8083/api
+curl http://localhost:8080/api
 ```
 
 Then verify the Prometheus metrics endpoint and look for a metric with the name `my_prometheus_instrumentation_counter_total`
 
 ```bash
-curl http://localhost:8083/actuator/prometheus
+curl http://localhost:8080/actuator/prometheus
 ```
 
 Expected result:
@@ -191,5 +200,3 @@ tomcat_sessions_rejected_sessions_total 0.0
 # HELP jvm_threads_peak_threads The peak live thread count since the Java virtual machine started or peak was reset
 ...
 ```
-
-Query the new metric in the [Prometheus web UI](http://LOCALHOST:9090/graph?g0.range_input=1h&g0.expr=my_prometheus_instrumentation_counter_total&g0.tab=1)
