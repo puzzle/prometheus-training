@@ -239,12 +239,12 @@ For more insights of the configuration options, study the following resources:
 * Example configuration provided by [Alertmanager on GitHub](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
 * General overview of [Alertmanager](https://prometheus.io/docs/alerting/latest/alertmanager/)
 
-## Alert rules in Prometheus
+## Alerting rules in Prometheus
 
-[Prometheus alert rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) are configured very similarly to recording rules which you got to know [earlier in this training](/docs/02#recording-rules). The main difference is that the rules expression contains a threshold (e.g., `query_expression >= 5`) and that an alert is sent to the Alertmanager in case the rule evaluation matches the threshold. An alert rule can be based on a recording rule or be a normal expression query.
+[Prometheus alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/) are configured very similarly to recording rules which you got to know [earlier in this training](/docs/02#recording-rules). The main difference is that the rules expression contains a threshold (e.g., `query_expression >= 5`) and that an alert is sent to the Alertmanager in case the rule evaluation matches the threshold. An alerting rule can be based on a recording rule or be a normal expression query.
 
 {{% alert title="Note" color="primary" %}}
-Sometimes the community or the maintainer of your Prometheus exporter already provide generic Prometheus alert rules that can be adapted to your needs. For this reason, it makes sense to do some research before writing alerting rules from scratch. Before implementing such a rule, you should always understand and verify the rule. Here are some examples:
+Sometimes the community or the maintainer of your Prometheus exporter already provide generic Prometheus alerting rules that can be adapted to your needs. For this reason, it makes sense to do some research before writing alerting rules from scratch. Before implementing such a rule, you should always understand and verify the rule. Here are some examples:
 
 * MySQL: [mysqld-mixin](https://github.com/prometheus/mysqld_exporter/tree/master/mysqld-mixin)
 * Strimzi Kafka Operator: [strimzi/strimzi-kafka-operator](https://github.com/strimzi/strimzi-kafka-operator/blob/master/examples/metrics/prometheus-install/prometheus-rules.yaml)
