@@ -8,7 +8,7 @@ Our goal with this lab is to give you a brief overview how to visualize your Pro
 For a more detailed tutorial, please refer to the [Grafana tutorials](https://grafana.com/tutorials/).
 
 {{% onlyWhenNot baloise %}}
-Grafana is already installed and running on your machine. Login to your Grafana instance on <http://LOCALHOST:3000/>. Use your personal credentials to access the Grafana login page. Then use the Grafana default credentials (username: `admin`, password: `admin`) to log in to Grafana.
+Grafana is already installed and running on your machine. Login to your Grafana instance on <http://{{% param replacePlaceholder.grafana %}}/>. Use your personal credentials to access the Grafana login page. Then use the Grafana default credentials (username: `admin`, password: `admin`) to log in to Grafana.
 
 {{% alert title="Note" color="warning" %}}
 Wou will have to **authenticate twice** to access Grafana. First use your personal credentials (same used in the earlier labs to log in to Prometheus or Alertmanager) then on the Grafana login page use the Grafana default credentials (`admin`/`admin`)
@@ -17,8 +17,7 @@ Wou will have to **authenticate twice** to access Grafana. First use your person
 
 {{% /onlyWhenNot %}}
 {{% onlyWhen baloise %}}
-FIXME: URL
-Grafana is already provided in your Stack. Login to your Grafana instance on <http://LOCALHOST:3000/>. Use your personal credentials to log in to Grafana.
+Grafana is already provided in your Stack. Login to your Grafana instance on <http://{{% param replacePlaceholder.grafana %}}/>. Use your personal credentials to log in to Grafana.
 {{% /onlyWhen %}}
 
 ## Useful links and guides

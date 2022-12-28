@@ -67,7 +67,7 @@ oc -n <namespace> exec -it sts/alertmanager-alertmanager -- sh
 amtool alert add --alertmanager.url=http://localhost:9093 alertname=Up node=bar
 ```
 
-Check in the [Alertmanger web UI](http://LOCALHOST:9093) if you see the test alert with the correct labels set.
+Check in the [Alertmanger web UI](http://{{% param replacePlaceholder.alertmanager %}}) if you see the test alert with the correct labels set.
 
 ### Task {{% param sectionnumber %}}.3: Show the routing tree
 

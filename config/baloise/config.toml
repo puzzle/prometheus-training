@@ -73,22 +73,71 @@ github_branch = "main"
 
 enabledModule = "base baloise"
 modeSwitcher = "true"
-distroName = "Kubernetes"
-cliToolName = "kubectl"
+distroName = "OpenShift"
+cliToolName = "oc"
+
+# use those placeholder params to replace the content when the component don't run under the same url
+# eg. set prometheus to LOCALHOST_PROM alertmanager to LOCALHOST_ALERT and the pass different query params to replace the values individually 
+[params.replacePlaceholder]
+prometheus = "LOCALHOST_PROM"
+thanos = "LOCALHOST_THANOS"
+alertmanager = "LOCALHOST_ALERT"
+mailcatcher = "LOCALHOST_MAIL_CATCHER"
+grafana = "LOCALHOST_GRAFANA"
+git = "LOCALHOST_GIT"
+openshift_console = "LOCALHOST_OPENSHIFT"
+k8sPrometheus = "LOCALHOST:19090"
+k8sAlertmanager = "LOCALHOST:19093"
+k8sGrafana = "LOCALHOST:13000"
 
 [params.replaceContent]
-allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch', 'balgroupit.com']
 
 [[params.replaceContent.placeholders]]
-placeholder = "http://LOCALHOST"
+placeholder = "http://LOCALHOST_PROM"
 queryParam = "h"
-defaultValue = "http://localhost"
+defaultValue = "https://localhost_prom"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_ALERT"
+queryParam = "a"
+defaultValue = "https://localhost_alert"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_GRAFANA"
+queryParam = "g"
+defaultValue = "https://localhost_grafana"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_THANOS"
+queryParam = "th"
+defaultValue = "https://localhost_thanos"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_GIT"
+queryParam = "git"
+defaultValue = "https://localhost_git"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_OPENSHIFT"
+queryParam = "ocp"
+defaultValue = "https://localhost_openshift"
 href = true
 
 [[params.replaceContent.placeholders]]
 placeholder = "<namespace>"
 queryParam = "n"
 defaultValue = "<namespace>"
+
+[[params.replaceContent.placeholders]]
+placeholder = "<team>"
+queryParam = "t"
+defaultValue = "<team>"
 
 # Enable Lunr.js offline search
 offlineSearch = true
