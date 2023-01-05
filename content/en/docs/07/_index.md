@@ -8,7 +8,7 @@ sectionnumber: 1
 
 {{% onlyWhenNot baloise %}}
 
-We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [kubectl cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+We will use [minikube](https://minikube.sigs.k8s.io/docs/start/) to start a minimal Kubernetes environment. If you are a novice in Kubernetes, you may want to use the [{{% param cliToolName %}} cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 
 {{% alert title="Minikube" color="primary" %}}
 Minikube is already started and configured. When you restart your virtual machine, you might need to start it manually.
@@ -30,7 +30,7 @@ minikube start \
 Check if you can connect to the API and verify the minikube master node is in `ready` state.
 
 ```bash
-kubectl get nodes
+{{% param cliToolName %}} get nodes
 ```
 
 ```bash
@@ -56,7 +56,7 @@ Deploy the Prometheus operator stack, consisting of:
 git clone https://github.com/prometheus-operator/kube-prometheus.git ~/work/kube-prometheus
 cd ~/work/kube-prometheus
 git checkout release-0.10
-kubectl create -f manifests/setup
+{{% param cliToolName %}} create -f manifests/setup
 ```
 
 The manifest will deploy a complete monitoring stack consisting of:
@@ -71,20 +71,20 @@ The manifest will deploy a complete monitoring stack consisting of:
 * A set of default dashboards
 
 ```bash
-kubectl create -f manifests/
+{{% param cliToolName %}} create -f manifests/
 ```
 
 By default, Prometheus is only allowed to monitor the `default`, `monitoring` and `kube-system` namespaces. Therefore we will add the necessary ClusterRoleBinding to grant Prometheus access to cluster-wide resources. Also we will create the needed ingress definitions for you, which will expose the monitoring components.
 
 ```bash
-kubectl -n monitoring apply -f \
+{{% param cliToolName %}} -n monitoring apply -f \
 https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/07/resources.yaml
 ```
 
 Wait until all pods are running
 
 ```bash
-watch kubectl -n monitoring get pods
+watch {{% param cliToolName %}} -n monitoring get pods
 ```
 
 Check if you can access the Prometheus web interface at <http://{{% param replacePlaceholder.k8sPrometheus %}}>

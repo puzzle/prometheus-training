@@ -81,6 +81,7 @@ cliToolName = "oc"
 [params.replacePlaceholder]
 prometheus = "LOCALHOST_PROM"
 thanos = "LOCALHOST_THANOS"
+thanosquerier = "LOCALHOST_QUERIER"
 alertmanager = "LOCALHOST_ALERT"
 mailcatcher = "LOCALHOST_MAIL_CATCHER"
 grafana = "LOCALHOST_GRAFANA"
@@ -115,6 +116,12 @@ href = true
 placeholder = "http://LOCALHOST_THANOS"
 queryParam = "th"
 defaultValue = "https://localhost_thanos"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST_QUERIER"
+queryParam = "tq"
+defaultValue = "https://localhost_querier"
 href = true
 
 [[params.replaceContent.placeholders]]

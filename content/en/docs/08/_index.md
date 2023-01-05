@@ -23,20 +23,20 @@ The instrumented application provides Prometheus scrapable application metrics.
 Create a namespace where the example application can be deployed to.
 
 ```bash
-kubectl create namespace application-metrics
+{{% param cliToolName %}} create namespace application-metrics
 ```
 
 Deploy the Acend example Python application, which provides application metrics at `/metrics`:
 
 ```bash
-kubectl -n application-metrics create deployment example-web-python \
+{{% param cliToolName %}} -n application-metrics create deployment example-web-python \
 --image=quay.io/acend/example-web-python
 ```
 
 Use the following command to verify the deployment, that the pod `example-web-python` is Ready and Running. (use CTRL C to exit the command)
 
 ```bash
-kubectl -n application-metrics get pod -w
+{{% param cliToolName %}} -n application-metrics get pod -w
 ```
 
 We also need to create a Service for the new application. Create a file with the name `~/work/service.yaml` with the following content:
@@ -46,13 +46,13 @@ We also need to create a Service for the new application. Create a file with the
 Create the Service with the following command:
 
 ```bash
-kubectl apply -f ~/work/service.yaml -n application-metrics
+{{% param cliToolName %}} apply -f ~/work/service.yaml -n application-metrics
 ```
 
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ```bash
-kubectl -n application-metrics get services
+{{% param cliToolName %}} -n application-metrics get services
 ```
 
 Which gives you an output similar to this:
@@ -90,7 +90,8 @@ Create the following file `training_python-deployment.yaml` in your monitoring d
 Use the following command to verify that the pod of the deployment `example-web-python` is ready and running (use CTRL+C to exit the command).
 
 ```bash
-{{% param cliToolName %}} -n [monitoring-namespace] get pod -w
+team=<team>
+{{% param cliToolName %}} -n $team-monitoring get pod -w -l app=example-web-python
 ```
 
 We also need to create a Service for the new application. Create a file with the name `training_python-service.yaml` with the following content:
@@ -100,16 +101,15 @@ We also need to create a Service for the new application. Create a file with the
 This created a so-called [Kubernetes Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 ```bash
-{{% param cliToolName %}} -n [monitoring-namespace] get svc
+team=<team>
+{{% param cliToolName %}} -n $team-monitoring get svc -l app=example-web-python
 ```
 
 Which gives you an output similar to this:
 
 ```bash
 NAME                 TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-...
 example-web-python                  ClusterIP   172.24.195.25    <none>        5000/TCP                     24s
-...
 ```
 
 Our example application can now be reached on port `5000`.
@@ -117,10 +117,11 @@ Our example application can now be reached on port `5000`.
 We can now make the application directly available on our machine using [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
 ```bash
-{{% param cliToolName %}} -n [monitoring-namespace] port-forward svc/example-web-python 5000
+team=<team>
+{{% param cliToolName %}} -n $team-monitoring port-forward svc/example-web-python 5000
 ```
 
-Use `curl` and verify the successful deployment of our example application:
+Use `curl` and verify the successful deployment of our example application in a separate terminal:
 
 ```bash
 curl localhost:5000/metrics

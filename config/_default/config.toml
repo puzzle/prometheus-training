@@ -82,6 +82,7 @@ cliToolName = "kubectl"
 [params.replacePlaceholder]
 prometheus = "LOCALHOST:9090"
 thanos = "LOCALHOST:9090"
+thanosquerier = "LOCALHOST:9090"
 alertmanager = "LOCALHOST:9093"
 mailcatcher = "LOCALHOST:1080"
 grafana = "LOCALHOST:3000"
@@ -145,7 +146,7 @@ url = "https://linkedin.com/company/puzzle-itc/"
 
 [module]
   # uncomment line below for temporary local development of module
-  # replacements = "github.com/google/docsy -> ../../docsy"
+  # replacements = "github.com/acend/docsy-plus -> ../../docsy-plus"
   [module.hugoVersion]
     extended = true
     min = "0.100.0"

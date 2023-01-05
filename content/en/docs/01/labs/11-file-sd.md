@@ -12,7 +12,7 @@ In this first lab you are going to configure Prometheus to scrape the OpenShift-
 
 Before we get started, take the time to familiarize yourself with the config repository of your team - it should already be available as described in [Deploying the Baloise Monitoring Stack](https://confluence.baloisenet.com/atlassian/display/BALMATE/01+-+Deploying+the+Baloise+Monitoring+Stack).
 
-The working directory for this training is the folder in your team's config repository with the `-monitoring` suffix.
+The working directory for this training is the folder in your [team's config repository](http://{{% param replacePlaceholder.git %}}) with the `-monitoring` suffix. If necessary, create the directory `<team>-monitoring`.
 
 {{% alert title="Note" color="warning" %}}
 Please name all files created in this training with the filename prefix `training_`. This naming pattern will help in cleaning up all related files after training completion.
@@ -32,7 +32,7 @@ metadata:
   labels:
     monitoring: external # provide label to match monitoring procedure
 data:
-  auth-mylinuxvms.yaml: | # provide an unique file name (filename starting  with auth_* will use default credentials | filename starting with nonauth_ will not use authentication)
+  auth-mylinuxvms.yaml: | # provide an unique file name
     - targets: # provide targets
         - myhost1.balgroupit.com:9100 # path defaults to /metrics
       labels: # provide additional labels (optional)
@@ -46,7 +46,7 @@ In our example we added the host `myhost1.balgroupit.com` with an exporter runni
 
 As soon as the ConfigMap has been synchronized by ArgoCD, your defined targets should appear in Prometheus in the "Status -> Targets" submenu.
 
-Verify under <http://{{% param replacePlaceholder.prometheus %}}>.
+Verify in the [web UI](http://{{% param replacePlaceholder.prometheus %}}).
 
 ![Prometheus UI - Target Down](../target-down.png)
 
