@@ -37,7 +37,7 @@ This can be done in the file `src/main/resources/application.properties` by addi
 management.endpoints.web.exposure.include=prometheus,health,info,metric
 ```
 
-As mentioned above, these changes have already been implemented in the `solution` subfolder of the repository. A pre-built docker image is also available under FIXME. In the next step we will deploy our appliction to our OpenShift Cluster:
+As mentioned above, these changes have already been implemented in the `solution` subfolder of the repository. A pre-built docker image is also available under <https://quay.io/repository/acend/prometheus-training-spring-boot-example?tab=tags>. In the next step we will deploy our application to our OpenShift Cluster:
 
 ```bash
 {{% param cliToolName %}} -n [monitoring-namespace] apply -f https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/05/labs/springboot-example.yaml

@@ -16,7 +16,7 @@ spec:
         app: example-spring-boot
     spec:
       containers:
-      - image: quay.io/acend/prometheus-training-spring-boot-example:latest
+      - image: quay.balgroupit.com/acend/prometheus-training-spring-boot-example:latest
         imagePullPolicy: Always
         name: example-spring-boot
       restartPolicy: Always
