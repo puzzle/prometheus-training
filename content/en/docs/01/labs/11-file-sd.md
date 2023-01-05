@@ -46,7 +46,7 @@ In our example we added the host `myhost1.balgroupit.com` with an exporter runni
 
 As soon as the ConfigMap has been synchronized by ArgoCD, your defined targets should appear in Prometheus in the "Status -> Targets" submenu.
 
-Verify in the [web UI](http://{{% param replacePlaceholder.thanosquerier %}}).
+Verify in the [web UI](http://{{% param replacePlaceholder.prometheus %}}).
 
 ![Prometheus UI - Target Down](../target-down.png)
 
