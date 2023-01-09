@@ -52,7 +52,7 @@ This will fire an alert, everytime the following query matches
 rate(kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="testnamespace"}[5m]) * 60 * 5 > 0
 ```
 
-You can build/verify your Query in your [Thanos Querier UI](http://{{% param replacePlaceholder.prometheus %}}). As soon, as you apply the PrometheusRule resource, you should be able to see the alert in your [Thanos Ruler](http://{{% param replacePlaceholder.thanos %}}) implementation.
+You can build/verify your Query in your [Thanos Querier UI](http://{{% param replacePlaceholder.thanosquerier %}}). As soon, as you apply the PrometheusRule resource, you should be able to see the alert in your [Thanos Ruler](http://{{% param replacePlaceholder.thanos %}}) implementation.
 
 ### Task {{% param sectionnumber %}}.2: Send a test alert
 
@@ -155,8 +155,3 @@ team=<team>
 oc -n $team-monitoring exec -it sts/alertmanager-alertmanager -- sh
 amtool config routes test --config.file /etc/alertmanager/config/alertmanager.yaml --verify.receivers=mail-critical env=prod severity=critical
 ```
-
-```bash
-mail-critical
-```
-
