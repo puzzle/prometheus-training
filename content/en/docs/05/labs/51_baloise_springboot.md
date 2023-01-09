@@ -97,9 +97,6 @@ spec:
     port: http
     scheme: http
     path: /actuator/prometheus
-  selector:
-    matchLabels:
-      prometheus-monitoring: 'true'
 ```
 
 {{% alert title="Note" color="primary" %}}
@@ -108,11 +105,13 @@ This will create a `Deployment`, a `Service` and a `ServiceMonitor` resource in 
 
 Verify in the [web UI](http://{{% param replacePlaceholder.prometheus %}}) whether the target has been added and is scraped. This might take a while until the target appears.
 
-And you should also be able to find additional Metrics like for example jvm Metrics:
+And you should also be able to find your custom metrics:
 
-```yaml
-jvm_memory_max_bytes
+```promql
+{job="example-spring-boot"}
 ```
+
+Explore the spring boot metrics.
 
 ### Task {{% param sectionnumber %}}.2: Metric names
 
