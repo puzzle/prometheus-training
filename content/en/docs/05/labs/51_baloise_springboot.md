@@ -37,16 +37,81 @@ This can be done in the file `src/main/resources/application.properties` by addi
 management.endpoints.web.exposure.include=prometheus,health,info,metric
 ```
 
-As mentioned above, these changes have already been implemented in the `solution` subfolder of the repository. A pre-built docker image is also available under <https://quay.io/repository/acend/prometheus-training-spring-boot-example?tab=tags>. In the next step we will deploy our application to our OpenShift Cluster:
+As mentioned above, these changes have already been implemented in the `solution` subfolder of the repository. A pre-built docker image is also available under <https://quay.io/repository/acend/prometheus-training-spring-boot-example?tab=tags>.
 
-```bash
-{{% param cliToolName %}} -n [monitoring-namespace] apply -f https://raw.githubusercontent.com/puzzle/prometheus-training/main/content/en/docs/05/labs/springboot-example.yaml
+{{% alert title="Note" color="primary" %}}
+In the next step we will deploy our application to our OpenShift Cluster for demonstration purposes in our monitoring namespace. This should **never** be done for production use cases. If you are familiar with deploying on OpenShift, you can complete this lab by deploying the application on our test cluster.
+{{% /alert %}}
+
+* Add the following resource `training_springboot_example.yaml` to your monitoring directory, commit and push your changes.
+
+```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: example-spring-boot
+  name: example-spring-boot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example-spring-boot
+  template:
+    metadata:
+      labels:
+        app: example-spring-boot
+    spec:
+      containers:
+      - image: quay.balgroupit.com/acend/prometheus-training-spring-boot-example:latest
+        imagePullPolicy: Always
+        name: example-spring-boot
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-spring-boot
+  labels:
+    app: example-spring-boot
+spec:
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: example-spring-boot
+  type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: example-spring-boot
+  name: example-spring-boot-monitor
+spec:
+  endpoints:
+  - interval: 30s
+    port: http
+    scheme: http
+    path: /actuator/prometheus
 ```
 
 {{% alert title="Note" color="primary" %}}
-The command above will create a `Deployment`, a `Service` and a `ServiceMonitor` resource in our monitoring namespace. We will learn about `ServiceMonitors` later in labs 8. For now, we only need to know, that a `ServiceMonitor` resource will configure Prometheus targets based on the pods linked to the service.
+This will create a `Deployment`, a `Service` and a `ServiceMonitor` resource in our monitoring namespace. We will learn about `ServiceMonitors` later in labs 8. For now, we only need to know, that a `ServiceMonitor` resource will configure Prometheus targets based on the pods linked to the service.
 {{% /alert %}}
 
+Verify in the [web UI](http://{{% param replacePlaceholder.prometheus %}}) whether the target has been added and is scraped. This might take a while until the target appears.
+
+And you should also be able to find your custom metrics:
+
+```promql
+{job="example-spring-boot"}
+```
+
+Explore the spring boot metrics.
 
 ### Task {{% param sectionnumber %}}.2: Metric names
 
