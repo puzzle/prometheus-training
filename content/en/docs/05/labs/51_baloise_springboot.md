@@ -64,7 +64,7 @@ spec:
         app: example-spring-boot
     spec:
       containers:
-      - image: quay.balgroupit.com/acend/prometheus-training-spring-boot-example:solution
+      - image: quay.balgroupit.com/acend/prometheus-training-spring-boot-example:latest
         imagePullPolicy: Always
         name: example-spring-boot
       restartPolicy: Always
@@ -106,6 +106,13 @@ spec:
 This will create a `Deployment`, a `Service` and a `ServiceMonitor` resource in our monitoring namespace. We will learn about `ServiceMonitors` later in labs 8. For now, we only need to know, that a `ServiceMonitor` resource will configure Prometheus targets based on the pods linked to the service.
 {{% /alert %}}
 
+Verify in the [web UI](http://{{% param replacePlaceholder.prometheus %}}) whether the target has been added and is scraped. This might take a while until the target appears.
+
+And you should also be able to find additional Metrics like for example jvm Metrics:
+
+```yaml
+jvm_memory_max_bytes
+```
 
 ### Task {{% param sectionnumber %}}.2: Metric names
 
