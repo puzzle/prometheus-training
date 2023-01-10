@@ -62,6 +62,12 @@ In this task you can use the [amtool](https://github.com/prometheus/alertmanager
 
 To send a test alert with the labels `alertname=Up` and `node=bar` you can simply execute the following command.
 
+{{% alert title="Note" color="primary" %}}
+Execute the following `oc` commands using one of those options:
+* OpenShift Webconsole Terminal <http://{{% param replacePlaceholder.openshift_console %}}> right top menu `>_`
+* Locally with your updated `oc` tool, make sure to login first.
+{{% /alert %}}
+
 ```bash
 team=<team>
 oc -n $team-monitoring exec -it sts/alertmanager-alertmanager -- sh
