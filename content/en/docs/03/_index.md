@@ -37,7 +37,7 @@ Alertmanager's configuration is done using a YAML config file and CLI flags. Tak
 {{% /onlyWhenNot %}}
 {{% onlyWhen baloise %}}
 
-At Baloise the Alertmanager is part of the managed monitoring stack and does not need to be installed. We will have a look at the default configuration in the next chapter.
+At Baloise the [Alertmanger](http://{{% param replacePlaceholder.alertmanager %}}) is part of the managed monitoring stack and does not need to be installed. We will have a look at the default configuration in the next chapter.
 
 ### Configuration
 
