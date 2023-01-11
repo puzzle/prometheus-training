@@ -92,6 +92,9 @@ metadata:
     app.kubernetes.io/name: example-spring-boot
   name: example-spring-boot-monitor
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: example-spring-boot
   endpoints:
   - interval: 30s
     port: http
