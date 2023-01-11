@@ -5,6 +5,7 @@ sectionnumber: 8
 ---
 
 {{% onlyWhen baloise %}}
+
 ## Executing oc commands
 
 {{% alert title="Note" color="primary" %}}
