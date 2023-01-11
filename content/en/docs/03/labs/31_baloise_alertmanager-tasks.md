@@ -66,7 +66,7 @@ To send a test alert with the labels `alertname=Up` and `node=bar` you can simpl
 Execute the following `oc` commands using one of those options:
 
 * OpenShift Webconsole Terminal <http://{{% param replacePlaceholder.openshift_console %}}> right top menu `>_`
-* Locally with your updated `oc` tool, make sure to login first.
+* On your local machine using the `oc` tool, make sure to login on your OpenShift Cluster first.
 
 {{% /alert %}}
 
