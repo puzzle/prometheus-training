@@ -4,6 +4,19 @@ weight: 8
 sectionnumber: 8
 ---
 
+{{% onlyWhen baloise %}}
+## Executing oc commands
+
+{{% alert title="Note" color="primary" %}}
+Execute the following `oc` commands using one of those options:
+
+* OpenShift Webconsole Terminal <http://{{% param replacePlaceholder.openshift_console %}}> right top menu `>_`
+* On your local machine using the `oc` tool, make sure to login on your OpenShift Cluster first.
+
+{{% /alert %}}
+{{% /onlyWhen %}}
+
+
 ## Collecting Application Metrics
 
 When running applications in production, a fast feedback loop is a key factor. The following reasons show why it's essential to gather and combine all sorts of metrics when running an application in production:
