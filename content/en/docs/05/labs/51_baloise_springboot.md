@@ -94,7 +94,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: example-spring-boot
+      app: example-spring-boot
   endpoints:
   - interval: 30s
     port: http
