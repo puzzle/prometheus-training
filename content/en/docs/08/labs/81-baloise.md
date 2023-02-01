@@ -69,7 +69,7 @@ Then extend the service `training_baloise_mariadb-service.yaml` by adding a seco
 
 {{< readfile file="/content/en/docs/08/labs/baloise_mariadb-service.yaml" code="true" lang="yaml" >}}
 
-Then we also need to create a new ServiceMonitor `training_servicemonitor-sidecar.yaml`.
+Then we also need to create a new ServiceMonitor `training_baloise_mariadb-servicemonitor.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-sidecar.yaml" code="true" lang="yaml" >}}
 
