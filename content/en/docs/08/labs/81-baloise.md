@@ -40,8 +40,17 @@ As we've learned in [Lab 4 - Prometheus exporters](../../../04/) when applicatio
 
 Use the following command to deploy a MariaDB database your monitoring or application namespace on CAAST.
 
-Create the following deployment (`training_baloise_mariadb.yaml`)
-{{< readfile file="/content/en/docs/08/labs/baloise_mariadb.yaml" code="true" lang="yaml" >}}
+Create the following deployment (`training_baloise_mariadb-deployment.yaml`)
+
+{{< readfile file="/content/en/docs/08/labs/baloise_mariadb-init-deployment.yaml" code="true" lang="yaml" >}}
+
+Create the following secret (`training_baloise_mariadb-secret.yaml`)
+
+{{< readfile file="/content/en/docs/08/labs/baloise_mariadb-init-secret.yaml" code="true" lang="yaml" >}}
+
+Create the following service (`training_baloise_mariadb-service.yaml`)
+
+{{< readfile file="/content/en/docs/08/labs/baloise_mariadb-init-service.yaml" code="true" lang="yaml" >}}
 
 
 This will create a [Secret](https://kubernetes.io/docs/concepts/configuration/secret/) (username password to access the database), a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) and the [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
@@ -52,15 +61,15 @@ This will create a [Secret](https://kubernetes.io/docs/concepts/configuration/se
 
 {{% details title="Hints" mode-switcher="normalexpertmode" %}}
 
-First we need to alter the MariaDB deployment `training_baloise_mariadb.yaml` by adding the MariaDB exporter as a second container.
+First we need to alter the MariaDB deployment `training_baloise_mariadb-deployment.yaml` by adding the MariaDB exporter as a second container.
 
 {{< readfile file="/content/en/docs/08/labs/baloise_mariadb-deployment.yaml" code="true" lang="yaml" >}}
 
-Then extend the service by adding a second port for the MariaDB exporter.
+Then extend the service `training_baloise_mariadb-service.yaml` by adding a second port for the MariaDB exporter.
 
 {{< readfile file="/content/en/docs/08/labs/baloise_mariadb-service.yaml" code="true" lang="yaml" >}}
 
-Then we also need to create a new ServiceMonitor `training_servicemonitor-sidecar.yaml`.
+Then we also need to create a new ServiceMonitor `training_baloise_mariadb-servicemonitor.yaml`.
 
 {{< readfile file="/content/en/docs/08/labs/servicemonitor-sidecar.yaml" code="true" lang="yaml" >}}
 
