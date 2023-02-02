@@ -38,6 +38,7 @@ data:
       labels: # provide additional labels (optional)
         cmdbName: ServerLinux
         namespace: foo
+        env: nonprod
 ```
 
 In our example we added the host `myhost1.balgroupit.com` with an exporter running on port 9100 as static target. We also added custom labels to help us identify our metrics.
