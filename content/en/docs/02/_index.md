@@ -4,20 +4,24 @@ weight: 1
 sectionnumber: 1
 ---
 
+In this lab you are going to learn about the prometheus exposition format and how metrics and their values are represented withing the prometheus ecosystem.
+
 ## Prometheus exposition format
 
-{{% alert title="Note" color="primary" %}}
 Prometheus consumes metrics in Prometheus text-based exposition format and plans to adopt the [OpenMetrics](https://openmetrics.io/) standard: <https://prometheus.io/docs/introduction/roadmap/#adopt-openmetrics>.
-{{% /alert %}}
 
-[Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/)
+Optionally check [Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/) for a more detailed explanation of the format.
+
+All metrics withing prometheus are scraped, stored and queried in the following format:
 ```promql
 # HELP <metric name> <info>
 # TYPE <metric name> <metric type>
 <metric name>{<label name>=<label value>, ...} <sample value>
 ```
 
-As an example, check the metrics of your Prometheus server (<http://{{% param replacePlaceholder.prometheus %}}/metrics>).
+The Prometheus server exposes and collects its own metrics too. You can easily explore the metrics with your browser under (<http://{{% param replacePlaceholder.prometheus %}}/metrics>).
+
+Metrics similar to the following will be shown:
 
 {{% onlyWhenNot baloise %}}
 ```promql
@@ -46,7 +50,9 @@ prometheus_tsdb_head_samples_appended_total 2.5110946e+07
 {{% /onlyWhen %}}
 
 
-{{% alert title="Note" color="primary" %}}
+### Metric Types
+
+
 There are 4 different metric types in Prometheus
 
 * Counter
@@ -54,20 +60,10 @@ There are 4 different metric types in Prometheus
 * Histogram
 * Summary
 
-[Prometheus Metric Types](https://prometheus.io/docs/concepts/metric_types/)
-{{% /alert %}}
+For now we focus on Counter and Gage.
 
+Find additional information in the official [Prometheus Metric Types](https://prometheus.io/docs/concepts/metric_types/) docs.
 
-## Explore Prometheus metrics
-
-
-Open your Prometheus [web UI](http://{{% param replacePlaceholder.prometheus %}}) and navigate to the **Graph** menu. You can use the `Open metrics explorer` icon (next to the `Execute` button) to browse your metrics or start typing keywords in the expression field. Prometheus will try to find metrics that match your text.
-
-Learn more about:
-
-* [Prometheus operators](https://prometheus.io/docs/prometheus/latest/querying/operators/)
-* [Prometheus functions](https://prometheus.io/docs/prometheus/latest/querying/functions/)
-* [PromLens](https://promlens.com/), the power tool for querying Prometheus
 
 ## Recording Rules
 
