@@ -12,7 +12,7 @@ Prometheus consumes metrics in Prometheus text-based exposition format and plans
 
 Optionally check [Prometheus Exposition Format](https://prometheus.io/docs/instrumenting/exposition_formats/) for a more detailed explanation of the format.
 
-All metrics withing prometheus are scraped, stored and queried in the following format:
+All metrics withing Prometheus are scraped, stored and queried in the following format:
 ```promql
 # HELP <metric name> <info>
 # TYPE <metric name> <metric type>
