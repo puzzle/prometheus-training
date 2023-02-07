@@ -60,7 +60,7 @@ There are 4 different metric types in Prometheus
 * Histogram, (Advanced use cases)
 * Summary, (Advanced use cases)
 
-For now we focus on Counter and Gage.
+For now we focus on Counter and Gauge.
 
 Find additional information in the official [Prometheus Metric Types](https://prometheus.io/docs/concepts/metric_types/) docs.
 
