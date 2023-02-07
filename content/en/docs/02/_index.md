@@ -56,7 +56,7 @@ prometheus_tsdb_head_samples_appended_total 2.5110946e+07
 There are 4 different metric types in Prometheus
 
 * Counter, (Basic use cases, always goes up)
-* Gauge, (Basic use cases,can go up and down)
+* Gauge, (Basic use cases, can go up and down)
 * Histogram, (Advanced use cases)
 * Summary, (Advanced use cases)
 
