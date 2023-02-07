@@ -134,7 +134,7 @@ We will learn more about other configuration options (`evaluation_interval`, `al
 Since Prometheus is a pull-based monitoring system, the Prometheus server maintains a set of targets to scrape. This set can be configured using the `scrape_configs` option in the Prometheus configuration file. The `scrape_configs` consist of a list of jobs defining the targets as well as additional parameters (path, port, authentication, etc.) which are required to scrape these targets.
 
 {{% alert title="Note" color="primary" %}}
-Each job definition must at least consist of a `job_name` and a target configuration (i.e., `static_configs`). Check the [Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config) for the list of all available options in the `scrape_config`.
+Each job definition must at least consist of a `job_name` and a target configuration (i.e., `static_configs`). For the list of all available options in the `scrape_config` and as a reference please check [Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 {{% /alert %}}
 
 There are two basic types of target configurations:
