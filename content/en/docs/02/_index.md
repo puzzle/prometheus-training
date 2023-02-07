@@ -4,7 +4,7 @@ weight: 1
 sectionnumber: 1
 ---
 
-In this lab you are going to learn about the prometheus exposition format and how metrics and their values are represented withing the prometheus ecosystem.
+In this lab you are going to learn about the Prometheus exposition format and how metrics and their values are represented withing the Prometheus ecosystem.
 
 ## Prometheus exposition format
 
