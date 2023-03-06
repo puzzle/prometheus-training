@@ -120,7 +120,43 @@ Routing tree:
     └── {severity=~"^(?:critical|warning)$"}  continue: true  receiver: mail-critical
 ```
 
-### Task {{% param sectionnumber %}}.4: Test your alert receivers
+### Task {{% param sectionnumber %}}.4: Silencing alerts
+
+Sometimes the huge amount of alerts can be overwhelming, or you're currently working on fixing an issue, which triggers an alert. Or you're simply testing something that fires alerts.
+
+In such cases alert **silencing** can be very helpful.
+
+Let's now silence our test alert.
+
+Open the [Alertmanger web UI](http://{{% param replacePlaceholder.alertmanager %}}) and search for the test alert.
+You can either silence the specific alert by simply clicking on the `Silcence` button next to the alert, or create a new silence by clicking the `New Silence` button in the top menu on the right.
+Either way, you'll end up on the same form. The button next to the alert will conveniently fill out the matchers, so that the alert will be affected by the new silence.
+
+* Click the `Silence` button next to the test alert.
+* Make sure the matchers contains the two labels (`alertname="Up"`, `node="bar"`) of the test alert.
+* Set the duration to 1h
+* Add your username to the creator form field.
+* Fill out the description with the reason you're creating a silence.
+
+You can then use the `Preview Alerts` button to check your matchers and create the alert by clicking `create`.
+
+![Alert Silencing](../alert-new-silence.png)
+
+All alerts, which match the defined labels of the matcher will be silenced for the defined time slot.
+
+Go back to the Alerts page, the silenced alert disappeared and will only be visible when checking the silenced alerts checkbox.
+
+The top menu entry silence will show you a list of the created silences. Silences can also be created programmatically using the API or the amtool (`amtool silence --help`).
+
+The following command is exactly the same you just did via the Web UI:
+
+```bash
+team=<team>
+oc -n $team-monitoring exec -it sts/alertmanager-alertmanager -- sh
+amtool silence add alertname=Up node=bar --author="<username>" --comment="I'm testing something" --alertmanager.url=http://localhost:9093
+```
+
+### Task {{% param sectionnumber %}}.5: Test your alert receivers
 
 Add a test alert and check if your defined target mailbox receives the mail. It can take up to 5 minutes as the alarms are grouped together based on the [group_interval](https://prometheus.io/docs/alerting/latest/configuration/#route).
 
