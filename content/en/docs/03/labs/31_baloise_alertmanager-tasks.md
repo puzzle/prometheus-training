@@ -153,7 +153,7 @@ The following command is exactly the same you just did via the Web UI:
 ```bash
 team=<team>
 oc -n $team-monitoring exec -it sts/alertmanager-alertmanager -- sh
-amtool silence add alertname=Up node=bar --author="<username>" --comment="I'm testing something" --alertmanager.url=http://localhost:9093
+amtool silence add alertname=Up node=bar --author="<username>" --comment="I'm testing the silences" --alertmanager.url=http://localhost:9093
 ```
 
 ### Task {{% param sectionnumber %}}.5: Test your alert receivers
