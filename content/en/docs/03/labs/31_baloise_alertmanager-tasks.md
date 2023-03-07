@@ -129,6 +129,18 @@ In such cases alert **silencing** can be very helpful.
 Let's now silence our test alert.
 
 Open the [Alertmanger web UI](http://{{% param replacePlaceholder.alertmanager %}}) and search for the test alert.
+
+{{% alert title="Note" color="primary" %}}
+The alert might have been resolved already, use the following command to re-trigger it again:
+
+```bash
+team=<team>
+oc -n $team-monitoring exec -it sts/alertmanager-alertmanager -- sh
+amtool alert add --alertmanager.url=http://localhost:9093 alertname=Up node=bar
+```
+
+{{% /alert %}}
+
 You can either silence the specific alert by simply clicking on the `Silcence` button next to the alert, or create a new silence by clicking the `New Silence` button in the top menu on the right.
 Either way, you'll end up on the same form. The button next to the alert will conveniently fill out the matchers, so that the alert will be affected by the new silence.
 
