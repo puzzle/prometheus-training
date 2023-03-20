@@ -1,4 +1,4 @@
-# **Warning** This repo is archived. The active developmet is in https://github.com/acend/prometheus-training
+# **Warning** This repo is archived. The active development is in https://github.com/acend/prometheus-training
 
 
 # Prometheus Basics Training
