@@ -1,3 +1,6 @@
+# **Warning** This repo is archied. The active developmet is in https://github.com/acend/prometheus-training
+
+
 # Prometheus Basics Training
 
 Interactive Prometheus Basics Training: [prometheus-training.puzzle.ch](https://prometheus-training.puzzle.ch/)
